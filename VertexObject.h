@@ -8,6 +8,7 @@ private:
     GLuint VAO;
     float *points;
     int size_points;
+    //Model *model a v modelu bude VAO a VBO
 public:
     VertexObject(float *points, int size_points);
     ~VertexObject();

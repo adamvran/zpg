@@ -44,8 +44,8 @@ void Application::printVersionInfo() {
     printf("Using GLFW %i.%i.%i\n", major, minor, revision);
 }
 
-void Application::createVertexObject(int count_vbo, int count_vao, int size, int index, float *points, int enable_vertex_att_arr,
-                                int size_points, GLsizei stride, const GLvoid* pointer) {
+void Application::createVertexObject(int count_vbo, int count_vao, int size, int index, float *points,
+                                     int enable_vertex_att_arr, int size_points, GLsizei stride, const GLvoid* pointer){
     this->vertex_object = new VertexObject(points, size_points);
     this->vertex_object->createVBO(count_vbo);
     this->vertex_object->createVAO(count_vao, enable_vertex_att_arr, index, size, stride, pointer);
@@ -54,17 +54,6 @@ void Application::createVertexObject(int count_vbo, int count_vao, int size, int
 void Application::createShader(GLenum type_shader, const char* shader1) {
     this->shader = new Shader(type_shader, shader1);
     this->shader->createShader(shader_manager);
-}
-
-void Application::loop() {
-    while (!this->window->windowClosed()) {
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        this->shader_manager->init();
-        this->vertex_object->drawVertexObject();
-        glDrawArrays(GL_TRIANGLES, 0, 3);
-        glfwPollEvents();
-        this->window->renderWindow();
-    }
 }
 
 void Application::initOpenGLVersion() {
@@ -78,4 +67,15 @@ void Application::run() {
     this->shader_manager->initShaders();
     this->shader_manager->checkStatus();
     loop();
+}
+
+void Application::loop() {
+    while (!this->window->windowClosed()) {
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        this->shader_manager->init();
+        this->vertex_object->drawVertexObject();
+        glDrawArrays(GL_TRIANGLES, 0, 3);
+        glfwPollEvents();
+        this->window->renderWindow();
+    }
 }

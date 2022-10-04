@@ -6,6 +6,7 @@ float points[] = {
         -0.5f, -0.5f, 0.0f,  0.0f, 1.0f, 0.0f,   // bottom left
         0.0f,  0.5f, 0.0f,  0.0f, 0.0f, 1.0f    // top
 };
+
 const char* vertex_shader =
         "#version 330\n"
         "layout(location=0) in vec3 vp;"
@@ -23,14 +24,39 @@ const char* fragment_shader =
         "     frag_colour = vec4 (ourColor, 1.0);"
         "}";
 
+
+float points_working[] = { //GL_TRIANGLE_FAN
+        0.5f, -0.5f, 0.0f,  // bottom right
+        -0.5f, -0.5f, 0.0f,   // bottom left
+        0.0f,  0.5f, 0.0f
+};
+
+const char* vertex_shader_working =
+        "#version 330\n"
+        "layout(location=0) in vec3 vp;"
+        "void main () {"
+        "     gl_Position = vec4 (vp, 1.0);"
+        "}";
+const char* fragment_shader_working =
+        "#version 330\n"
+        "out vec4 frag_colour;"
+        "void main () {"
+        "     frag_colour = vec4 (0.0f, 0.0f, 1.f, 1.0);"
+        "}";
+
 int main()
 {
     auto* app = new Application(800,600);
+
+    app->createVertexObject(1, 1, 3, 0, points_working, 0, sizeof(points_working), 0, nullptr);
+    app->createShader(GL_VERTEX_SHADER, vertex_shader_working);
+    app->createShader(GL_FRAGMENT_SHADER, fragment_shader_working);
+
     //(countVBO,countVAO,size,index, points, enable vertex array, sizeof(points), GLsizei stride, GLvoid* pointer)
-    app->createVertexObject(1, 1, 3, 0, points, 0, sizeof(points), 6 * sizeof (float), (void*)nullptr);
-    app->createVertexObject(1, 1, 3, 1, points, 1, sizeof(points), 6 * sizeof (float), (void*)(3 * sizeof(float)));
-    app->createShader(GL_VERTEX_SHADER, vertex_shader);
-    app->createShader(GL_FRAGMENT_SHADER, fragment_shader);
+    //app->createVertexObject(1, 1, 3, 0, points, 0, sizeof(points), 6 * sizeof (float), (void*)nullptr);
+    //app->createVertexObject(1, 1, 3, 1, points, 1, sizeof(points), 6 * sizeof (float), (void*)(3 * sizeof(float)));
+    //app->createShader(GL_VERTEX_SHADER, vertex_shader);
+    //app->createShader(GL_FRAGMENT_SHADER, fragment_shader);
 
     app->run();
     app->~Application();
