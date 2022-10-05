@@ -1,7 +1,4 @@
 #include "Application.h"
-#include "lib/glew/2.2.0_1/include/GL/glew.h"
-#include "lib/glfw/include/GLFW/glfw3.h"
-
 
 Application::Application(int width, int height) {
     glfwSetErrorCallback(Callback::errorCallback);

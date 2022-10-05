@@ -1,13 +1,11 @@
 #pragma once
-#include "lib/glew/2.2.0_1/include/GL/glew.h"
-#include "lib/glfw/include/GLFW/glfw3.h"
 #include "Window.h"
 #include "Callback.h"
 #include "VertexObject.h"
 #include "Shader.h"
 #include "ShaderManager.h"
 #include <cstdlib>
-#include <cstdio>
+
 class Application {
 private:
     Window* window;

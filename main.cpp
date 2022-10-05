@@ -1,4 +1,3 @@
-#include <cstdlib>
 #include "Application.h"
 float points[] = {
         // positions         // colors
@@ -47,19 +46,18 @@ const char* fragment_shader_working =
 int main()
 {
     auto* app = new Application(800,600);
-
-    app->createVertexObject(1, 1, 3, 0, points_working, 0, sizeof(points_working), 0, nullptr);
+/*
+    app->createVertexObject(1, 1, 3, 0, points_working, 0, sizeof(points_working), 3* sizeof (float), (void*)nullptr);
     app->createShader(GL_VERTEX_SHADER, vertex_shader_working);
     app->createShader(GL_FRAGMENT_SHADER, fragment_shader_working);
-
+*/
     //(countVBO,countVAO,size,index, points, enable vertex array, sizeof(points), GLsizei stride, GLvoid* pointer)
-    //app->createVertexObject(1, 1, 3, 0, points, 0, sizeof(points), 6 * sizeof (float), (void*)nullptr);
-    //app->createVertexObject(1, 1, 3, 1, points, 1, sizeof(points), 6 * sizeof (float), (void*)(3 * sizeof(float)));
-    //app->createShader(GL_VERTEX_SHADER, vertex_shader);
-    //app->createShader(GL_FRAGMENT_SHADER, fragment_shader);
+    app->createVertexObject(1, 1, 3, 0, points, 0, sizeof(points), 6 * sizeof (float), (void*) nullptr);
+    app->createVertexObject(1, 1, 3, 1, points, 1, sizeof(points), 6 * sizeof (float), (void*)(3 * sizeof(float)));
+    app->createShader(GL_VERTEX_SHADER, vertex_shader);
+    app->createShader(GL_FRAGMENT_SHADER, fragment_shader);
 
     app->run();
-    app->~Application();
 
     exit(EXIT_SUCCESS);
 }

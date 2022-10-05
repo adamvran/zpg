@@ -18,9 +18,10 @@ void VertexObject::createVBO(int count) {
 void VertexObject::createVAO(int count, int enable_vertex_att_arr, int index, int size, GLsizei	stride, const GLvoid* pointer) {
     glGenVertexArrays(count, &this->VAO);
     glBindVertexArray(this->VAO);
-    glEnableVertexAttribArray(enable_vertex_att_arr);
     glBindBuffer(GL_ARRAY_BUFFER, this->VBO);
     glVertexAttribPointer(index, size, GL_FLOAT, GL_FALSE, stride, pointer);
+    glEnableVertexAttribArray(enable_vertex_att_arr);
+
 }
 
 void VertexObject::drawVertexObject() const {
