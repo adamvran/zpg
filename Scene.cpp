@@ -7,7 +7,7 @@ Scene::Scene(int width, int height, const char* title)
     Scene::initOpenGLVersion();
     this->window = new Window(width, height, title);
     Scene::initGLEW();
-    this->printVersionInfo();
+    Scene::printVersionInfo();
     this->window->windowSize();
 }
 
@@ -62,11 +62,12 @@ void Scene::drawOntoWindow()
     this->window->displayAll();
 }
 
-RenderedObject* Scene::createRenderedObject(int countVBOobject, float* points, int sizeOfPoints, int countVAOobject, pair<int, int> indexArray, pair<int, int> vertexCount,
-                                            pair<GLsizei, GLsizei> vertexOffset, pair<GLvoid*, GLvoid*> pointer, const char* vertexDefinition, const char* fragmentDefinition)
+RenderedObject* Scene::createRenderedObject(int countVBOObject, float *points, int sizeOfPoints, int countVAOObject, pair<int, int> indexArray,
+                                            int vertexCount, GLsizei vertexOffset, pair<GLvoid *, GLvoid *> pointer, const char *vertexDefinition,
+                                            const char *fragmentDefinition)
 {
-    RenderedObject* renderedObject = new RenderedObject();
-    renderedObject->createModel(countVBOobject, points, sizeOfPoints, countVAOobject, indexArray, vertexCount, vertexOffset, pointer);
+    auto* renderedObject = new RenderedObject();
+    renderedObject->createModel(countVBOObject, points, sizeOfPoints, countVAOObject, indexArray, vertexCount, vertexOffset, pointer);
     renderedObject->createShader(GL_VERTEX_SHADER, vertexDefinition);
     renderedObject->createShader(GL_FRAGMENT_SHADER, fragmentDefinition);
     return renderedObject;
@@ -77,10 +78,10 @@ void Scene::addRenderedObject(RenderedObject* obj)
     this->renderedObjects.push_back(obj);
 }
 
-void Scene::createAndAdd(int countVBOobject, float* points, int sizeOfPoints, int countVAOobject, pair<int, int> indexArray, pair<int, int> vertexCount,
-                         pair<GLsizei, GLsizei> vertexOffset, pair<GLvoid*, GLvoid*> pointer, const char* vertexDefinition, const char* fragmentDefinition)
+void Scene::createAndAdd(int countVBOObject, float* points, int sizeOfPoints, int countVAOObject, pair<int, int> indexArray, int vertexCount,
+                         GLsizei vertexOffset, pair<GLvoid*, GLvoid*> pointer, const char* vertexDefinition, const char* fragmentDefinition)
 {
-    this->addRenderedObject(this->createRenderedObject(countVBOobject, points, sizeOfPoints, countVAOobject, indexArray, vertexCount,
+    this->addRenderedObject(this->createRenderedObject(countVBOObject, points, sizeOfPoints, countVAOObject, indexArray, vertexCount,
                                                        vertexOffset, pointer, vertexDefinition, fragmentDefinition));
 }
 
@@ -93,7 +94,7 @@ void Scene::run()
 
     while (!this->isWindowClosed())
     {
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear color and depth buffer
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 
         for (auto object : this->renderedObjects)
@@ -101,14 +102,7 @@ void Scene::run()
             object->runShader();
             object->drawObject(GL_TRIANGLES, 0, 3);
         }
-
-        //for(i < pocet)
-        //this->shaderManager->run();
-        //this->drawObject();
-        // draw triangles
-        //glDrawArrays(mode, first, count); //mode,first,count
-
-        glfwPollEvents();// update other events like input handling
-        this->drawOntoWindow(); // put the stuff weíve been drawing onto the display
+        glfwPollEvents();
+        this->drawOntoWindow();
     }
 }

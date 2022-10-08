@@ -12,7 +12,7 @@ Shader::Shader(GLenum shaderType, const char* shaderDefinition)
 void Shader::createShader()
 {
     this->shaderId = glCreateShader(this->shaderType);
-    glShaderSource(this->shaderId, 1, &this->shaderDefinition, NULL);
+    glShaderSource(this->shaderId, 1, &this->shaderDefinition, nullptr);
     glCompileShader(this->shaderId);
 }
 
@@ -22,12 +22,12 @@ void Shader::createShader()
 	//sh->addShader(this->shaderId, this->shaderType);
 }*/
 
-int Shader::getShaderId()
+GLuint Shader::getShaderId() const
 {
     return this->shaderId;
 }
 
-GLenum Shader::getShaderType()
+GLenum Shader::getShaderType() const
 {
     return this->shaderType;
 }

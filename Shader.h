@@ -6,7 +6,7 @@
 class Shader
 {
 private:
-    GLuint shaderId;
+    GLuint shaderId{};
     GLenum shaderType;
     const char* shaderDefinition;
 
@@ -14,7 +14,7 @@ public:
     Shader(GLenum shaderType, const char* shaderDefinition);
     void createShader();
     //void addShader(ShaderManager* sh);
-    int getShaderId();
-    GLenum getShaderType();
+    GLuint getShaderId() const;
+    GLenum getShaderType() const;
 };
 

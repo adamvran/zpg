@@ -1,30 +1,25 @@
 #include "Model.h"
-Model::Model(int sizeOfpoints, float* points)
+Model::Model(int sizeOfPoints, float* points)
 {
     this->VBO = 0;
     this->VAO = 0;
-    this->sizeOfpoints = sizeOfpoints;
+    this->sizeOfPoints = sizeOfPoints;
     this->points = points;
 }
 
-Model::~Model()
-{
-}
+Model::~Model() = default;
 
 void Model::createVBO(int countObject)
 {
     glGenBuffers(countObject, &this->VBO);
     glBindBuffer(GL_ARRAY_BUFFER, this->VBO);
-    glBufferData(GL_ARRAY_BUFFER, this->sizeOfpoints, this->points, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, this->sizeOfPoints, this->points, GL_STATIC_DRAW);
 }
 
 void Model::createVAO(int countObject)
 {
     glGenVertexArrays(countObject, &this->VAO);
     glBindVertexArray(this->VAO);
-    /*glEnableVertexAttribArray(enableVertesAttribArray);
-    glBindBuffer(GL_ARRAY_BUFFER, this->VBO);
-    glVertexAttribPointer(indexArray, vertexCount, GL_FLOAT, GL_FALSE, vertexOffset, NULL);*/
     glBindBuffer(GL_ARRAY_BUFFER, this->VBO);
 }
 
@@ -34,7 +29,7 @@ void Model::initPositionAndColor(int indexArray, int vertexCount, GLsizei vertex
     glEnableVertexAttribArray(indexArray);
 }
 
-void Model::drawObject(GLenum mode, GLint first, GLsizei count)
+void Model::drawObject(GLenum mode, GLint first, GLsizei count) const
 {
     glBindVertexArray(this->VAO);
     glDrawArrays(mode, first, count);

@@ -4,7 +4,7 @@
 class Window
 {
 private:
-    GLFWwindow* window;
+    GLFWwindow* window{};
 public:
     Window(int width, int height, const char* title);
     ~Window();

@@ -9,19 +9,19 @@ using namespace std;
 class RenderedObject
 {
 private:
-    Model* model;
+    Model* model{};
     ShaderProgram* shader;
 
 public:
     RenderedObject();
-    void createModel(int countVBOobject, float* points, int sizeOfPoints, int countVAOobject, std::pair<int, int> indexArray, std::pair<int, int> vertexCount,
-                     std::pair<GLsizei, GLsizei> vertexOffset, std::pair<GLvoid*, GLvoid*> pointer);
+    void createModel(int countVBOObject, float *points, int sizeOfPoints, int countVAOObject, pair<int, int> indexArray,
+                     int vertexCount, GLsizei vertexOffset, pair<GLvoid *, GLvoid *> pointer);
     ~RenderedObject();
-    bool isSet();
     void drawObject(GLenum mode, GLint first, GLsizei count);
-    void initPositionAndColor(int indexArray, int vertexCount, GLsizei vertexOffset, const GLvoid* pointer);
+    static void initPositionAndColor(int indexArray, int vertexCount, GLsizei vertexOffset, const GLvoid* pointer);
     void createShader(GLenum shaderType, const char* shaderDefinition);
     void initAndCheckShaders();
     void runShader();
+
 };
 

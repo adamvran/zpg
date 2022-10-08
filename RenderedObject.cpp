@@ -1,32 +1,21 @@
 #include "RenderedObject.h"
 
-RenderedObject::RenderedObject()
-{
-    this->shader = new ShaderProgram();
-}
+RenderedObject::RenderedObject(){ this->shader = new ShaderProgram(); }
+RenderedObject::~RenderedObject() = default;
 
-RenderedObject::~RenderedObject()
-{
-}
-
-void RenderedObject::createModel(int countVBOobject, float* points, int sizeOfPoints, int countVAOobject, pair<int, int> indexArray, pair<int, int> vertexCount,
-                                 pair<GLsizei, GLsizei> vertexOffset, pair<GLvoid*, GLvoid*> pointer)
+void RenderedObject::createModel(int countVBOObject, float* points, int sizeOfPoints, int countVAOObject, pair<int, int> indexArray, int vertexCount,
+                                 GLsizei vertexOffset, pair<GLvoid*, GLvoid*> pointer)
 {
     this->model = new Model(sizeOfPoints, points);
-    this->model->createVBO(countVBOobject);
-    this->model->createVAO(countVAOobject);
-    this->initPositionAndColor(indexArray.first, vertexCount.first, vertexOffset.first, pointer.first);
-    this->initPositionAndColor(indexArray.second, vertexCount.second, vertexOffset.second, pointer.second);
+    this->model->createVBO(countVBOObject);
+    this->model->createVAO(countVAOObject);
+    RenderedObject::initPositionAndColor(indexArray.first, vertexCount, vertexOffset, pointer.first);
+    RenderedObject::initPositionAndColor(indexArray.second, vertexCount, vertexOffset, pointer.second);
 }
 
 void RenderedObject::initPositionAndColor(int indexArray, int vertexCount, GLsizei vertexOffset, const GLvoid* pointer)
 {
-    this->model->initPositionAndColor(indexArray, vertexCount, vertexOffset, pointer);
-}
-
-bool RenderedObject::isSet()
-{
-    return false;
+    Model::initPositionAndColor(indexArray, vertexCount, vertexOffset, pointer);
 }
 
 void RenderedObject::drawObject(GLenum mode, GLint first, GLsizei count)

@@ -15,14 +15,19 @@ public:
     static void initGLFW();
     static void initGLEW();
     static void initOpenGLVersion();
-    void printVersionInfo();
+    static void printVersionInfo();
     int isWindowClosed();
     void drawOntoWindow();
-    RenderedObject* createRenderedObject(int countVBOobject, float* points, int sizeOfPoints, int countVAOobject, pair<int, int> indexArray, pair<int, int> vertexCount,
-                                         pair<GLsizei, GLsizei> vertexOffset, pair<GLvoid*, GLvoid*> pointer, const char* vertexDefinition, const char* fragmentDefinition);
+    static RenderedObject* createRenderedObject(int countVBOObject, float *points, int sizeOfPoints, int countVAOObject, pair<int, int> indexArray,
+                                                int vertexCount, GLsizei vertexOffset, pair<GLvoid *, GLvoid *> pointer, const char *vertexDefinition,
+                                                const char *fragmentDefinition);
+    void
+    createAndAdd(int countVBOObject, float *points, int sizeOfPoints, int countVAOObject, pair<int, int> indexArray,
+                 int vertexCount, GLsizei vertexOffset, pair<GLvoid *, GLvoid *> pointer, const char *vertexDefinition,
+                 const char *fragmentDefinition);
     void addRenderedObject(RenderedObject* obj);
-    void createAndAdd(int countVBOobject, float* points, int sizeOfPoints, int countVAOobject, pair<int, int> indexArray, pair<int, int> vertexCount,
-                      pair<GLsizei, GLsizei> vertexOffset, pair<GLvoid*, GLvoid*> pointer, const char* vertexDefinition, const char* fragmentDefinition);
     void run();
+
+
 };
 

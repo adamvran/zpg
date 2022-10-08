@@ -1,8 +1,8 @@
 #pragma once
 #include "lib/glew/2.2.0_1/include/GL/glew.h"
 #include "lib/glfw/include/GLFW/glfw3.h"
-#include <stdlib.h>
-#include <stdio.h>
+#include <cstdlib>
+#include <cstdio>
 #include <vector>
 #include "Shader.h"
 

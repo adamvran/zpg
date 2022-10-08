@@ -1,14 +1,8 @@
 #include "ShaderProgram.h"
 
-ShaderProgram::ShaderProgram()
-{
-    this->shaderManager = new ShaderManager();
-}
+ShaderProgram::ShaderProgram(){this->shaderManager = new ShaderManager();}
 
-ShaderProgram::~ShaderProgram()
-{
-
-}
+ShaderProgram::~ShaderProgram() = default;
 
 void ShaderProgram::inicializeShaders()
 {
@@ -17,7 +11,7 @@ void ShaderProgram::inicializeShaders()
     glLinkProgram(this->shaderProgram);
 }
 
-void ShaderProgram::checkStatus()
+void ShaderProgram::checkStatus() const
 {
     GLint status;
     glGetProgramiv(this->shaderProgram, GL_LINK_STATUS, &status);
@@ -25,8 +19,8 @@ void ShaderProgram::checkStatus()
     {
         GLint infoLogLength;
         glGetProgramiv(this->shaderProgram, GL_INFO_LOG_LENGTH, &infoLogLength);
-        GLchar* strInfoLog = new GLchar[infoLogLength + 1];
-        glGetProgramInfoLog(this->shaderProgram, infoLogLength, NULL, strInfoLog);
+        auto* strInfoLog = new GLchar[infoLogLength + 1];
+        glGetProgramInfoLog(this->shaderProgram, infoLogLength, nullptr, strInfoLog);
         fprintf(stderr, "Linker failure: %s\n", strInfoLog);
         delete[] strInfoLog;
     }
@@ -38,7 +32,7 @@ void ShaderProgram::createShader(GLenum shaderType, const char* shaderDefinition
     this->shaderManager->createShader(shaderType, shaderDefinition);
 }
 
-void ShaderProgram::run()
+void ShaderProgram::run() const
 {
     glUseProgram(this->shaderProgram);
 }
