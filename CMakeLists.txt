@@ -5,7 +5,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Werror -std=c++11")
 
 find_package(OpenGL REQUIRED)
 
-add_executable(${PROJECT_NAME} main.cpp Application.cpp Window.cpp VertexObject.cpp Shader.cpp ShaderManager.cpp Callback.cpp)
+add_executable(${PROJECT_NAME} lib/glad/src/glad.c main.cpp Application.cpp Callback.cpp Model.cpp RenderedObject.cpp Scene.cpp Shader.cpp ShaderManager.cpp ShaderProgram.cpp Window.cpp)
 
 target_link_libraries(${PROJECT_NAME} "-framework OpenGL")
 target_link_libraries(${PROJECT_NAME} "${PROJECT_SOURCE_DIR}/lib/glew/2.2.0_1/lib/libGLEW.dylib")

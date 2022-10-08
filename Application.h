@@ -1,29 +1,18 @@
 #pragma once
-#include "Window.h"
-#include "Callback.h"
-#include "VertexObject.h"
-#include "Shader.h"
-#include "ShaderManager.h"
-#include <cstdlib>
+#include "Scene.h"
 
-class Application {
+class Application
+{
 private:
-    Window* window;
-    VertexObject* vertex_objects[2];
-    Shader* shader{};
-    ShaderManager* shader_manager{};
-public:
-    Application(int width, int height);
-    ~Application();
-    static void initGLFW();
-    static void initGLEW();
-    static void initOpenGLVersion();
-    static void printVersionInfo();
+    Scene* scene;
 
-    void createVertexObject(int count_vbo, int count_vao, int size, int index, float *points,
-                            int enable_vertex_att_arr, int size_points, GLsizei	stride, const GLvoid* pointer,
-                            int object_id);
-    void createShader(GLenum type_shader, const char* shader1);
-    void loop();
+public:
+    Application(int width, int height, const char* title);
+    ~Application();
+    void createScene(int width, int height, const char* title);
     void run();
+    void createNewObject(int countVBOobject, float* points, int sizeOfPoints, int countVAOobject, std::pair<int, int> indexArray, std::pair<int, int> vertexCount,
+                         std::pair<GLsizei, GLsizei> vertexOffset, std::pair<GLvoid*, GLvoid*> pointer, const char* vertexDefinition, const char* fragmentDefinition);
 };
+
+

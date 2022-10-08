@@ -1,38 +1,42 @@
 #include "ShaderManager.h"
 
-ShaderManager::ShaderManager() {
-    this->shader_arr = new GLuint[10];
-    this->count_shaders = 0;
-}
-ShaderManager::~ShaderManager() = default;
-
-void ShaderManager::addShader(GLuint id_shader){
-    this->shader_arr[this->count_shaders] = id_shader;
-    this->count_shaders++;
+ShaderManager::ShaderManager()
+{
 }
 
-void ShaderManager::initShaders(){
-    this->shader_program = glCreateProgram();
-    for (int i = 0; i < this->count_shaders; i++)
-        glAttachShader(this->shader_program, this->shader_arr[i]);
-    glLinkProgram(this->shader_program);
+ShaderManager::~ShaderManager()
+{
+    ///smazani celeho pole
 }
 
-void ShaderManager::checkStatus() const{
-    GLint status;
-    glGetProgramiv(this->shader_program, GL_LINK_STATUS, &status);
-    if (status == GL_FALSE)
+void ShaderManager::addShader(GLuint in_shader, GLenum shaderType)
+{
+    if (shaderType == GL_VERTEX_SHADER)
+        this->vertexArray.push_back(in_shader);
+    else if (shaderType == GL_FRAGMENT_SHADER)
+        this->fragmentArray.push_back(in_shader);
+}
+
+void ShaderManager::createShader(GLenum shaderType, const char* shaderDefinition)
+{
+    Shader* shader = new Shader(shaderType, shaderDefinition);
+    this->addShader(shader->getShaderId(), shaderType);
+    //shader->addShader(this);
+}
+
+void ShaderManager::initShaders(GLuint shaderProgram)
+{
+    //vertex
+    for (int i = 0; i < this->vertexArray.size(); i++)
     {
-        GLint infoLogLength;
-        glGetProgramiv(this->shader_program, GL_INFO_LOG_LENGTH, &infoLogLength);
-        auto* strInfoLog = new GLchar[infoLogLength + 1];
-        glGetProgramInfoLog(this->shader_program, infoLogLength, nullptr, strInfoLog);
-        fprintf(stderr, "Linker failure: %s\n", strInfoLog);
-        delete[] strInfoLog;
+        glAttachShader(shaderProgram, this->vertexArray[i]);
+    }
+
+    //fragment
+    for (int i = 0; i < this->fragmentArray.size(); i++)
+    {
+        glAttachShader(shaderProgram, this->fragmentArray[i]);
     }
 }
 
-void ShaderManager::init() const
-{
-    glUseProgram(this->shader_program);
-}
+
