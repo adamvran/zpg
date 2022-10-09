@@ -85,7 +85,7 @@ void Scene::createAndAdd(int countVBOObject, float* points, int sizeOfPoints, in
                                                        vertexOffset, pointer, vertexDefinition, fragmentDefinition));
 }
 
-void Scene::run()
+void Scene::run(int vertexes)
 {
     for (auto object : this->renderedObjects)
     {
@@ -100,7 +100,8 @@ void Scene::run()
         for (auto object : this->renderedObjects)
         {
             object->runShader();
-            object->drawObject(GL_TRIANGLES, 0, 3);
+            object->transformMatrix(90, glm::vec3(0.0f, 0.0f, 1.0f));
+            object->drawObject(GL_TRIANGLES, 0, vertexes);
         }
         glfwPollEvents();
         this->drawOntoWindow();

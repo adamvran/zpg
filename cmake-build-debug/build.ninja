@@ -132,6 +132,18 @@ build CMakeFiles/cviceni1.dir/ShaderProgram.cpp.o: CXX_COMPILER__cviceni1_Debug 
   OBJECT_DIR = CMakeFiles/cviceni1.dir
   OBJECT_FILE_DIR = CMakeFiles/cviceni1.dir
 
+build CMakeFiles/cviceni1.dir/Transformation.cpp.o: CXX_COMPILER__cviceni1_Debug /Users/adamvrana/CLionProjects/zpg/cviceni2$ 2/Transformation.cpp || cmake_object_order_depends_target_cviceni1
+  DEP_FILE = CMakeFiles/cviceni1.dir/Transformation.cpp.o.d
+  FLAGS = -Wall -Werror -std=c++11 -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk
+  OBJECT_DIR = CMakeFiles/cviceni1.dir
+  OBJECT_FILE_DIR = CMakeFiles/cviceni1.dir
+
+build CMakeFiles/cviceni1.dir/TransformationType.cpp.o: CXX_COMPILER__cviceni1_Debug /Users/adamvrana/CLionProjects/zpg/cviceni2$ 2/TransformationType.cpp || cmake_object_order_depends_target_cviceni1
+  DEP_FILE = CMakeFiles/cviceni1.dir/TransformationType.cpp.o.d
+  FLAGS = -Wall -Werror -std=c++11 -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk
+  OBJECT_DIR = CMakeFiles/cviceni1.dir
+  OBJECT_FILE_DIR = CMakeFiles/cviceni1.dir
+
 build CMakeFiles/cviceni1.dir/Window.cpp.o: CXX_COMPILER__cviceni1_Debug /Users/adamvrana/CLionProjects/zpg/cviceni2$ 2/Window.cpp || cmake_object_order_depends_target_cviceni1
   DEP_FILE = CMakeFiles/cviceni1.dir/Window.cpp.o.d
   FLAGS = -Wall -Werror -std=c++11 -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk
@@ -146,7 +158,7 @@ build CMakeFiles/cviceni1.dir/Window.cpp.o: CXX_COMPILER__cviceni1_Debug /Users/
 #############################################
 # Link the executable cviceni1
 
-build cviceni1: CXX_EXECUTABLE_LINKER__cviceni1_Debug CMakeFiles/cviceni1.dir/lib/glad/src/glad.c.o CMakeFiles/cviceni1.dir/main.cpp.o CMakeFiles/cviceni1.dir/Application.cpp.o CMakeFiles/cviceni1.dir/Callback.cpp.o CMakeFiles/cviceni1.dir/Model.cpp.o CMakeFiles/cviceni1.dir/RenderedObject.cpp.o CMakeFiles/cviceni1.dir/Scene.cpp.o CMakeFiles/cviceni1.dir/Shader.cpp.o CMakeFiles/cviceni1.dir/ShaderManager.cpp.o CMakeFiles/cviceni1.dir/ShaderProgram.cpp.o CMakeFiles/cviceni1.dir/Window.cpp.o | ../lib/glew/2.2.0_1/lib/libGLEW.dylib ../lib/glfw/lib-arm64/libglfw.3.dylib
+build cviceni1: CXX_EXECUTABLE_LINKER__cviceni1_Debug CMakeFiles/cviceni1.dir/lib/glad/src/glad.c.o CMakeFiles/cviceni1.dir/main.cpp.o CMakeFiles/cviceni1.dir/Application.cpp.o CMakeFiles/cviceni1.dir/Callback.cpp.o CMakeFiles/cviceni1.dir/Model.cpp.o CMakeFiles/cviceni1.dir/RenderedObject.cpp.o CMakeFiles/cviceni1.dir/Scene.cpp.o CMakeFiles/cviceni1.dir/Shader.cpp.o CMakeFiles/cviceni1.dir/ShaderManager.cpp.o CMakeFiles/cviceni1.dir/ShaderProgram.cpp.o CMakeFiles/cviceni1.dir/Transformation.cpp.o CMakeFiles/cviceni1.dir/TransformationType.cpp.o CMakeFiles/cviceni1.dir/Window.cpp.o | ../lib/glew/2.2.0_1/lib/libGLEW.dylib ../lib/glfw/lib-arm64/libglfw.3.dylib
   FLAGS = -Wall -Werror -std=c++11 -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk
   LINK_LIBRARIES = -Wl,-rpath,"/Users/adamvrana/CLionProjects/zpg/cviceni2 2/lib/glfw/lib-arm64"  -framework OpenGL  ../lib/glew/2.2.0_1/lib/libGLEW.dylib  ../lib/glfw/lib-arm64/libglfw.3.dylib
   OBJECT_DIR = CMakeFiles/cviceni1.dir

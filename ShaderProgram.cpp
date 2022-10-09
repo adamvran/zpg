@@ -36,3 +36,8 @@ void ShaderProgram::run() const
 {
     glUseProgram(this->shaderProgram);
 }
+
+void ShaderProgram::setMatrix(glm::mat4 mat) const {
+    GLint idModelTransform = glGetUniformLocation(this->shaderProgram, "transform");
+    glUniformMatrix4fv(idModelTransform, 1, GL_FALSE, &mat[0][0]);
+}

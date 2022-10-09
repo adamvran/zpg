@@ -1,6 +1,8 @@
 #include "RenderedObject.h"
-
-RenderedObject::RenderedObject(){ this->shader = new ShaderProgram(); }
+RenderedObject::RenderedObject(){
+    this->shader = new ShaderProgram();
+    this->transformation = new Transformation();
+}
 RenderedObject::~RenderedObject() = default;
 
 void RenderedObject::createModel(int countVBOObject, float* points, int sizeOfPoints, int countVAOObject, pair<int, int> indexArray, int vertexCount,
@@ -37,4 +39,26 @@ void RenderedObject::initAndCheckShaders()
 void RenderedObject::runShader()
 {
     this->shader->run();
+}
+
+void RenderedObject::transformMatrix(float angle, glm::vec3 vector) {
+    this->transformation->rotation(angle, vector);
+}
+
+void RenderedObject::transformMatrix(TransformationType type, glm::vec3 vector) {
+    switch (type) {
+        case TransformationType::Scale:
+            this->transformation->scale(vector);
+            break;
+        case TransformationType::Shift:
+            this->transformation->shift(vector);
+            break;
+        default:
+            printf("use another method");
+            break;
+    }
+}
+
+void RenderedObject::sendMatrixShader() {
+    this->shader->setMatrix(this->transformation->getTransform());
 }

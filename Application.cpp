@@ -22,8 +22,8 @@ void Application::createNewObject(int countVBOObject, float* points, int sizeOfP
                               vertexOffset, pointer, vertexDefinition, fragmentDefinition);
 }
 
-void Application::run()
+void Application::run(int vertexes)
 {
-    this->scene->run();
+    this->scene->run(vertexes);
 }
 

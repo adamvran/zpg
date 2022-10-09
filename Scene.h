@@ -26,7 +26,7 @@ public:
                  int vertexCount, GLsizei vertexOffset, pair<GLvoid *, GLvoid *> pointer, const char *vertexDefinition,
                  const char *fragmentDefinition);
     void addRenderedObject(RenderedObject* obj);
-    void run();
+    void run(int vertexes);
 
 
 };
