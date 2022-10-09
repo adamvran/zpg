@@ -2,11 +2,18 @@
 #include "Application.h"
 #include "Shader.h"
 
-float points[] = {
+float triangle1[] = {
         // positions         // colors
-        0.5f, -0.5f, 0.0f,  1.0f, 0.0f, 0.0f,   // bottom right
-        -0.5f, -0.5f, 0.0f,  0.0f, 1.0f, 0.0f,   // bottom left
-        0.0f,  0.5f, 0.0f,  0.0f, 0.0f, 1.0f    // top
+        0.9f, -0.5f, 0.0f,  1.0f, 0.0f, 0.0f,   // bottom right
+        0.1f, -0.5f, 0.0f,  0.0f, 1.0f, 0.0f,   // bottom left
+        0.1f,  0.5f, 0.0f,  0.0f, 0.0f, 1.0f    // top
+};
+
+float triangle2[] = {
+        // positions         // colors
+        -0.9f, -0.5f, 0.0f,  1.0f, 0.0f, 0.0f,   // bottom right
+        -0.1f, -0.5f, 0.0f,  0.0f, 1.0f, 0.0f,   // bottom left
+        -0.1f,  0.5f, 0.0f,  0.0f, 0.0f, 1.0f    // top
 };
 
 const char* vertex_shader =
@@ -32,7 +39,10 @@ using namespace std;
 int main()
 {
     auto* application = new Application(800, 600, "ZPG");
-    application->createNewObject(1, points, sizeof(points), 1, make_pair(0, 1), 3, 6 * sizeof(float), make_pair((void*) nullptr,
+    application->createNewObject(1, triangle1, sizeof(triangle1), 1, make_pair(0, 1), 3, 6 * sizeof(float), make_pair((void*) nullptr,
+                                 (void*)(3 * sizeof(float))), vertex_shader, fragment_shader);
+
+    application->createNewObject(1, triangle2, sizeof(triangle2), 1, make_pair(0, 1), 3, 6 * sizeof(float), make_pair((void*) nullptr,
                                  (void*)(3 * sizeof(float))), vertex_shader, fragment_shader);
     application->run();
     application->~Application();
