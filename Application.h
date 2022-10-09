@@ -15,6 +15,15 @@ public:
     createNewObject(int countVBOObject, float *points, int sizeOfPoints, int countVAOObject, pair<int, int> indexArray,
                     int vertexCount, GLsizei vertexOffset, pair<GLvoid *, GLvoid *> pointer,
                     const char *vertexDefinition, const char *fragmentDefinition);
+    void
+    createNewObject(int countVBOObject, float *points, int sizeOfPoints, int countVAOObject, pair<int, int> indexArray,
+                    int vertexCount, GLsizei vertexOffset, pair<GLvoid *, GLvoid *> pointer,
+                    const char *vertexDefinition, const char *fragmentDefinition, float angle, glm::vec3 vector);
+    void
+    createNewObject(int countVBOObject, float *points, int sizeOfPoints, int countVAOObject, pair<int, int> indexArray,
+                    int vertexCount, GLsizei vertexOffset, pair<GLvoid *, GLvoid *> pointer,
+                    const char *vertexDefinition, const char *fragmentDefinition, TransformationType type,
+                    glm::vec3 vector);
 };
 
 

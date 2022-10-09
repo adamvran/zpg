@@ -6,13 +6,11 @@
 #include <vector>
 #include "Shader.h"
 
-using namespace std;
-
 class ShaderManager
 {
 private:
-    vector<GLuint> vertexArray;
-    vector<GLuint> fragmentArray;;
+    std::vector<GLuint> vertexArray;
+    std::vector<GLuint> fragmentArray;;
 
 
 public:

@@ -8,20 +8,19 @@
 #include "lib/glm/glm/gtc/matrix_transform.hpp" // glm::translate, glm::rotate, glm::scale, glm::perspective
 #include "lib/glm/glm/gtc/type_ptr.hpp" // glm::value_ptr
 
-float triangle1[] = {
+float triangle_green[] = {
+        // positions         // colors
+        0.9f, -0.5f, 0.0f,  0.0f, 1.0f, 0.0f,   // bottom right
+        0.1f, -0.5f, 0.0f,  0.0f, 1.0f, 0.0f,   // bottom left
+        0.9f,  0.5f, 0.0f,  0.0f, 1.0f, 0.0f    // top
+};
+
+float triangle_red[] = {
         // positions         // colors
         0.9f, -0.5f, 0.0f,  1.0f, 0.0f, 0.0f,   // bottom right
-        0.1f, -0.5f, 0.0f,  0.0f, 1.0f, 0.0f,   // bottom left
-        0.1f,  0.5f, 0.0f,  0.0f, 0.0f, 1.0f    // top
+        0.1f, -0.5f, 0.0f,  1.0f, 0.0f, 0.0f,   // bottom left
+        0.9f,  0.5f, 0.0f,  1.0f, 0.0f, 0.0f    // top
 };
-
-float triangle2[] = {
-        // positions         // colors
-        -0.9f, -0.5f, 0.0f,  1.0f, 0.0f, 0.0f,   // bottom right
-        -0.1f, -0.5f, 0.0f,  0.0f, 1.0f, 0.0f,   // bottom left
-        -0.1f,  0.5f, 0.0f,  0.0f, 0.0f, 1.0f    // top
-};
-
 
 const char* vertex_shader =
         "#version 330\n"
@@ -42,18 +41,31 @@ const char* fragment_shader =
         "     frag_colour = vec4 (ourColor, 1.0);"
         "}";
 
-using namespace std;
-
 int main()
 {
     auto* application = new Application(800, 600, "ZPG");
+    __attribute__((unused)) TransformationType sh = TransformationType::Shift;
+    __attribute__((unused)) TransformationType sc = TransformationType::Scale;
 
+    //BEFORE TRANSFORMATIONS
+    application->createNewObject(1, triangle_red, sizeof(triangle_red), 1, make_pair(0, 1), 3, 6 * sizeof(float),
+                                 make_pair((void*) nullptr,(void*)(3 * sizeof(float))), vertex_shader, fragment_shader);
 
-    application->createNewObject(1, triangle1, sizeof(triangle1), 1, make_pair(0, 1), 3, 6 * sizeof(float), make_pair((void*) nullptr,
-                                 (void*)(3 * sizeof(float))), vertex_shader, fragment_shader);
+    //AFTER SHIFT
+    application->createNewObject(1, triangle_green, sizeof(triangle_green), 1, make_pair(0, 1), 3, 6 * sizeof(float),
+                                 make_pair((void*) nullptr,(void*)(3 * sizeof(float))), vertex_shader, fragment_shader,
+                                 sh, glm::vec3(-1.f, 0.0f, 0.0f));
 
-    application->createNewObject(1, triangle2, sizeof(triangle2), 1, make_pair(0, 1), 3, 6 * sizeof(float), make_pair((void*) nullptr,
-                                 (void*)(3 * sizeof(float))), vertex_shader, fragment_shader);
+    //AFTER ROTATE by 90 degrees | 1.57 radians
+    application->createNewObject(1, triangle_green, sizeof(triangle_green), 1, make_pair(0, 1), 3, 6 * sizeof(float),
+                                 make_pair((void*) nullptr,(void*)(3 * sizeof(float))), vertex_shader, fragment_shader,
+                                 1.57, glm::vec3(0.0f, 0.0f, 1.0f));
+
+    //AFTER SCALING DOWN by 90%
+    application->createNewObject(1, triangle_green, sizeof(triangle_green), 1, make_pair(0, 1), 3, 6 * sizeof(float),
+                                 make_pair((void*) nullptr,(void*)(3 * sizeof(float))), vertex_shader, fragment_shader,
+                                 sc, glm::vec3(0.1f));
+
     application->run(3); //num of vertexes
     application->~Application();
     exit(EXIT_SUCCESS);

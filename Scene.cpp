@@ -78,19 +78,48 @@ void Scene::addRenderedObject(RenderedObject* obj)
     this->renderedObjects.push_back(obj);
 }
 
-void Scene::createAndAdd(int countVBOObject, float* points, int sizeOfPoints, int countVAOObject, pair<int, int> indexArray, int vertexCount,
-                         GLsizei vertexOffset, pair<GLvoid*, GLvoid*> pointer, const char* vertexDefinition, const char* fragmentDefinition)
-{
-    this->addRenderedObject(this->createRenderedObject(countVBOObject, points, sizeOfPoints, countVAOObject, indexArray, vertexCount,
-                                                       vertexOffset, pointer, vertexDefinition, fragmentDefinition));
-}
+void
+Scene::createAndAdd(int countVBOObject, float *points, int sizeOfPoints, int countVAOObject, pair<int, int> indexArray,
+                    int vertexCount, GLsizei vertexOffset, pair<GLvoid *, GLvoid *> pointer,
+                    const char *vertexDefinition, const char *fragmentDefinition)
+                    {
+                        this->addRenderedObject(this->createRenderedObject(countVBOObject, points, sizeOfPoints,
+                                                                           countVAOObject, indexArray,vertexCount,
+                                                                           vertexOffset, pointer, vertexDefinition,
+                                                                           fragmentDefinition));
 
+                    }
+
+void
+Scene::createAndAdd(int countVBOObject, float *points, int sizeOfPoints, int countVAOObject, pair<int, int> indexArray,
+                    int vertexCount, GLsizei vertexOffset, pair<GLvoid *, GLvoid *> pointer,
+                    const char *vertexDefinition, const char *fragmentDefinition, float angle, glm::vec3 vector)
+                    {
+                        RenderedObject* r = this->createRenderedObject(countVBOObject, points, sizeOfPoints,
+                                                                       countVAOObject, indexArray,vertexCount,
+                                                                       vertexOffset, pointer, vertexDefinition,
+                                                                       fragmentDefinition);
+                        r->transformMatrix(angle, vector);
+                        renderedObjects.push_back(r);
+                    }
+void
+Scene::createAndAdd(int countVBOObject, float *points, int sizeOfPoints, int countVAOObject, pair<int, int> indexArray,
+                    int vertexCount, GLsizei vertexOffset, pair<GLvoid *, GLvoid *> pointer,
+                    const char *vertexDefinition, const char *fragmentDefinition, TransformationType type,
+                    glm::vec3 vector)
+                    {
+                        RenderedObject* r = this->createRenderedObject(countVBOObject, points, sizeOfPoints,
+                                                                       countVAOObject, indexArray,vertexCount,
+                                                                       vertexOffset, pointer, vertexDefinition,
+                                                                       fragmentDefinition);
+                        r->transformMatrix(type, vector);
+                        renderedObjects.push_back(r);
+                    }
 void Scene::run(int vertexes)
 {
     for (auto object : this->renderedObjects)
-    {
         object->initAndCheckShaders();
-    }
+
 
     while (!this->isWindowClosed())
     {
@@ -100,10 +129,11 @@ void Scene::run(int vertexes)
         for (auto object : this->renderedObjects)
         {
             object->runShader();
-            object->transformMatrix(90, glm::vec3(0.0f, 0.0f, 1.0f));
+            object->sendMatrixShader();
             object->drawObject(GL_TRIANGLES, 0, vertexes);
         }
         glfwPollEvents();
         this->drawOntoWindow();
     }
 }
+
