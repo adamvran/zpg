@@ -2,53 +2,44 @@
 
 Application::Application(int width, int height, const char* title)
 {
-    this->createScene(width, height, title);
+	this->createScene(width, height, title);
 }
 
 Application::~Application()
 {
-    this->scene->~Scene();
+	this->scene->~Scene();
 }
 
 void Application::createScene(int width, int height, const char* title)
 {
-    this->scene = new Scene(width, height, title);
+	this->scene = new Scene(width, height, title);
 }
 
-void
-Application::createNewObject(int countVBOObject, float* points, int sizeOfPoints, int countVAOObject,
-                                  pair<int, int> indexArray, int vertexCount,GLsizei vertexOffset,
-                                  pair<GLvoid*, GLvoid*> pointer, const char* vertexDefinition,
-                                  const char* fragmentDefinition)
-                                  {
-                                      this->scene->createAndAdd(countVBOObject, points, sizeOfPoints, countVAOObject,
-                                                                indexArray, vertexCount,vertexOffset, pointer,
-                                                                vertexDefinition, fragmentDefinition);
-                                  }
-void
-Application::createNewObject(int countVBOObject, float *points, int sizeOfPoints, int countVAOObject,
-                                  pair<int, int> indexArray, int vertexCount, GLsizei vertexOffset,
-                                  pair<GLvoid *, GLvoid *> pointer, const char *vertexDefinition,
-                                  const char *fragmentDefinition, float angle, glm::vec3 vector)
-                                  {
-                                      this->scene->createAndAdd(countVBOObject, points, sizeOfPoints, countVAOObject,
-                                                                indexArray, vertexCount,vertexOffset, pointer,
-                                                                vertexDefinition, fragmentDefinition, angle, vector);
-                                  }
-void
-Application::createNewObject(int countVBOObject, float *points, int sizeOfPoints, int countVAOObject,
-                             pair<int, int> indexArray, int vertexCount, GLsizei vertexOffset,
-                             pair<GLvoid *, GLvoid *> pointer, const char *vertexDefinition,
-                             const char *fragmentDefinition, TransformationType type, glm::vec3 vector)
-                                 {
-                                      this->scene->createAndAdd(countVBOObject, points, sizeOfPoints, countVAOObject,
-                                                              indexArray, vertexCount,vertexOffset, pointer,
-                                                              vertexDefinition, fragmentDefinition, type, vector);
-                                 }
 
-void Application::run(int vertexes)
+void Application::run()
 {
-    this->scene->run(vertexes);
+	this->scene->run();
 }
 
+int Application::createNewObject(int countVBOobject, float* points, int sizeOfPoints, int countVAOobject, pair<int, int> indexArray, int vertexCount, 
+	GLsizei vertexOffset, pair<GLvoid*, GLvoid*> pointer, const char* vertexDefinition, const char* fragmentDefinition, GLenum objectType, int countOfVertex)
+{
+	return this->scene->createAndAdd(countVBOobject, points, sizeOfPoints, countVAOobject, indexArray, vertexCount, vertexOffset, pointer, 
+		vertexDefinition, fragmentDefinition, objectType, countOfVertex);
+}
+
+void Application::transformObject(int objectInArray, float angle, glm::vec3 vector)
+{
+	this->scene->transform(objectInArray, angle, vector);
+}
+
+void Application::transformObject(int objectInArray, TransformationType type, glm::vec3 vector)
+{
+	this->scene->transform(objectInArray, type, vector);
+}
+
+void Application::createCamera(glm::vec3 eye, glm::vec3 dir)
+{
+	this->scene->createCamera(eye, dir);
+}
 

@@ -1,20 +1,21 @@
 #pragma once
 #include "lib/glew/2.2.0_1/include/GL/glew.h"
-#include "lib/glfw/include/GLFW/glfw3.h"
 #include "ShaderManager.h"
+#include <vector>
+#include <stdio.h>
+
 
 class Shader
 {
 private:
-    GLuint shaderId{};
-    GLenum shaderType;
-    const char* shaderDefinition;
+	GLuint shaderId;
+	GLenum shaderType;
+	const char* shaderDefinition;
 
 public:
-    Shader(GLenum shaderType, const char* shaderDefinition);
-    void createShader();
-    //void addShader(ShaderManager* sh);
-    GLuint getShaderId() const;
-    GLenum getShaderType() const;
+	Shader(GLenum shaderType, const char* shaderDefinition);
+	void createShader();
+	std::vector<GLuint> addShader(std::vector<GLuint> shaders);
+	GLenum getShaderType();
 };
 

@@ -1,18 +1,21 @@
 #pragma once
-#include "lib/glm/glm/vec4.hpp" // glm::vec4
-#include "lib/glm/glm/mat4x4.hpp" // glm::mat4
-#include "lib/glm/glm/gtc/matrix_transform.hpp" // glm::translate, glm::rotate, glm::scale, glm::perspective
+#include "lib/glm/glm/detail/type_mat4x4.hpp"
+#include <vector>
+#include <stdio.h>
 
-class Transformation {
+class Transformation
+{
 private:
-    glm::mat4 transform{};
+	glm::mat4 transorm;
+	//std::vector<Transformation*> transformations;
 public:
-    Transformation();
-    ~Transformation();
-    void rotation(float angle, glm::vec3 vector);
-    void scale(glm::vec3 vector);
-    void shift(glm::vec3 vector);
-
-    const glm::mat4 &getTransform() const;
-
+	Transformation();
+	~Transformation();
+	//void addTransformation(Transformation* t);
+	void rotation(float angle, glm::vec3 vector);
+	void scale(glm::vec3 vector);
+	void shift(glm::vec3 vecotr);
+	const glm::mat4 &getTransform() const;
+	//std::vector<Transformation*> getTransformations();
 };
+

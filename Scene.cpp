@@ -2,33 +2,40 @@
 
 Scene::Scene(int width, int height, const char* title)
 {
-    glfwSetErrorCallback(Callback::error_callback);
-    Scene::initGLFW();
+	glfwSetErrorCallback(Callback::error_callback);
+	this->initGLFW();
     Scene::initOpenGLVersion();
     this->window = new Window(width, height, title);
-    Scene::initGLEW();
-    Scene::printVersionInfo();
-    this->window->windowSize();
+	this->initGLEW();
+	this->printVersionInfo();
+	this->window->windowSize();
+	this->initMouse();
 }
 
 Scene::~Scene()
 {
-    this->window->~Window();
-    glfwTerminate();
+	this->window->~Window();
+	glfwTerminate();
 }
 
 void Scene::initGLEW()
 {
-    glewExperimental = GL_TRUE;
-    glewInit();
+	glewExperimental = GL_TRUE;
+	glewInit();
+}
+
+void Scene::initMouse()
+{
+	glfwSetInputMode(this->window->getWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	//glfwSetCursorPosCallback(this->window->getWindow(), Callback::mouseCallbak);
 }
 
 void Scene::initGLFW()
 {
-    if (!glfwInit()) {
-        fprintf(stderr, "ERROR: could not start GLFW3\n");
-        exit(EXIT_FAILURE);
-    }
+	if (!glfwInit()) {
+		fprintf(stderr, "ERROR: could not start GLFW3\n");
+		exit(EXIT_FAILURE);
+	}
 }
 
 void Scene::initOpenGLVersion() {
@@ -39,101 +46,131 @@ void Scene::initOpenGLVersion() {
 }
 
 
+
 void Scene::printVersionInfo()
 {
-    printf("OpenGL Version: %s\n", glGetString(GL_VERSION));
-    printf("Using GLEW %s\n", glewGetString(GLEW_VERSION));
-    printf("Vendor %s\n", glGetString(GL_VENDOR));
-    printf("Renderer %s\n", glGetString(GL_RENDERER));
-    printf("GLSL %s\n", glGetString(GL_SHADING_LANGUAGE_VERSION));
+	printf("OpenGL Version: %s\n", glGetString(GL_VERSION));
+	printf("Using GLEW %s\n", glewGetString(GLEW_VERSION));
+	printf("Vendor %s\n", glGetString(GL_VENDOR));
+	printf("Renderer %s\n", glGetString(GL_RENDERER));
+	printf("GLSL %s\n", glGetString(GL_SHADING_LANGUAGE_VERSION));
 
-    int major, minor, revision;
-    glfwGetVersion(&major, &minor, &revision);
-    printf("Using GLFW %i.%i.%i\n", major, minor, revision);
+	int major, minor, revision;
+	glfwGetVersion(&major, &minor, &revision);
+	printf("Using GLFW %i.%i.%i\n", major, minor, revision);
 }
 
 int Scene::isWindowClosed()
 {
-    return this->window->isWindowClosed();
+	return this->window->isWindowClosed();
 }
 
 void Scene::drawOntoWindow()
 {
-    this->window->displayAll();
+	this->window->displayAll();
 }
 
-RenderedObject* Scene::createRenderedObject(int countVBOObject, float *points, int sizeOfPoints, int countVAOObject, pair<int, int> indexArray,
-                                            int vertexCount, GLsizei vertexOffset, pair<GLvoid *, GLvoid *> pointer, const char *vertexDefinition,
-                                            const char *fragmentDefinition)
+RenderedObject* Scene::createRenderedObject(int countVBOobject, float* points, int sizeOfPoints, int countVAOobject, pair<int, int> indexArray, int vertexCount,
+	GLsizei vertexOffset, pair<GLvoid*, GLvoid*> pointer, const char* vertexDefinition, const char* fragmentDefinition, GLenum objectType, int countOfVertex)
 {
-    auto* renderedObject = new RenderedObject();
-    renderedObject->createModel(countVBOObject, points, sizeOfPoints, countVAOObject, indexArray, vertexCount, vertexOffset, pointer);
-    renderedObject->createShader(GL_VERTEX_SHADER, vertexDefinition);
-    renderedObject->createShader(GL_FRAGMENT_SHADER, fragmentDefinition);
-    return renderedObject;
+	RenderedObject* renderedObject = new RenderedObject(objectType, countOfVertex);
+	renderedObject->createModel(countVBOobject, points, sizeOfPoints, countVAOobject, indexArray, vertexCount, vertexOffset, pointer);
+	renderedObject->createShader(GL_VERTEX_SHADER, vertexDefinition);
+	renderedObject->createShader(GL_FRAGMENT_SHADER, fragmentDefinition);
+	return renderedObject;
 }
 
 void Scene::addRenderedObject(RenderedObject* obj)
 {
-    this->renderedObjects.push_back(obj);
+	this->renderedObjects.push_back(obj);
 }
 
-void
-Scene::createAndAdd(int countVBOObject, float *points, int sizeOfPoints, int countVAOObject, pair<int, int> indexArray,
-                    int vertexCount, GLsizei vertexOffset, pair<GLvoid *, GLvoid *> pointer,
-                    const char *vertexDefinition, const char *fragmentDefinition)
-                    {
-                        this->addRenderedObject(this->createRenderedObject(countVBOObject, points, sizeOfPoints,
-                                                                           countVAOObject, indexArray,vertexCount,
-                                                                           vertexOffset, pointer, vertexDefinition,
-                                                                           fragmentDefinition));
-
-                    }
-
-void
-Scene::createAndAdd(int countVBOObject, float *points, int sizeOfPoints, int countVAOObject, pair<int, int> indexArray,
-                    int vertexCount, GLsizei vertexOffset, pair<GLvoid *, GLvoid *> pointer,
-                    const char *vertexDefinition, const char *fragmentDefinition, float angle, glm::vec3 vector)
-                    {
-                        RenderedObject* r = this->createRenderedObject(countVBOObject, points, sizeOfPoints,
-                                                                       countVAOObject, indexArray,vertexCount,
-                                                                       vertexOffset, pointer, vertexDefinition,
-                                                                       fragmentDefinition);
-                        r->transformMatrix(angle, vector);
-                        renderedObjects.push_back(r);
-                    }
-void
-Scene::createAndAdd(int countVBOObject, float *points, int sizeOfPoints, int countVAOObject, pair<int, int> indexArray,
-                    int vertexCount, GLsizei vertexOffset, pair<GLvoid *, GLvoid *> pointer,
-                    const char *vertexDefinition, const char *fragmentDefinition, TransformationType type,
-                    glm::vec3 vector)
-                    {
-                        RenderedObject* r = this->createRenderedObject(countVBOObject, points, sizeOfPoints,
-                                                                       countVAOObject, indexArray,vertexCount,
-                                                                       vertexOffset, pointer, vertexDefinition,
-                                                                       fragmentDefinition);
-                        r->transformMatrix(type, vector);
-                        renderedObjects.push_back(r);
-                    }
-void Scene::run(int vertexes)
+/// <summary>
+/// Vytvo�� vykreslovan� objekt, p�id� do pole v�ech objekt�
+/// </summary>
+/// <param name="countVBOobject"></param>
+/// <param name="points">: Pozice vrchol�</param>
+/// <param name="sizeOfPoints"></param>
+/// <param name="countVAOobject"></param>
+/// <param name="indexArray"></param>
+/// <param name="vertexCount"></param>
+/// <param name="vertexOffset"></param>
+/// <param name="pointer"></param>
+/// <param name="vertexDefinition"></param>
+/// <param name="fragmentDefinition"></param>
+/// <param name="objectType"></param>
+/// <param name="countOfVertex"></param>
+/// <returns>��slo objektu v poli</returns>
+int Scene::createAndAdd(int countVBOobject, float* points, int sizeOfPoints, int countVAOobject, pair<int, int> indexArray, int vertexCount, GLsizei vertexOffset, pair<GLvoid*, GLvoid*> pointer, const char* vertexDefinition, const char* fragmentDefinition, GLenum objectType, int countOfVertex)
 {
-    for (auto object : this->renderedObjects)
-        object->initAndCheckShaders();
+	RenderedObject* r = this->createRenderedObject(countVBOobject, points, sizeOfPoints, countVAOobject, indexArray, vertexCount,
+		vertexOffset, pointer, vertexDefinition, fragmentDefinition, objectType, countOfVertex);
+	this->addRenderedObject(r);
+	return this->renderedObjects.size();
+}
 
 
-    while (!this->isWindowClosed())
-    {
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+void Scene::transform(int objectInArray, float angle, glm::vec3 vector)
+{
+	RenderedObject* obj = this->renderedObjects[objectInArray - 1];
+	obj->transformMatrix(angle, vector);
+}
 
+void Scene::transform(int objectInArray, TransformationType type, glm::vec3 vector)
+{
+	RenderedObject* obj = this->renderedObjects[objectInArray - 1];
+	obj->transformMatrix(type, vector);
+}
 
-        for (auto object : this->renderedObjects)
-        {
-            object->runShader();
-            object->sendMatrixShader();
-            object->drawObject(GL_TRIANGLES, 0, vertexes);
-        }
-        glfwPollEvents();
-        this->drawOntoWindow();
-    }
+void Scene::run()
+{
+
+	for (auto object : this->renderedObjects)
+	{
+		object->initAndCheckShaders(); ///inicializace shader� (vertex a fragment pro jeden obj)
+		this->camera->addSubscriber(object->getShaderProgram()); ///p�id�n� do listu pozorovatel�
+	}
+
+	float deltaTime = 0.0f;	// time between current frame and last frame
+	float lastFrame = 0.0f;
+
+	while (!this->isWindowClosed())
+	{
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear color and depth buffer
+
+		float currentFrame = static_cast<float>(glfwGetTime());
+		deltaTime = currentFrame - lastFrame;
+		lastFrame = currentFrame;
+
+		this->window->windowSize();
+
+		if (Callback::mouseCallbak(this->window->getWindow()))
+		{
+			std::pair<double, double> pos = Callback::cursor_callback(this->window->getWindow());
+			this->camera->mouseMove(pos.first, pos.second);
+		}
+		
+		this->camera->move(this->window->getWindow(), deltaTime);
+
+		auto runShaders = [](RenderedObject* o) {o->runShader(); };
+		std::for_each(this->renderedObjects.begin(), this->renderedObjects.end(), runShaders); ///spu�t�n� shaderu pro v�echny obj
+
+		this->camera->notifyAllObservers();
+
+		for (auto object : this->renderedObjects) 
+		{
+			object->sendModelMatrixShader();
+			object->drawObject();
+		}
+
+		glfwPollEvents();// update other events like input handling
+		this->drawOntoWindow(); // put the stuff we�ve been drawing onto the display
+	}
+}
+
+void Scene::createCamera(glm::vec3 eye, glm::vec3 dir)
+{
+	this->camera = new Camera(eye, dir, this->window->getRatio());
+	this->camera->firstSetMouse(this->window->getWidth(), this->window->getHeight());
 }
 

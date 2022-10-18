@@ -2,38 +2,65 @@
 
 void Callback::error_callback(int error, const char* description)
 {
-    fputs(description, stderr);
+	fputs(description, stderr);
 }
-
+/*
 void Callback::key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
-    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-        glfwSetWindowShouldClose(window, GL_TRUE);
-    printf("key_callback [%d,%d,%d,%d] \n", key, scancode, action, mods);
+	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+		glfwSetWindowShouldClose(window, GL_TRUE);
+	//printf("key_callback [%d,%d,%d,%d] \n", key, scancode, action, mods);
 }
 
 void Callback::window_focus_callback(GLFWwindow* window, int focused)
 {
-    printf("window_focus_callback \n");
+	printf("window_focus_callback \n");
 }
 
 void Callback::window_iconify_callback(GLFWwindow* window, int iconified)
 {
-    printf("window_iconify_callback \n");
+	printf("window_iconify_callback \n");
 }
 
 void Callback::window_size_callback(GLFWwindow* window, int width, int height)
 {
-    printf("resize %d, %d \n", width, height);
-    glViewport(0, 0, width, height);
+	printf("resize %d, %d \n", width, height);
+	glViewport(0, 0, width, height);
 }
-
-void Callback::cursor_callback(GLFWwindow* window, double x, double y)
+*/
+std::pair<double, double> Callback::cursor_callback(GLFWwindow* window)
 {
-    printf("cursor_callback \n");
+    double xpos, ypos;
+    glfwGetCursorPos(window, &xpos, &ypos);
+    return std::make_pair(xpos, ypos);
 }
 
 void Callback::button_callback(GLFWwindow* window, int button, int action, int mode)
 {
-    if (action == GLFW_PRESS) printf("button_callback [%d,%d,%d]\n", button, action, mode);
+	if (action == GLFW_PRESS) printf("button_callback [%d,%d,%d]\n", button, action, mode);
+}
+
+bool Callback::W_callback(GLFWwindow* window)
+{
+	return (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS);
+}
+
+bool Callback::A_callback(GLFWwindow* window)
+{
+	return (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS);
+}
+
+bool Callback::S_callback(GLFWwindow* window)
+{
+	return (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS);
+}
+
+bool Callback::D_callback(GLFWwindow* window)
+{
+	return (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS);
+}
+
+bool Callback::mouseCallbak(GLFWwindow* window)
+{
+    return (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS);
 }

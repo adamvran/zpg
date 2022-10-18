@@ -3,31 +3,26 @@
 
 Shader::Shader(GLenum shaderType, const char* shaderDefinition)
 {
-    this->shaderType = shaderType;
-    this->shaderDefinition = shaderDefinition;
+	this->shaderType = shaderType;
+	this->shaderDefinition = shaderDefinition;
 
-    this->createShader();
+	this->createShader();
 }
 
 void Shader::createShader()
 {
-    this->shaderId = glCreateShader(this->shaderType);
-    glShaderSource(this->shaderId, 1, &this->shaderDefinition, nullptr);
-    glCompileShader(this->shaderId);
+	this->shaderId = glCreateShader(this->shaderType);
+	glShaderSource(this->shaderId, 1, &this->shaderDefinition, NULL);
+	glCompileShader(this->shaderId);
 }
 
-
-/*void Shader::addShader(ShaderManager* sh)
+std::vector<GLuint> Shader::addShader(std::vector<GLuint> shaders)
 {
-	//sh->addShader(this->shaderId, this->shaderType);
-}*/
-
-GLuint Shader::getShaderId() const
-{
-    return this->shaderId;
+	 shaders.push_back(this->shaderId);
+	 return shaders;
 }
 
-GLenum Shader::getShaderType() const
+GLenum Shader::getShaderType()
 {
-    return this->shaderType;
+	return this->shaderType;
 }

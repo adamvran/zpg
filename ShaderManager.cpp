@@ -1,30 +1,38 @@
 #include "ShaderManager.h"
 
-ShaderManager::ShaderManager()= default;
-ShaderManager::~ShaderManager()= default;
-
-void ShaderManager::addShader(GLuint in_shader, GLenum shaderType)
+ShaderManager::ShaderManager()
 {
-    if (shaderType == GL_VERTEX_SHADER)
-        this->vertexArray.push_back(in_shader);
-    else if (shaderType == GL_FRAGMENT_SHADER)
-        this->fragmentArray.push_back(in_shader);
+    
 }
+
+ShaderManager::~ShaderManager()
+{
+    ///smazani celeho pole
+}
+
 
 void ShaderManager::createShader(GLenum shaderType, const char* shaderDefinition)
 {
-    auto* shader = new Shader(shaderType, shaderDefinition);
-    this->addShader(shader->getShaderId(), shaderType);
-    //shader->addShader(this);
+    Shader* shader = new Shader(shaderType, shaderDefinition);
+    if (shaderType == GL_VERTEX_SHADER)
+        this->vertexArray = shader->addShader(this->vertexArray);
+    else if (shaderType == GL_FRAGMENT_SHADER)
+        this->fragmentArray = shader->addShader(this->fragmentArray);
 }
 
 void ShaderManager::initShaders(GLuint shaderProgram)
 {
-    for (auto i : this->vertexArray)
-        glAttachShader(shaderProgram, i);
+    //vertex
+    for (int i = 0; i < this->vertexArray.size(); i++)
+    {
+        glAttachShader(shaderProgram, this->vertexArray[i]);
+    }
 
-    for (auto i : this->fragmentArray)
-        glAttachShader(shaderProgram, i);
+    //fragment
+    for (int i = 0; i < this->fragmentArray.size(); i++)
+    {
+        glAttachShader(shaderProgram, this->fragmentArray[i]);
+    }
 }
 
 
