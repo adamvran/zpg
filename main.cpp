@@ -3062,7 +3062,7 @@ int main(void)
 	//posun: sh , glm::vec3(0.0f, -0.5f, 0.0f)
 	//zvetseni: sc, glm::vec3(0.3f)
 
-	Application* application = new Application(800, 600, "ZPG Ocelkova - cv.4");
+	Application* application = new Application(800, 600, "ZPG");
 	TransformationType sh = TransformationType::Shift;
 	TransformationType sc = TransformationType::Scale;
 	glm::vec3 cameraEye = glm::vec3(0.0f, 0.0f, 3.0f);
