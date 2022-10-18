@@ -73,7 +73,7 @@ void Scene::drawOntoWindow()
 RenderedObject* Scene::createRenderedObject(int countVBOobject, float* points, int sizeOfPoints, int countVAOobject, pair<int, int> indexArray, int vertexCount,
 	GLsizei vertexOffset, pair<GLvoid*, GLvoid*> pointer, const char* vertexDefinition, const char* fragmentDefinition, GLenum objectType, int countOfVertex)
 {
-	RenderedObject* renderedObject = new RenderedObject(objectType, countOfVertex);
+	auto* renderedObject = new RenderedObject(objectType, countOfVertex);
 	renderedObject->createModel(countVBOobject, points, sizeOfPoints, countVAOobject, indexArray, vertexCount, vertexOffset, pointer);
 	renderedObject->createShader(GL_VERTEX_SHADER, vertexDefinition);
 	renderedObject->createShader(GL_FRAGMENT_SHADER, fragmentDefinition);
