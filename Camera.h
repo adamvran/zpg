@@ -13,8 +13,8 @@
 
 class ShaderProgram;
 
-#define CAMERA_UP glm::vec3(0.f, 1.f, 0.f) ///sm�r vzh�ru
-#define CAMERA_FOV glm::radians(40.0f) //jak moc ze �iroka se na objekt kouk�me
+#define CAMERA_UP glm::vec3(0.f, 1.f, 0.f) ///směr vzhůru
+#define CAMERA_FOV glm::radians(40.0f) //jak moc ze široka se na objekt koukáme
 #define CAMERA_ZNEAR 0.001f
 #define CAMERA_ZFAR 100.0f
 #define CAMERA_SPEED 0.9f

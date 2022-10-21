@@ -1,7 +1,7 @@
 #pragma once
 #include "lib/glm/glm/detail/type_mat4x4.hpp"
 #include <vector>
-#include <stdio.h>
+#include <cstdio>
 
 class Transformation
 {

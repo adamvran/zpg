@@ -15,7 +15,6 @@ void Application::createScene(int width, int height, const char* title)
 	this->scene = new Scene(width, height, title);
 }
 
-
 void Application::run()
 {
 	this->scene->run();

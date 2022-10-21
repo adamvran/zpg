@@ -1,6 +1,4 @@
 #pragma once
-#include "lib/glm/glm/vec3.hpp"
-#include "lib/glm/glm/ext/matrix_float4x4.hpp"
 #include "Model.h"
 #include "ShaderProgram.h"
 #include "Transformation.h"

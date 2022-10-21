@@ -1,5 +1,5 @@
 #pragma once
-#include <stdio.h>
+#include <cstdio>
 #include "lib/glm/glm/ext/matrix_float4x4.hpp"
 #include "ShaderManager.h"
 

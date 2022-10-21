@@ -2,7 +2,7 @@
 #include "lib/glew/2.2.0_1/include/GL/glew.h"
 #include "ShaderManager.h"
 #include <vector>
-#include <stdio.h>
+#include <cstdio>
 
 
 class Shader

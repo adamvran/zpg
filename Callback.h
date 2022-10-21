@@ -1,5 +1,5 @@
 #pragma once
-#include <stdio.h>
+#include <cstdio>
 #include <iostream>
 #include "lib/glfw/include/GLFW/glfw3.h"
 

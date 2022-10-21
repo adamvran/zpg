@@ -1,12 +1,10 @@
 #pragma once
-#include "lib/glew/2.2.0_1/include/GL/glew.h"
-#include "lib/glfw/include/GLFW/glfw3.h"
 #include "Scene.h"
 
 class Application
 {
 private:
-	Scene* scene;
+	Scene* scene{};
 
 public:
 	Application(int width, int height, const char* title);

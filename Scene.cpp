@@ -124,6 +124,7 @@ void Scene::transform(int objectInArray, TransformationType type, glm::vec3 vect
 
 void Scene::run()
 {
+    glEnable(GL_DEPTH_TEST);
 
 	for (auto object : this->renderedObjects)
 	{
@@ -138,7 +139,7 @@ void Scene::run()
 	{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear color and depth buffer
 
-		float currentFrame = static_cast<float>(glfwGetTime());
+		auto currentFrame = static_cast<float>(glfwGetTime());
 		deltaTime = currentFrame - lastFrame;
 		lastFrame = currentFrame;
 
