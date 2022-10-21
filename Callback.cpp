@@ -30,9 +30,9 @@ void Callback::window_size_callback(GLFWwindow* window, int width, int height)
 */
 std::pair<double, double> Callback::cursor_callback(GLFWwindow* window)
 {
-    double xpos, ypos;
-    glfwGetCursorPos(window, &xpos, &ypos);
-    return std::make_pair(xpos, ypos);
+    double xPos, yPos;
+    glfwGetCursorPos(window, &xPos, &yPos);
+    return std::make_pair(xPos, yPos);
 }
 
 void Callback::button_callback(GLFWwindow* window, int button, int action, int mode)
@@ -60,7 +60,23 @@ bool Callback::D_callback(GLFWwindow* window)
 	return (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS);
 }
 
-bool Callback::mouseCallbak(GLFWwindow* window)
+bool Callback::mouseCallback(GLFWwindow* window)
 {
     return (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS);
+}
+
+void Callback::key_callback(GLFWwindow *window, int key, int scancode, int action, int mods) {
+
+}
+
+void Callback::window_focus_callback(GLFWwindow *window, int focused) {
+
+}
+
+void Callback::window_iconify_callback(GLFWwindow *window, int iconified) {
+
+}
+
+void Callback::window_size_callback(GLFWwindow *window, int width, int height) {
+
 }

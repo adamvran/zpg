@@ -17,6 +17,6 @@ public:
 	static bool A_callback(GLFWwindow* window);
 	static bool S_callback(GLFWwindow* window);
 	static bool D_callback(GLFWwindow* window);
-	static bool mouseCallbak(GLFWwindow* window);
+	static bool mouseCallback(GLFWwindow* window);
 };
 

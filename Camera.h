@@ -13,31 +13,31 @@
 
 class ShaderProgram;
 
-#define CAMERA_UP glm::vec3(0.f, 1.f, 0.f) ///směr vzhůru
-#define CAMERA_FOV glm::radians(40.0f) //jak moc ze široka se na objekt koukáme
+#define CAMERA_UP glm::vec3(0.f, 1.f, 0.f) //up direction
+#define CAMERA_FOV glm::radians(40.0f) //how much wide
 #define CAMERA_ZNEAR 0.001f
 #define CAMERA_ZFAR 100.0f
 #define CAMERA_SPEED 0.9f
-#define YAW -90.f;
+#define YAW (-90.f)
 #define PITCH 0.0f
 #define SENSITIVITY 0.1f
 
 class Camera
 {
 private:
-	std::vector<ShaderProgram*> subscibers;
-	glm::vec3 eye; //kde je kamera
-	glm::vec3 direction; //neboli center
+	std::vector<ShaderProgram*> subscribers;
+	glm::vec3 eye{}; //where is camera
+	glm::vec3 direction{}; //center
 	float ratio;
-	glm::mat4 viewMatrix;
-	glm::mat4 projectionMatrix;
+	glm::mat4 viewMatrix{};
+	glm::mat4 projectionMatrix{};
 
-	///my�� srandy
+	//mouse settings
 	float yaw;
 	float pitch;
 	float sensitivity;
 
-	//pozice posledn�ho framu
+	//last frame position
 	float lastX;
 	float lastY;
 	bool firstMouse;
@@ -49,12 +49,12 @@ public:
 	void move(GLFWwindow* window, double delta);
 	glm::mat4 getViewMatrix();
 	glm::mat4 getProjectionMatrix();
-	void addSubscriber(ShaderProgram* shaderProg);
+	void addSubscriber(ShaderProgram* shaderProgram);
 	void updateViewMatrix(glm::vec3 eye, glm::vec3 distance);
 	void updateProjectionMatrix(float ratio);
 	void updateViewMatrix();
 	void updateDirection(glm::vec3 dir);
-	void mouseMove(double xposIn, double yposIn);
+	void mouseMove(double xPosIn, double yPosIn);
 	void firstSetMouse(float width, float height);
 };
 

@@ -4,7 +4,7 @@
 class Window
 {
 private:
-	GLFWwindow* window;
+	GLFWwindow* window{};
 	int width;
 	int height;
 	const char* title;
@@ -15,9 +15,10 @@ public:
 	void windowSize();
 	int isWindowClosed();
 	void displayAll();
+
 	GLFWwindow* getWindow();
 	float getRatio();
-	float getWidth();
-	float getHeight();
+	float getWidth() const;
+	float getHeight() const;
 };
 

@@ -7,14 +7,14 @@ private:
 	GLuint VBO;
 	GLuint VAO;
 	float* points;
-	int sizeOfpoints;
+	int sizeOfPoints;
 
 public:
-	Model(int sizeOfpoints, float* points);
+	Model(int sizeOfPoints, float* points);
 	~Model();
 	void createVBO(int countObject);
 	void createVAO(int countObject);
-	void drawObject(GLenum mode, GLint first, GLsizei count);
-	void initPositionAndColor(int indexArray, int vertexCount, GLsizei vertexOffset, const GLvoid* pointer);
+	void drawObject(GLenum mode, GLint first, GLsizei count) const;
+	static void initPositionAndColor(int indexArray, int vertexCount, GLsizei vertexOffset, const GLvoid* pointer);
 };
 

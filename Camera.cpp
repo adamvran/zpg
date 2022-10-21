@@ -6,11 +6,11 @@ Camera::Camera(glm::vec3 eye, glm::vec3 direction, float ratio)
     this->direction = direction;
     this->ratio = ratio;
 
-    ///prvnotn� sestaven� matic?
+    //first matrix init
     this->viewMatrix = glm::lookAt(this->eye,this->eye + this->direction, CAMERA_UP);
     this->projectionMatrix = glm::perspective(CAMERA_FOV, this->ratio, CAMERA_ZNEAR, CAMERA_ZFAR);
 
-    //nastaven� pro my�
+    //mouse settings
     this->yaw = YAW;
     this->pitch = PITCH;
     this->sensitivity = SENSITIVITY;
@@ -19,13 +19,11 @@ Camera::Camera(glm::vec3 eye, glm::vec3 direction, float ratio)
     this->firstMouse = true;
 }
 
-Camera::~Camera()
-{
-}
+Camera::~Camera() = default;
 
 void Camera::notifyAllObservers()
 {
-    for (ShaderProgram* obj : this->subscibers) 
+    for (ShaderProgram* obj : this->subscribers)
     {
         obj->notify(this->viewMatrix, this->projectionMatrix);
     }
@@ -60,9 +58,9 @@ glm::mat4 Camera::getProjectionMatrix()
     return this->projectionMatrix;
 }
 
-void Camera::addSubscriber(ShaderProgram* shaderProg)
+void Camera::addSubscriber(ShaderProgram* shaderProgram)
 {
-    this->subscibers.push_back(shaderProg);
+    this->subscribers.push_back(shaderProgram);
 }
 
 void Camera::updateViewMatrix(glm::vec3 eye, glm::vec3 distance)
@@ -94,28 +92,28 @@ void Camera::firstSetMouse(float width, float height)
     this->lastY = height / 2;
 }
 
-void Camera::mouseMove(double xposIn, double yposIn)
+void Camera::mouseMove(double xPosIn, double yPosIn)
 {
-    float xpos = static_cast<float>(xposIn);
-    float ypos = static_cast<float>(yposIn);
+    auto xPos = static_cast<float>(xPosIn);
+    auto yPos = static_cast<float>(yPosIn);
 
     if (this->firstMouse)
     {
-        this->lastX = xpos;
-        this->lastY = ypos;
+        this->lastX = xPos;
+        this->lastY = yPos;
         this->firstMouse = false;
     }
 
-    float xoffset = xpos - this->lastX;
-    float yoffset = this->lastY - ypos;
-    this->lastX = xpos;
-    this->lastY = ypos;
+    float xOffset = xPos - this->lastX;
+    float yOffset = this->lastY - yPos;
+    this->lastX = xPos;
+    this->lastY = yPos;
 
-    xoffset *= this->sensitivity;
-    yoffset *= this->sensitivity;
+    xOffset *= this->sensitivity;
+    yOffset *= this->sensitivity;
 
-    this->yaw += xoffset;
-    this->pitch += yoffset;
+    this->yaw += xOffset;
+    this->pitch += yOffset;
 
     // make sure that when pitch is out of bounds, screen doesn't get flipped
     if (this->pitch > 89.0f)

@@ -2,23 +2,21 @@
 
 RenderedObject::RenderedObject(GLenum objectType, int countVertex)
 {
-	this->shader = new ShaderProgram();
+	this->shaderProgram = new ShaderProgram();
 	this->transformation = new Transformation();
 	this->objectType = objectType;
 	this->countVertex = countVertex;
 }
 
-RenderedObject::~RenderedObject()
-{
-}
+RenderedObject::~RenderedObject() = default;
 
-void RenderedObject::createModel(int countVBOobject, float* points, int sizeOfPoints, int countVAOobject, 
-	pair<int, int> indexArray, int vertexCount, GLsizei vertexOffset, 
-	pair<GLvoid*, GLvoid*> pointer)
+void RenderedObject::createModel(int countVBO, float* points, int sizeOfPoints, int countVAO,
+                                 pair<int, int> indexArray, int vertexCount, GLsizei vertexOffset,
+                                 pair<GLvoid*, GLvoid*> pointer)
 {
 	this->model = new Model(sizeOfPoints, points);
-	this->model->createVBO(countVBOobject);
-	this->model->createVAO(countVAOobject);
+	this->model->createVBO(countVBO);
+	this->model->createVAO(countVAO);
 	this->initPositionAndColor(indexArray.first, vertexCount, vertexOffset, pointer.first);
 	this->initPositionAndColor(indexArray.second, vertexCount, vertexOffset, pointer.second);
 }
@@ -35,18 +33,18 @@ void RenderedObject::initPositionAndColor(int indexArray, int vertexCount, GLsiz
 
 void RenderedObject::createShader(GLenum shaderType, const char* shaderDefinition)
 {
-	this->shader->createShader(shaderType, shaderDefinition);
+	this->shaderProgram->createShader(shaderType, shaderDefinition);
 }
 
 void RenderedObject::initAndCheckShaders()
 {
-	this->shader->inicializeShaders();
-	this->shader->checkStatus();
+	this->shaderProgram->inicializeShaders();
+	this->shaderProgram->checkStatus();
 }
 
 void RenderedObject::runShader()
 {
-	this->shader->run();
+	this->shaderProgram->run();
 }
 
 void RenderedObject::transformMatrix(float angle, glm::vec3 vector)
@@ -70,21 +68,21 @@ void RenderedObject::transformMatrix(TransformationType type, glm::vec3 vector)
 
 void RenderedObject::sendModelMatrixShader()
 {
-	this->shader->setMatrixModel(this->transformation->getTransform());
+	this->shaderProgram->setMatrixModel(this->transformation->getTransform());
 }
 
 void RenderedObject::sendViewMatrixShader(glm::mat4 mat)
 {
-	this->shader->setMatrixView(mat);
+	this->shaderProgram->setMatrixView(mat);
 }
 
 void RenderedObject::sendProjectionMatrixShader(glm::mat4 mat)
 {
-	this->shader->setMatrixProjection(mat);
+	this->shaderProgram->setMatrixProjection(mat);
 }
 
 ShaderProgram* RenderedObject::getShaderProgram()
 {
-	return this->shader;
+	return this->shaderProgram;
 }
 

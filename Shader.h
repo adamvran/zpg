@@ -8,14 +8,14 @@
 class Shader
 {
 private:
-	GLuint shaderId;
+	GLuint shaderId{};
 	GLenum shaderType;
 	const char* shaderDefinition;
 
 public:
 	Shader(GLenum shaderType, const char* shaderDefinition);
 	void createShader();
-	std::vector<GLuint> addShader(std::vector<GLuint> shaders);
-	GLenum getShaderType();
+	std::vector<GLuint> addShader(std::vector<GLuint> shaders) const;
+	GLenum getShaderType() const;
 };
 

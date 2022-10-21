@@ -10,38 +10,38 @@ using namespace std;
 class RenderedObject
 {
 private:
-	Model* model;
-	ShaderProgram* shader;
+	Model* model{};
+	ShaderProgram* shaderProgram;
 	Transformation* transformation;
 	GLenum objectType;
 	int countVertex;
 
 public:
-	//vytvo�en� objektu
+	//create object
 	RenderedObject(GLenum objectType, int countVertex);
 	~RenderedObject();
-	void createModel(int countVBOobject, float* points, int sizeOfPoints, int countVAOobject,
-		pair<int, int> indexArray, int vertexCount, GLsizei vertexOffset, pair<GLvoid*, GLvoid*> pointer); 
+	void createModel(int countVBO, float* points, int sizeOfPoints, int countVAO,
+                     pair<int, int> indexArray, int vertexCount, GLsizei vertexOffset, pair<GLvoid*, GLvoid*> pointer);
 
-	//srandy ohledn� objektu
+	//object stuff
 	void drawObject();
 	void initPositionAndColor(int indexArray, int vertexCount, GLsizei vertexOffset, const GLvoid* pointer);
 
-	//haha shader srandy
+	//shader stuff
 	void createShader(GLenum shaderType, const char* shaderDefinition);
 	void initAndCheckShaders();
 	void runShader();
 
-	//transformace
+	//transformations
 	void transformMatrix(float angle, glm::vec3 vector);
 	void transformMatrix(TransformationType type, glm::vec3 vector);
 
-	//odesl�n� matic (modelov�, pohledov� a projek�n�) shaderu
+	//sending matrices
 	void sendModelMatrixShader();
 	void sendViewMatrixShader(glm::mat4 mat);
 	void sendProjectionMatrixShader(glm::mat4 mat);
 
-	//nutn� gettery
+	//getters
 	ShaderProgram* getShaderProgram();
 };
 

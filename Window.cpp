@@ -1,5 +1,5 @@
 #include "Window.h"
-#include <stdlib.h>
+#include <cstdlib>
 
 Window::Window(int width, int height, const char* title)
 {
@@ -16,14 +16,14 @@ Window::~Window()
 
 void Window::createWindow()
 {
-	this->window = glfwCreateWindow(this->width, this->height, this->title, NULL, NULL);
+	this->window = glfwCreateWindow(this->width, this->height, this->title, nullptr, nullptr);
 	if (!this->window) {
 		glfwTerminate();
 		exit(EXIT_FAILURE);
 	}
 
-	glfwMakeContextCurrent(this->window); ///vytvo�en� okna
-	glfwSwapInterval(1); ///vytvo�en� okna
+	glfwMakeContextCurrent(this->window);
+	glfwSwapInterval(1);
 }
 
 void Window::windowSize()
@@ -51,17 +51,16 @@ GLFWwindow* Window::getWindow()
 
 float Window::getRatio()
 {
-	//int width, height;
 	glfwGetFramebufferSize(this->window, &width, &height);
-	return (width / (float)height);
+	return ((float)width / (float)height);
 }
 
-float Window::getWidth()
+float Window::getWidth() const
 {
-	return this->width;
+	return (float)this->width;
 }
 
-float Window::getHeight()
+float Window::getHeight() const
 {
-	return this->height;
+	return (float)this->height;
 }

@@ -3,39 +3,27 @@
 
 Transformation::Transformation()
 {
-	this->transorm = glm::mat4(1.0f);
+	this->transform = glm::mat4(1.0f);
 }
 
-Transformation::~Transformation()
-{
-}
-
-/*void Transformation::addTransformation(Transformation* t)
-{
-	this->transformations.push_back(t);
-}*/
+Transformation::~Transformation() = default;
 
 void Transformation::rotation(float angle, glm::vec3 vector)
 {
-	this->transorm = glm::rotate(this->transorm, angle, vector);
+	this->transform = glm::rotate(this->transform, angle, vector);
 }
 
 void Transformation::scale(glm::vec3 vector)
 {
-	this->transorm = glm::scale(this->transorm, vector);
+	this->transform = glm::scale(this->transform, vector);
 }
 
-void Transformation::shift(glm::vec3 vecotr)
+void Transformation::shift(glm::vec3 vector)
 {
-	this->transorm = glm::translate(this->transorm, vecotr);
+	this->transform = glm::translate(this->transform, vector);
 }
 
 const glm::mat4 &Transformation::getTransform() const
 {
-	return transorm;
+	return transform;
 }
-
-/*std::vector<Transformation*> Transformation::getTransformations()
-{
-	return this->transformations;
-}*/

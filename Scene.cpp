@@ -3,10 +3,10 @@
 Scene::Scene(int width, int height, const char* title)
 {
 	glfwSetErrorCallback(Callback::error_callback);
-	this->initGLFW();
+	Scene::initGLFW();
     Scene::initOpenGLVersion();
     this->window = new Window(width, height, title);
-	this->initGLEW();
+	Scene::initGLEW();
 	this->printVersionInfo();
 	this->window->windowSize();
 	this->initMouse();
@@ -27,7 +27,7 @@ void Scene::initGLEW()
 void Scene::initMouse()
 {
 	glfwSetInputMode(this->window->getWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-	//glfwSetCursorPosCallback(this->window->getWindow(), Callback::mouseCallbak);
+	//glfwSetCursorPosCallback(this->window->getWindow(), Callback::mouseCallback);
 }
 
 void Scene::initGLFW()
@@ -70,11 +70,11 @@ void Scene::drawOntoWindow()
 	this->window->displayAll();
 }
 
-RenderedObject* Scene::createRenderedObject(int countVBOobject, float* points, int sizeOfPoints, int countVAOobject, pair<int, int> indexArray, int vertexCount,
-	GLsizei vertexOffset, pair<GLvoid*, GLvoid*> pointer, const char* vertexDefinition, const char* fragmentDefinition, GLenum objectType, int countOfVertex)
+RenderedObject* Scene::createRenderedObject(int countVBO, float* points, int sizeOfPoints, int countVAO, pair<int, int> indexArray, int vertexCount,
+                                            GLsizei vertexOffset, pair<GLvoid*, GLvoid*> pointer, const char* vertexDefinition, const char* fragmentDefinition, GLenum objectType, int countOfVertex)
 {
 	auto* renderedObject = new RenderedObject(objectType, countOfVertex);
-	renderedObject->createModel(countVBOobject, points, sizeOfPoints, countVAOobject, indexArray, vertexCount, vertexOffset, pointer);
+	renderedObject->createModel(countVBO, points, sizeOfPoints, countVAO, indexArray, vertexCount, vertexOffset, pointer);
 	renderedObject->createShader(GL_VERTEX_SHADER, vertexDefinition);
 	renderedObject->createShader(GL_FRAGMENT_SHADER, fragmentDefinition);
 	return renderedObject;
@@ -85,26 +85,10 @@ void Scene::addRenderedObject(RenderedObject* obj)
 	this->renderedObjects.push_back(obj);
 }
 
-/// <summary>
-/// Vytvo�� vykreslovan� objekt, p�id� do pole v�ech objekt�
-/// </summary>
-/// <param name="countVBOobject"></param>
-/// <param name="points">: Pozice vrchol�</param>
-/// <param name="sizeOfPoints"></param>
-/// <param name="countVAOobject"></param>
-/// <param name="indexArray"></param>
-/// <param name="vertexCount"></param>
-/// <param name="vertexOffset"></param>
-/// <param name="pointer"></param>
-/// <param name="vertexDefinition"></param>
-/// <param name="fragmentDefinition"></param>
-/// <param name="objectType"></param>
-/// <param name="countOfVertex"></param>
-/// <returns>��slo objektu v poli</returns>
-int Scene::createAndAdd(int countVBOobject, float* points, int sizeOfPoints, int countVAOobject, pair<int, int> indexArray, int vertexCount, GLsizei vertexOffset, pair<GLvoid*, GLvoid*> pointer, const char* vertexDefinition, const char* fragmentDefinition, GLenum objectType, int countOfVertex)
+u_long Scene::createAndAdd(int countVBO, float* points, int sizeOfPoints, int countVAO, pair<int, int> indexArray, int vertexCount, GLsizei vertexOffset, pair<GLvoid*, GLvoid*> pointer, const char* vertexDefinition, const char* fragmentDefinition, GLenum objectType, int countOfVertex)
 {
-	RenderedObject* r = this->createRenderedObject(countVBOobject, points, sizeOfPoints, countVAOobject, indexArray, vertexCount,
-		vertexOffset, pointer, vertexDefinition, fragmentDefinition, objectType, countOfVertex);
+	RenderedObject* r = this->createRenderedObject(countVBO, points, sizeOfPoints, countVAO, indexArray, vertexCount,
+                                                   vertexOffset, pointer, vertexDefinition, fragmentDefinition, objectType, countOfVertex);
 	this->addRenderedObject(r);
 	return this->renderedObjects.size();
 }
@@ -128,8 +112,8 @@ void Scene::run()
 
 	for (auto object : this->renderedObjects)
 	{
-		object->initAndCheckShaders(); ///inicializace shader� (vertex a fragment pro jeden obj)
-		this->camera->addSubscriber(object->getShaderProgram()); ///p�id�n� do listu pozorovatel�
+		object->initAndCheckShaders(); //shader init
+		this->camera->addSubscriber(object->getShaderProgram()); //add to observer list
 	}
 
 	float deltaTime = 0.0f;	// time between current frame and last frame
@@ -145,7 +129,7 @@ void Scene::run()
 
 		this->window->windowSize();
 
-		if (Callback::mouseCallbak(this->window->getWindow()))
+		if (Callback::mouseCallback(this->window->getWindow()))
 		{
 			std::pair<double, double> pos = Callback::cursor_callback(this->window->getWindow());
 			this->camera->mouseMove(pos.first, pos.second);
@@ -154,7 +138,7 @@ void Scene::run()
 		this->camera->move(this->window->getWindow(), deltaTime);
 
 		auto runShaders = [](RenderedObject* o) {o->runShader(); };
-		std::for_each(this->renderedObjects.begin(), this->renderedObjects.end(), runShaders); ///spu�t�n� shaderu pro v�echny obj
+		std::for_each(this->renderedObjects.begin(), this->renderedObjects.end(), runShaders); //run all shaders
 
 		this->camera->notifyAllObservers();
 

@@ -12,11 +12,9 @@ private:
 	vector<GLuint> vertexArray;
 	vector<GLuint> fragmentArray;;
 
-
 public:
 	ShaderManager();
 	~ShaderManager();
 	void initShaders(GLuint shaderProgram);
 	void createShader(GLenum shaderType, const char* shaderDefinition);
 };
-
