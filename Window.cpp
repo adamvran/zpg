@@ -31,7 +31,7 @@ void Window::windowSize()
 	//int width, height;
 	glfwGetFramebufferSize(this->window, &width, &height);
 	//float ratio = width / (float)height;
-	//glViewport(0, 0, width, height);
+	glViewport(0, 0, this->width, this->height);
 }
 
 int Window::isWindowClosed()

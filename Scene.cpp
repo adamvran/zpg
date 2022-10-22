@@ -128,6 +128,7 @@ void Scene::run()
 		lastFrame = currentFrame;
 
 		this->window->windowSize();
+        this->camera->updateProjectionMatrix(this->window->getRatio());
 
 		if (Callback::mouseCallback(this->window->getWindow()))
 		{
