@@ -26,7 +26,7 @@ void Scene::initGLEW()
 
 void Scene::initMouse()
 {
-	glfwSetInputMode(this->window->getWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	glfwSetInputMode(this->window->getWindow(), GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 	//glfwSetCursorPosCallback(this->window->getWindow(), Callback::mouseCallback);
 }
 
