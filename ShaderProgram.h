@@ -19,7 +19,7 @@ public:
 	void run() const;
 	void createShader(GLenum shaderType, const char* shaderDefinition);
 	void setMatrixModel(glm::mat4 mat) const;
-	void notify(glm::mat4 viewMatrix, glm::mat4 projectionMatrix) const;
+	void notify(glm::mat4 viewMatrix, glm::mat4 projectionMatrix) const; //tady neposílat matice, ale cosik jiného
 	void setMatrixView(glm::mat4 mat) const;
 	void setMatrixProjection(glm::mat4 mat) const;
 };

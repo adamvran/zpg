@@ -63,3 +63,15 @@ void ShaderProgram::run() const
 {
     glUseProgram(this->shaderProgram);
 }
+
+/*
+void ShaderProgram::update(int message){
+    setShader();
+    id(message == VIEWMATRIX){
+        sendUniform("view", this->camera->getViewMatrix);
+    }
+    id(message == PROJECTIONMATRIX){
+        sendUniform("view", this->camera->getViewMatrix);
+    }
+}
+*/

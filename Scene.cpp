@@ -70,6 +70,12 @@ void Scene::drawOntoWindow()
 	this->window->displayAll();
 }
 
+void Scene::createCamera(glm::vec3 eye, glm::vec3 dir)
+{
+    this->camera = new Camera(eye, dir, this->window->getRatio());
+    this->camera->firstSetMouse(this->window->getWidth(), this->window->getHeight());
+}
+
 RenderedObject* Scene::createRenderedObject(int countVBO, float* points, int sizeOfPoints, int countVAO, pair<int, int> indexArray, int vertexCount,
                                             GLsizei vertexOffset, pair<GLvoid*, GLvoid*> pointer, const char* vertexDefinition, const char* fragmentDefinition, GLenum objectType, int countOfVertex)
 {
@@ -94,13 +100,13 @@ u_long Scene::createAndAdd(int countVBO, float* points, int sizeOfPoints, int co
 }
 
 
-void Scene::transform(int objectInArray, float angle, glm::vec3 vector)
+void Scene::transform(int objectInArray, float angle, glm::vec3 vector) //rotation
 {
 	RenderedObject* obj = this->renderedObjects[objectInArray - 1];
 	obj->transformMatrix(angle, vector);
 }
 
-void Scene::transform(int objectInArray, TransformationType type, glm::vec3 vector)
+void Scene::transform(int objectInArray, TransformationType type, glm::vec3 vector) //shift, scale
 {
 	RenderedObject* obj = this->renderedObjects[objectInArray - 1];
 	obj->transformMatrix(type, vector);
@@ -138,7 +144,7 @@ void Scene::run()
 		
 		this->camera->move(this->window->getWindow(), deltaTime);
 
-		auto runShaders = [](RenderedObject* o) {o->runShader(); };
+		auto runShaders = [](RenderedObject* o) {o->runShader(); }; //???
 		std::for_each(this->renderedObjects.begin(), this->renderedObjects.end(), runShaders); //run all shaders
 
 		this->camera->notifyAllObservers();
@@ -150,13 +156,6 @@ void Scene::run()
 		}
 
 		glfwPollEvents();// update other events like input handling
-		this->drawOntoWindow(); // put the stuff we�ve been drawing onto the display
+		this->drawOntoWindow(); // put the stuff we have been drawing onto the display
 	}
 }
-
-void Scene::createCamera(glm::vec3 eye, glm::vec3 dir)
-{
-	this->camera = new Camera(eye, dir, this->window->getRatio());
-	this->camera->firstSetMouse(this->window->getWidth(), this->window->getHeight());
-}
-

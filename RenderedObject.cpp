@@ -47,12 +47,12 @@ void RenderedObject::runShader()
 	this->shaderProgram->run();
 }
 
-void RenderedObject::transformMatrix(float angle, glm::vec3 vector)
+void RenderedObject::transformMatrix(float angle, glm::vec3 vector) //rotation
 {
 	this->transformation->rotation(angle, vector);
 }
 
-void RenderedObject::transformMatrix(TransformationType type, glm::vec3 vector)
+void RenderedObject::transformMatrix(TransformationType type, glm::vec3 vector) //scale and shift
 {
 	switch (type)
 	{

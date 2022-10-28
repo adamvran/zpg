@@ -10,7 +10,7 @@ class ShaderManager
 {
 private:
 	vector<GLuint> vertexArray;
-	vector<GLuint> fragmentArray;;
+	vector<GLuint> fragmentArray;
 
 public:
 	ShaderManager();

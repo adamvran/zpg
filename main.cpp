@@ -17,10 +17,13 @@
 #include "TransformationType.h"
 
 //include models
-#include "sphere.h"
-#include "suzi_flat.h"
-#include "suzi_smooth.h"
-#include "plain.h"
+#include "Models/sphere.h"
+#include "Models/suzi_flat.h"
+#include "Models/suzi_smooth.h"
+#include "Models/plain.h"
+//#include "Models/bushes.h"
+#include "Models/gift.h"
+#include "Models/tree.h"
 
 using namespace std;
 
@@ -123,7 +126,7 @@ int main()
 	//posun: sh , glm::vec3(0.0f, -0.5f, 0.0f)
 	//zvetseni: sc, glm::vec3(0.3f)
 
-	auto* application = new Application(800, 600, "ZPG");
+	auto* application = new Application(1300, 900, "ZPG");
     __attribute__((unused)) TransformationType sh = TransformationType::Shift;
     __attribute__((unused)) TransformationType sc = TransformationType::Scale;
 	glm::vec3 cameraEye = glm::vec3(0.0f, 0.0f, 4.0f);
@@ -132,34 +135,36 @@ int main()
 
 	application->createCamera(cameraEye, cameraDir);
 
-	int sphere1 = application->createNewObject(1, const_cast<float *>(sphere), sizeof(sphere), 1, make_pair(0, 1), 3,
-                                 6 * sizeof(float), make_pair((void*) nullptr,(void*)(3 * sizeof(float))),
-                                 vertex_shaderLambert, fragment_shaderPhong, GL_TRIANGLES, 2880);
+    ///vytváření objektů
 
-    application->transformObject(sphere1, sc, glm::vec3(0.3));
-    application->transformObject(sphere1, sh, glm::vec3(-3.f, 0.0f, 0.0f));
+	int gift_o = application->createNewObject(1, const_cast<float *>(gift), sizeof(gift), 1, make_pair(0, 1), 3,
+                                 6 * sizeof(float), make_pair((void*) nullptr,(void*)(3 * sizeof(float))),
+                                 vertex_shaderLambert, fragment_shaderLambert, GL_TRIANGLES, 66624);
+
+    application->transformObject(gift_o, sc, glm::vec3(0.3));
+    application->transformObject(gift_o, sh, glm::vec3(-3.f, 0.0f, 0.0f));
 
     int sphere2 = application->createNewObject(1, const_cast<float *>(sphere), sizeof(sphere), 1, make_pair(0, 1), 3,
                                  6 * sizeof(float), make_pair((void*) nullptr,(void*)(3 * sizeof(float))),
-                                 vertex_shaderLambert, fragment_shaderPhong, GL_TRIANGLES, 2880);
+                                 vertex_shaderLambert, fragment_shaderLambert, GL_TRIANGLES, 2880);
 
     application->transformObject(sphere2, sc, glm::vec3(0.3));
     application->transformObject(sphere2, sh, glm::vec3(3.f, 0.0f, 0.0f));
 
 
-	int sphere3 = application->createNewObject(1, const_cast<float *>(sphere), sizeof(sphere), 1, make_pair(0, 1), 3,
+	int sphere3 = application->createNewObject(1, const_cast<float *>(tree), sizeof(tree), 1, make_pair(0, 1), 3,
                                  6 * sizeof(float), make_pair((void*) nullptr,(void*)(3 * sizeof(float))),
-                                 vertex_shaderLambert, fragment_shaderPhong, GL_TRIANGLES, 2880);
+                                 vertex_shaderLambert, fragment_shaderLambert, GL_TRIANGLES, 92814);
 
     application->transformObject(sphere3, sc, glm::vec3(0.3));
-    application->transformObject(sphere3, sh, glm::vec3(0.f, -3.0f, 0.0f));
+    application->transformObject(sphere3, sh, glm::vec3(0.f, 3.0f, 0.0f));
 
     int sphere4 = application->createNewObject(1, const_cast<float *>(sphere), sizeof(sphere), 1, make_pair(0, 1), 3,
                                  6 * sizeof(float), make_pair((void*) nullptr,(void*)(3 * sizeof(float))),
                                  vertex_shaderLambert, fragment_shaderPhong, GL_TRIANGLES, 2880);
 
     application->transformObject(sphere4, sc, glm::vec3(0.3));
-    application->transformObject(sphere4, sh, glm::vec3(0.f, 3.0f, 0.0f));
+    application->transformObject(sphere4, sh, glm::vec3(0.f, -3.0f, 0.0f));
 
 
     application->run();
