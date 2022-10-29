@@ -41,10 +41,16 @@ void ShaderProgram::setMatrixModel(glm::mat4 mat) const
     glUniformMatrix4fv(idModelTransform, 1, GL_FALSE, &mat[0][0]);
 }
 
-void ShaderProgram::notify(glm::mat4 viewMatrix, glm::mat4 projectionMatrix) const
+void ShaderProgram::notify(MatrixType matrixType, glm::mat4 matrix)
 {
-    this->setMatrixView(viewMatrix);
-    this->setMatrixProjection(projectionMatrix);
+    switch (matrixType) {
+        case MatrixType::PROJECTIONMATRIX:
+            this->setMatrixProjection(matrix);
+            break;
+        case MatrixType::VIEWMATRIX:
+            this->setMatrixView(matrix);
+            break;
+    }
 }
 
 void ShaderProgram::setMatrixView(glm::mat4 mat) const
@@ -63,6 +69,7 @@ void ShaderProgram::run() const
 {
     glUseProgram(this->shaderProgram);
 }
+
 
 /*
 void ShaderProgram::update(int message){

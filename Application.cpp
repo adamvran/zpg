@@ -29,6 +29,12 @@ int Application::createNewObject(int countVBO, float* points, int sizeOfPoints, 
                                      pointer, vertexDefinition, fragmentDefinition, objectType, countOfVertex);
 }
 
+int Application::createNewObject(float* points, int sizeOfPoints, const char* vertexDefinition, const char* fragmentDefinition, GLenum objectType, int countOfVertex)
+{
+    return this->scene->createAndAdd(1, points, sizeOfPoints, 1, make_pair(0, 1), 3, 6 * sizeof(float),
+                                     make_pair((void*) nullptr, (void*)(3 * sizeof(float))), vertexDefinition, fragmentDefinition, objectType, countOfVertex);
+}
+
 void Application::transformObject(int objectInArray, float angle, glm::vec3 vector)
 {
 	this->scene->transform(objectInArray, angle, vector);

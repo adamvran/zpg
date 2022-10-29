@@ -16,12 +16,15 @@ public:
                         int vertexCount, GLsizei vertexOffset, pair<GLvoid*, GLvoid*> pointer,
                         const char* vertexDefinition, const char* fragmentDefinition, GLenum objectType,
                         int countOfVertex);
+    int createNewObject(float *points, int sizeOfPoints, const char *vertexDefinition, const char *fragmentDefinition,
+                        GLenum objectType, int countOfVertex);
 
 	void transformObject(int objectInArray, float angle, glm::vec3 vector);
 	void transformObject(int objectInArray, TransformationType type, glm::vec3 vector);
 
 	//Camera
 	void createCamera(glm::vec3 eye, glm::vec3 dir);
-};
+
+    };
 
 

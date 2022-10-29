@@ -6,7 +6,7 @@ class Subject {
 protected:
     std::vector<Observer*> observers;
 public:
-    void attach(Observer* observer);
-    void detach(Observer* observer);
-    virtual void notify() = 0; //pure virtual method
+    void add(Observer* observer);
+    void remove(Observer* observer);
+    virtual void notifyAll() = 0; //pure virtual method
 };

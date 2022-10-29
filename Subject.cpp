@@ -1,9 +1,9 @@
 #include "Subject.h"
 
-void Subject::attach(Observer *observer) {
-
+void Subject::add(Observer *observer) {
+    observers.push_back(observer);
 }
 
-void Subject::detach(Observer *observer) {
-
+void Subject::remove(Observer *observer) {
+    std::remove(observers.begin(), observers.end(), observer);
 }

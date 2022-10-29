@@ -21,11 +21,12 @@ Camera::Camera(glm::vec3 eye, glm::vec3 direction, float ratio)
 
 Camera::~Camera() = default;
 
-void Camera::notifyAllObservers()
+void Camera::notifyAll()
 {
-    for (ShaderProgram* obj : this->subscribers)
+    for (auto obj : this->observers)
     {
-        obj->notify(this->viewMatrix, this->projectionMatrix);
+        obj->notify(MatrixType::VIEWMATRIX, this->viewMatrix);
+        obj->notify(MatrixType::PROJECTIONMATRIX, this->projectionMatrix);
     }
 }
 
@@ -60,7 +61,14 @@ glm::mat4 Camera::getProjectionMatrix()
 
 void Camera::addSubscriber(ShaderProgram* shaderProgram)
 {
-    this->subscribers.push_back(shaderProgram);
+    //this->subscribers.push_back(shaderProgram);
+    this->add(shaderProgram);
+}
+
+void Camera::removeSubscriber(ShaderProgram* shaderProgram)
+{
+    //this->subscribers.push_back(shaderProgram);
+    this->remove(shaderProgram);
 }
 
 void Camera::updateViewMatrix(glm::vec3 eye, glm::vec3 distance)
@@ -92,22 +100,27 @@ void Camera::firstSetMouse(float width, float height)
     this->lastY = height / 2;
 }
 
-void Camera::mouseMove(double xPosIn, double yPosIn)
+void Camera::mouseMove(double xposIn, double yposIn, bool isMousePressed)
 {
-    auto xPos = static_cast<float>(xPosIn);
-    auto yPos = static_cast<float>(yPosIn);
+    if (!isMousePressed)
+    {
+        this->firstMouse = true;
+    }
+
+    auto xpos = static_cast<float>(xposIn);
+    auto ypos = static_cast<float>(yposIn);
 
     if (this->firstMouse)
     {
-        this->lastX = xPos;
-        this->lastY = yPos;
+        this->lastX = xpos;
+        this->lastY = ypos;
         this->firstMouse = false;
     }
 
-    float xOffset = xPos - this->lastX;
-    float yOffset = this->lastY - yPos;
-    this->lastX = xPos;
-    this->lastY = yPos;
+    float xOffset = xpos - this->lastX;
+    float yOffset = this->lastY - ypos;
+    this->lastX = xpos;
+    this->lastY = ypos;
 
     xOffset *= this->sensitivity;
     yOffset *= this->sensitivity;
@@ -128,4 +141,5 @@ void Camera::mouseMove(double xPosIn, double yPosIn)
 
     this->updateDirection(glm::normalize(dir));
     this->updateViewMatrix();
+
 }

@@ -136,18 +136,17 @@ void Scene::run()
 		this->window->windowSize();
         this->camera->updateProjectionMatrix(this->window->getRatio());
 
-		if (Callback::mouseCallback(this->window->getWindow()))
-		{
-			std::pair<double, double> pos = Callback::cursor_callback(this->window->getWindow());
-			this->camera->mouseMove(pos.first, pos.second);
-		}
+        bool isMousePressed = Callback::mouseCallback(this->window->getWindow());
+        std::pair<double, double> pos = Callback::cursor_callback(this->window->getWindow());
+        this->camera->mouseMove(pos.first, pos.second, isMousePressed);
+
 		
 		this->camera->move(this->window->getWindow(), deltaTime);
 
 		auto runShaders = [](RenderedObject* o) {o->runShader(); }; //???
 		std::for_each(this->renderedObjects.begin(), this->renderedObjects.end(), runShaders); //run all shaders
 
-		this->camera->notifyAllObservers();
+        this->camera->notifyAll();
 
 		for (auto object : this->renderedObjects) 
 		{

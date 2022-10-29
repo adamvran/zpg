@@ -8,6 +8,7 @@
 #include "lib/glm/glm/gtc/matrix_transform.hpp"
 #include "lib/glm/glm/gtc/type_ptr.hpp"
 #include "Callback.h"
+#include "Subject.h"
 #include <iostream>
 
 
@@ -22,7 +23,7 @@ class ShaderProgram;
 #define PITCH 0.0f
 #define SENSITIVITY 0.1f
 
-class Camera
+class Camera : public Subject
 {
 private:
 	std::vector<ShaderProgram*> subscribers;
@@ -45,16 +46,17 @@ private:
 public:
 	Camera(glm::vec3 eye, glm::vec3 direction, float ratio);
 	~Camera();
-	void notifyAllObservers();
+	void notifyAll();
 	void move(GLFWwindow* window, double delta);
 	glm::mat4 getViewMatrix();
 	glm::mat4 getProjectionMatrix();
 	void addSubscriber(ShaderProgram* shaderProgram);
-	void updateViewMatrix(glm::vec3 eye, glm::vec3 distance);
+    void removeSubscriber(ShaderProgram *shaderProgram);
+    void updateViewMatrix(glm::vec3 eye, glm::vec3 distance);
 	void updateProjectionMatrix(float ratio);
 	void updateViewMatrix();
 	void updateDirection(glm::vec3 dir);
-	void mouseMove(double xPosIn, double yPosIn);
+	void mouseMove(double xPosIn, double yPosIn, bool isMousePressed);
 	void firstSetMouse(float width, float height);
-};
 
+};
