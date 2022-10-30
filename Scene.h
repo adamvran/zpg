@@ -7,6 +7,9 @@
 #include "Camera.h"
 #include <algorithm>
 #include <iostream>
+#include "Light.h"
+#include "Colors.h"
+#include "Models.h"
 
 class Scene
 {
@@ -14,6 +17,8 @@ private:
 	Window* window;
 	vector<RenderedObject*> renderedObjects;
 	Camera* camera{};
+    Light* light;
+    vector<Light*> lights;
 
 public:
 	Scene(int width, int height, const char* title);
@@ -27,11 +32,7 @@ public:
 	int isWindowClosed();
 	void drawOntoWindow();
 
-	RenderedObject* createRenderedObject(int countVBO, float* points, int sizeOfPoints, int countVAO, pair<int, int> indexArray, int vertexCount,
-                                         GLsizei vertexOffset, pair<GLvoid*, GLvoid*> pointer, const char* vertexDefinition, const char* fragmentDefinition, GLenum objectType, int countOfVertex);
 	void addRenderedObject(RenderedObject* obj);
-	u_long createAndAdd(int countVBO, float* points, int sizeOfPoints, int countVAO, pair<int, int> indexArray, int vertexCount,
-                        GLsizei vertexOffset, pair<GLvoid*, GLvoid*> pointer, const char* vertexDefinition, const char* fragmentDefinition, GLenum objectType, int countOfVertex);
 
 	void transform(int objectInArray, float angle, glm::vec3 vector);
 	void transform(int objectInArray, TransformationType type, glm::vec3 vector);
@@ -39,5 +40,12 @@ public:
 	void run();
 
 	void createCamera(glm::vec3 eye, glm::vec3 dir);
+    void createLights();
+
+    RenderedObject* createRenderedObject(Models* model, const char* vertexDefinition, const char* fragmentDefinition);
+    u_long createAndAdd(Models* model, const char* vertexDefinition, const char* fragmentDefinition);
+
+    glm::vec4 pickColor();
+    glm::vec4 pickColor(int index);
 };
 

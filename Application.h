@@ -1,5 +1,6 @@
 #pragma once
 #include "Scene.h"
+#include "Models.h"
 
 class Application
 {
@@ -12,19 +13,13 @@ public:
 	void createScene(int width, int height, const char* title);
 	void run();
 
-	int createNewObject(int countVBO, float* points, int sizeOfPoints, int countVAO, pair<int, int> indexArray,
-                        int vertexCount, GLsizei vertexOffset, pair<GLvoid*, GLvoid*> pointer,
-                        const char* vertexDefinition, const char* fragmentDefinition, GLenum objectType,
-                        int countOfVertex);
-    int createNewObject(float *points, int sizeOfPoints, const char *vertexDefinition, const char *fragmentDefinition,
-                        GLenum objectType, int countOfVertex);
-
 	void transformObject(int objectInArray, float angle, glm::vec3 vector);
 	void transformObject(int objectInArray, TransformationType type, glm::vec3 vector);
 
 	//Camera
 	void createCamera(glm::vec3 eye, glm::vec3 dir);
 
-    };
+    int createNewObject(Models *model, const char *vertexDefinition, const char *fragmentDefinition);
+};
 
 

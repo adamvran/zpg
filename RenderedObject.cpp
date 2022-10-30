@@ -1,35 +1,12 @@
 #include "RenderedObject.h"
 
-RenderedObject::RenderedObject(GLenum objectType, int countVertex)
+RenderedObject::RenderedObject()
 {
-	this->shaderProgram = new ShaderProgram();
-	this->transformation = new Transformation();
-	this->objectType = objectType;
-	this->countVertex = countVertex;
+    this->shaderProgram = new ShaderProgram();
+    this->transformation = new Transformation();
 }
 
 RenderedObject::~RenderedObject() = default;
-
-void RenderedObject::createModel(int countVBO, float* points, int sizeOfPoints, int countVAO,
-                                 pair<int, int> indexArray, int vertexCount, GLsizei vertexOffset,
-                                 pair<GLvoid*, GLvoid*> pointer)
-{
-	this->model = new Model(sizeOfPoints, points);
-	this->model->createVBO(countVBO);
-	this->model->createVAO(countVAO);
-	this->initPositionAndColor(indexArray.first, vertexCount, vertexOffset, pointer.first);
-	this->initPositionAndColor(indexArray.second, vertexCount, vertexOffset, pointer.second);
-}
-
-void RenderedObject::drawObject()
-{
-	this->model->drawObject(this->objectType, 0, this->countVertex);
-}
-
-void RenderedObject::initPositionAndColor(int indexArray, int vertexCount, GLsizei vertexOffset, const GLvoid* pointer)
-{
-	this->model->initPositionAndColor(indexArray, vertexCount, vertexOffset, pointer);
-}
 
 void RenderedObject::createShader(GLenum shaderType, const char* shaderDefinition)
 {
@@ -86,3 +63,15 @@ ShaderProgram* RenderedObject::getShaderProgram()
 	return this->shaderProgram;
 }
 
+void RenderedObject::createModel(Models* newModel)
+{
+    this->shape = newModel;
+    this->shape->createVBO();
+    this->shape->createVAO();
+    this->shape->initPositionAndColor();
+}
+
+void RenderedObject::drawObjectNEW()
+{
+    this->shape->drawObject();
+}

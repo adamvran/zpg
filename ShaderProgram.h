@@ -23,5 +23,8 @@ public:
 	void notify(MatrixType matrixType, glm::mat4 matrix) override;
 	void setMatrixView(glm::mat4 mat) const;
 	void setMatrixProjection(glm::mat4 mat) const;
+    void setStrength(float strength) const;
+    void setColor(glm::vec4 color) const;
+    void setShiness(int shiness) const;
 };
 

@@ -25,7 +25,15 @@ void Light::updateShiness(int shiness) {
     this->shiness = shiness;
 }
 
-void Light::update() {
+void Light::update(ShaderProgram* sh) {
+    sh->setColor(this->color);
+    sh->setShiness(this->shiness);
+    sh->setStrength(this->strength);
+}
 
+Light::Light(glm::vec4 color) {
+    this->strength = 1;
+    this->color = color;
+    this->shiness = 16;
 }
 

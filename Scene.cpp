@@ -10,6 +10,7 @@ Scene::Scene(int width, int height, const char* title)
 	this->printVersionInfo();
 	this->window->windowSize();
 	this->initMouse();
+    this->light = new Light();
 }
 
 Scene::~Scene()
@@ -76,27 +77,9 @@ void Scene::createCamera(glm::vec3 eye, glm::vec3 dir)
     this->camera->firstSetMouse(this->window->getWidth(), this->window->getHeight());
 }
 
-RenderedObject* Scene::createRenderedObject(int countVBO, float* points, int sizeOfPoints, int countVAO, pair<int, int> indexArray, int vertexCount,
-                                            GLsizei vertexOffset, pair<GLvoid*, GLvoid*> pointer, const char* vertexDefinition, const char* fragmentDefinition, GLenum objectType, int countOfVertex)
-{
-	auto* renderedObject = new RenderedObject(objectType, countOfVertex);
-	renderedObject->createModel(countVBO, points, sizeOfPoints, countVAO, indexArray, vertexCount, vertexOffset, pointer);
-	renderedObject->createShader(GL_VERTEX_SHADER, vertexDefinition);
-	renderedObject->createShader(GL_FRAGMENT_SHADER, fragmentDefinition);
-	return renderedObject;
-}
-
 void Scene::addRenderedObject(RenderedObject* obj)
 {
 	this->renderedObjects.push_back(obj);
-}
-
-u_long Scene::createAndAdd(int countVBO, float* points, int sizeOfPoints, int countVAO, pair<int, int> indexArray, int vertexCount, GLsizei vertexOffset, pair<GLvoid*, GLvoid*> pointer, const char* vertexDefinition, const char* fragmentDefinition, GLenum objectType, int countOfVertex)
-{
-	RenderedObject* r = this->createRenderedObject(countVBO, points, sizeOfPoints, countVAO, indexArray, vertexCount,
-                                                   vertexOffset, pointer, vertexDefinition, fragmentDefinition, objectType, countOfVertex);
-	this->addRenderedObject(r);
-	return this->renderedObjects.size();
 }
 
 
@@ -125,7 +108,9 @@ void Scene::run()
 	float deltaTime = 0.0f;	// time between current frame and last frame
 	float lastFrame = 0.0f;
 
-	while (!this->isWindowClosed())
+    this->createLights();
+    this->light->updateColor(this->pickColor());
+    while (!this->isWindowClosed())
 	{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear color and depth buffer
 
@@ -142,19 +127,66 @@ void Scene::run()
 
 		
 		this->camera->move(this->window->getWindow(), deltaTime);
-
-		auto runShaders = [](RenderedObject* o) {o->runShader(); }; //???
-		std::for_each(this->renderedObjects.begin(), this->renderedObjects.end(), runShaders); //run all shaders
-
         this->camera->notifyAll();
 
-		for (auto object : this->renderedObjects) 
-		{
-			object->sendModelMatrixShader();
-			object->drawObject();
-		}
+        for (int i = 0; i < this->renderedObjects.size(); i++)
+        {
+            this->renderedObjects[i]->sendModelMatrixShader();
+            this->renderedObjects[i]->drawObjectNEW();
+            this->lights[i]->update(this->renderedObjects[i]->getShaderProgram());
+        }
 
-		glfwPollEvents();// update other events like input handling
+        glfwPollEvents();// update other events like input handling
 		this->drawOntoWindow(); // put the stuff we have been drawing onto the display
 	}
+}
+
+void Scene::createLights()
+{
+    auto* c = new Colors();
+    std::vector<std::pair<std::string, glm::vec4>> colors = c->getAllColors();
+    int j = 0;
+    for (int i = 0; i < this->renderedObjects.size(); i++)
+    {
+        if (j >= colors.size())
+            j = 0;
+
+        this->lights.push_back(new Light(colors[j].second));
+        j++;
+    }
+}
+
+RenderedObject* Scene::createRenderedObject(Models* model, const char* vertexDefinition, const char* fragmentDefinition)
+{
+    auto* renderedObject = new RenderedObject();
+    renderedObject->createModel(model);
+    renderedObject->createShader(GL_VERTEX_SHADER, vertexDefinition);
+    renderedObject->createShader(GL_FRAGMENT_SHADER, fragmentDefinition);
+    return renderedObject;
+}
+
+u_long Scene::createAndAdd(Models* model, const char* vertexDefinition, const char* fragmentDefinition)
+{
+    RenderedObject* r = this->createRenderedObject(model, vertexDefinition, fragmentDefinition);
+    this->addRenderedObject(r);
+    return this->renderedObjects.size();
+}
+
+glm::vec4 Scene::pickColor()
+{
+    srand(time(NULL));
+    auto* c = new Colors();
+    std::vector<std::pair<std::string, glm::vec4>> colors = c->getAllColors();
+    int index = rand() % colors.size();
+    return colors[index].second;
+}
+
+glm::vec4 Scene::pickColor(int index)
+{
+    auto* c = new Colors();
+    std::vector<std::pair<std::string, glm::vec4>> colors = c->getAllColors();
+    if (index >= colors.size())
+        index = 0;
+
+    return colors[index].second;
 }

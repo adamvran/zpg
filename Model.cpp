@@ -20,9 +20,6 @@ void Model::createVAO(int countObject)
 {
 	glGenVertexArrays(countObject, &this->VAO);
 	glBindVertexArray(this->VAO);
-	/*glEnableVertexAttribArray(enableVertexAttribArray);
-	glBindBuffer(GL_ARRAY_BUFFER, this->VBO);
-	glVertexAttribPointer(indexArray, vertexCount, GL_FLOAT, GL_FALSE, vertexOffset, NULL);*/
 	glBindBuffer(GL_ARRAY_BUFFER, this->VBO);
 }
 
@@ -36,4 +33,5 @@ void Model::drawObject(GLenum mode, GLint first, GLsizei count) const
 {
 	glBindVertexArray(this->VAO);
 	glDrawArrays(mode, first, count);
+    glBindVertexArray(0);
 }

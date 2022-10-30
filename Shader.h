@@ -3,6 +3,7 @@
 #include "ShaderManager.h"
 #include <vector>
 #include <cstdio>
+#include <cstring>
 
 
 class Shader
@@ -15,7 +16,7 @@ private:
 public:
 	Shader(GLenum shaderType, const char* shaderDefinition);
 	void createShader();
-	std::vector<GLuint> addShader(std::vector<GLuint> shaders) const; //????
+	std::vector<GLuint> addShader(std::vector<GLuint> shaders) const;
 	GLenum getShaderType() const;
 };
 

@@ -1,4 +1,5 @@
 #include "Application.h"
+#include "Models.h"
 
 Application::Application(int width, int height, const char* title)
 {
@@ -20,19 +21,9 @@ void Application::run()
 	this->scene->run();
 }
 
-int Application::createNewObject(int countVBO, float* points, int sizeOfPoints, int countVAO, pair<int, int> indexArray,
-                                 int vertexCount, GLsizei vertexOffset, pair<GLvoid*, GLvoid*> pointer,
-                                 const char* vertexDefinition, const char* fragmentDefinition, GLenum objectType,
-                                 int countOfVertex)
+int Application::createNewObject(Models* model, const char* vertexDefinition, const char* fragmentDefinition)
 {
-	return this->scene->createAndAdd(countVBO, points, sizeOfPoints, countVAO, indexArray, vertexCount, vertexOffset,
-                                     pointer, vertexDefinition, fragmentDefinition, objectType, countOfVertex);
-}
-
-int Application::createNewObject(float* points, int sizeOfPoints, const char* vertexDefinition, const char* fragmentDefinition, GLenum objectType, int countOfVertex)
-{
-    return this->scene->createAndAdd(1, points, sizeOfPoints, 1, make_pair(0, 1), 3, 6 * sizeof(float),
-                                     make_pair((void*) nullptr, (void*)(3 * sizeof(float))), vertexDefinition, fragmentDefinition, objectType, countOfVertex);
+    return this->scene->createAndAdd(model, vertexDefinition, fragmentDefinition);
 }
 
 void Application::transformObject(int objectInArray, float angle, glm::vec3 vector)
