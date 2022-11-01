@@ -46,7 +46,7 @@ private:
 public:
 	Camera(glm::vec3 eye, glm::vec3 direction, float ratio);
 	~Camera();
-	void notifyAll();
+	void notifyAll() override;
 	void move(GLFWwindow* window, double delta);
 	glm::mat4 getViewMatrix();
 	glm::mat4 getProjectionMatrix();
