@@ -11,7 +11,7 @@ std::string Loader::load(const char* path)
     file_open.open(path);
     if (!file_open.is_open())
     {
-        std::cout << "Soubor nelze otevrit: " << path << std::endl;
+        std::cout << "File can not be opened: " << path << std::endl;
         exit(1);
     }
     std::string result;

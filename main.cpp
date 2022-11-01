@@ -60,7 +60,7 @@ int main()
 	glm::vec3 cameraDir = glm::vec3(0.0f, -1.0f, 0.0f); //uz working
 	application->createCamera(cameraEye, cameraDir);
     ///vytváření objektů
-//načtení vstupu
+
     cout << "\n\nPrvni ukol - 1\nDruhy ukol - 2\nTreti ukol - 3\nInput: ";
     int input;
     cin >> input;
