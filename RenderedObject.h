@@ -1,9 +1,9 @@
 #pragma once
-#include "ShaderProgram.h"
-#include "Transformation.h"
-#include "TransformationType.h"
-#include "Models.h"
-#include "AbstractTransform.h"
+#include "ShaderControll/ShaderProgram.h"
+#include "Transformations/Transformation.h"
+#include "Transformations/TransformationType.h"
+#include "Models/Models.h"
+#include "Transformations/AbstractTransform.h"
 
 
 class RenderedObject

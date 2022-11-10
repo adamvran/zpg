@@ -3,14 +3,14 @@
 #include "Window.h"
 #include <vector>
 #include "Callback.h"
-#include "TransformationType.h"
+#include "Transformations/TransformationType.h"
 #include "Camera.h"
 #include <algorithm>
 #include <iostream>
-#include "Light.h"
+#include "Lights/Light.h"
 #include "Colors.h"
-#include "Models.h"
-#include "LightType.h"
+#include "Models/Models.h"
+#include "Lights/LightType.h"
 #include "MatrixType.h"
 
 

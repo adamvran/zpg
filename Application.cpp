@@ -1,5 +1,5 @@
 #include "Application.h"
-#include "Models.h"
+#include "Models/Models.h"
 
 Application::Application(int width, int height, const char* title)
 {

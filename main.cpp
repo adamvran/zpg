@@ -1,17 +1,17 @@
 ﻿//Include the standard C++ headers
 #include <cstdlib>
 #include "Application.h"
-#include "Shader.h"
-#include "TransformationType.h"
+#include "ShaderControll/Shader.h"
+#include "Transformations/TransformationType.h"
 #include "Loader.h"
 //include models
-#include "TreeModel.h"
-#include "BushesModel.h"
-#include "GiftModel.h"
-#include "PlainModel.h"
-#include "SuziSmoothModel.h"
-#include "SuziFlatModel.h"
-#include "SphereModel.h"
+#include "Models/TreeModel.h"
+#include "Models/BushesModel.h"
+#include "Models/GiftModel.h"
+#include "Models/PlainModel.h"
+#include "Models/SuziSmoothModel.h"
+#include "Models/SuziFlatModel.h"
+#include "Models/SphereModel.h"
 
 
 
