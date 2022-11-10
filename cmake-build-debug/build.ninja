@@ -108,17 +108,17 @@ build CMakeFiles/cviceni1.dir/Scene.cpp.o: CXX_COMPILER__cviceni1_Debug /Users/a
   OBJECT_DIR = CMakeFiles/cviceni1.dir
   OBJECT_FILE_DIR = CMakeFiles/cviceni1.dir
 
-build CMakeFiles/cviceni1.dir/Shader.cpp.o: CXX_COMPILER__cviceni1_Debug /Users/adamvrana/CLionProjects/zpg/cviceni2$ 2/Shader.cpp || cmake_object_order_depends_target_cviceni1
-  DEP_FILE = CMakeFiles/cviceni1.dir/Shader.cpp.o.d
+build CMakeFiles/cviceni1.dir/ShaderControll/Shader.cpp.o: CXX_COMPILER__cviceni1_Debug /Users/adamvrana/CLionProjects/zpg/cviceni2$ 2/ShaderControll/Shader.cpp || cmake_object_order_depends_target_cviceni1
+  DEP_FILE = CMakeFiles/cviceni1.dir/ShaderControll/Shader.cpp.o.d
   FLAGS = -Wall -Werror -std=c++11 -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk
   OBJECT_DIR = CMakeFiles/cviceni1.dir
-  OBJECT_FILE_DIR = CMakeFiles/cviceni1.dir
+  OBJECT_FILE_DIR = CMakeFiles/cviceni1.dir/ShaderControll
 
-build CMakeFiles/cviceni1.dir/ShaderManager.cpp.o: CXX_COMPILER__cviceni1_Debug /Users/adamvrana/CLionProjects/zpg/cviceni2$ 2/ShaderManager.cpp || cmake_object_order_depends_target_cviceni1
-  DEP_FILE = CMakeFiles/cviceni1.dir/ShaderManager.cpp.o.d
+build CMakeFiles/cviceni1.dir/ShaderControll/ShaderManager.cpp.o: CXX_COMPILER__cviceni1_Debug /Users/adamvrana/CLionProjects/zpg/cviceni2$ 2/ShaderControll/ShaderManager.cpp || cmake_object_order_depends_target_cviceni1
+  DEP_FILE = CMakeFiles/cviceni1.dir/ShaderControll/ShaderManager.cpp.o.d
   FLAGS = -Wall -Werror -std=c++11 -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk
   OBJECT_DIR = CMakeFiles/cviceni1.dir
-  OBJECT_FILE_DIR = CMakeFiles/cviceni1.dir
+  OBJECT_FILE_DIR = CMakeFiles/cviceni1.dir/ShaderControll
 
 build CMakeFiles/cviceni1.dir/Subject.cpp.o: CXX_COMPILER__cviceni1_Debug /Users/adamvrana/CLionProjects/zpg/cviceni2$ 2/Subject.cpp || cmake_object_order_depends_target_cviceni1
   DEP_FILE = CMakeFiles/cviceni1.dir/Subject.cpp.o.d
@@ -126,17 +126,17 @@ build CMakeFiles/cviceni1.dir/Subject.cpp.o: CXX_COMPILER__cviceni1_Debug /Users
   OBJECT_DIR = CMakeFiles/cviceni1.dir
   OBJECT_FILE_DIR = CMakeFiles/cviceni1.dir
 
-build CMakeFiles/cviceni1.dir/ShaderProgram.cpp.o: CXX_COMPILER__cviceni1_Debug /Users/adamvrana/CLionProjects/zpg/cviceni2$ 2/ShaderProgram.cpp || cmake_object_order_depends_target_cviceni1
-  DEP_FILE = CMakeFiles/cviceni1.dir/ShaderProgram.cpp.o.d
+build CMakeFiles/cviceni1.dir/ShaderControll/ShaderProgram.cpp.o: CXX_COMPILER__cviceni1_Debug /Users/adamvrana/CLionProjects/zpg/cviceni2$ 2/ShaderControll/ShaderProgram.cpp || cmake_object_order_depends_target_cviceni1
+  DEP_FILE = CMakeFiles/cviceni1.dir/ShaderControll/ShaderProgram.cpp.o.d
   FLAGS = -Wall -Werror -std=c++11 -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk
   OBJECT_DIR = CMakeFiles/cviceni1.dir
-  OBJECT_FILE_DIR = CMakeFiles/cviceni1.dir
+  OBJECT_FILE_DIR = CMakeFiles/cviceni1.dir/ShaderControll
 
-build CMakeFiles/cviceni1.dir/Transformation.cpp.o: CXX_COMPILER__cviceni1_Debug /Users/adamvrana/CLionProjects/zpg/cviceni2$ 2/Transformation.cpp || cmake_object_order_depends_target_cviceni1
-  DEP_FILE = CMakeFiles/cviceni1.dir/Transformation.cpp.o.d
+build CMakeFiles/cviceni1.dir/Transformations/Transformation.cpp.o: CXX_COMPILER__cviceni1_Debug /Users/adamvrana/CLionProjects/zpg/cviceni2$ 2/Transformations/Transformation.cpp || cmake_object_order_depends_target_cviceni1
+  DEP_FILE = CMakeFiles/cviceni1.dir/Transformations/Transformation.cpp.o.d
   FLAGS = -Wall -Werror -std=c++11 -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk
   OBJECT_DIR = CMakeFiles/cviceni1.dir
-  OBJECT_FILE_DIR = CMakeFiles/cviceni1.dir
+  OBJECT_FILE_DIR = CMakeFiles/cviceni1.dir/Transformations
 
 build CMakeFiles/cviceni1.dir/Window.cpp.o: CXX_COMPILER__cviceni1_Debug /Users/adamvrana/CLionProjects/zpg/cviceni2$ 2/Window.cpp || cmake_object_order_depends_target_cviceni1
   DEP_FILE = CMakeFiles/cviceni1.dir/Window.cpp.o.d
@@ -168,59 +168,89 @@ build CMakeFiles/cviceni1.dir/Colors.cpp.o: CXX_COMPILER__cviceni1_Debug /Users/
   OBJECT_DIR = CMakeFiles/cviceni1.dir
   OBJECT_FILE_DIR = CMakeFiles/cviceni1.dir
 
-build CMakeFiles/cviceni1.dir/Models.cpp.o: CXX_COMPILER__cviceni1_Debug /Users/adamvrana/CLionProjects/zpg/cviceni2$ 2/Models.cpp || cmake_object_order_depends_target_cviceni1
-  DEP_FILE = CMakeFiles/cviceni1.dir/Models.cpp.o.d
+build CMakeFiles/cviceni1.dir/Skybox.cpp.o: CXX_COMPILER__cviceni1_Debug /Users/adamvrana/CLionProjects/zpg/cviceni2$ 2/Skybox.cpp || cmake_object_order_depends_target_cviceni1
+  DEP_FILE = CMakeFiles/cviceni1.dir/Skybox.cpp.o.d
   FLAGS = -Wall -Werror -std=c++11 -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk
   OBJECT_DIR = CMakeFiles/cviceni1.dir
   OBJECT_FILE_DIR = CMakeFiles/cviceni1.dir
 
-build CMakeFiles/cviceni1.dir/BushesModel.cpp.o: CXX_COMPILER__cviceni1_Debug /Users/adamvrana/CLionProjects/zpg/cviceni2$ 2/BushesModel.cpp || cmake_object_order_depends_target_cviceni1
-  DEP_FILE = CMakeFiles/cviceni1.dir/BushesModel.cpp.o.d
+build CMakeFiles/cviceni1.dir/Models/Models.cpp.o: CXX_COMPILER__cviceni1_Debug /Users/adamvrana/CLionProjects/zpg/cviceni2$ 2/Models/Models.cpp || cmake_object_order_depends_target_cviceni1
+  DEP_FILE = CMakeFiles/cviceni1.dir/Models/Models.cpp.o.d
   FLAGS = -Wall -Werror -std=c++11 -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk
   OBJECT_DIR = CMakeFiles/cviceni1.dir
-  OBJECT_FILE_DIR = CMakeFiles/cviceni1.dir
+  OBJECT_FILE_DIR = CMakeFiles/cviceni1.dir/Models
 
-build CMakeFiles/cviceni1.dir/GiftModel.cpp.o: CXX_COMPILER__cviceni1_Debug /Users/adamvrana/CLionProjects/zpg/cviceni2$ 2/GiftModel.cpp || cmake_object_order_depends_target_cviceni1
-  DEP_FILE = CMakeFiles/cviceni1.dir/GiftModel.cpp.o.d
+build CMakeFiles/cviceni1.dir/Models/BushesModel.cpp.o: CXX_COMPILER__cviceni1_Debug /Users/adamvrana/CLionProjects/zpg/cviceni2$ 2/Models/BushesModel.cpp || cmake_object_order_depends_target_cviceni1
+  DEP_FILE = CMakeFiles/cviceni1.dir/Models/BushesModel.cpp.o.d
   FLAGS = -Wall -Werror -std=c++11 -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk
   OBJECT_DIR = CMakeFiles/cviceni1.dir
-  OBJECT_FILE_DIR = CMakeFiles/cviceni1.dir
+  OBJECT_FILE_DIR = CMakeFiles/cviceni1.dir/Models
 
-build CMakeFiles/cviceni1.dir/SuziSmoothModel.cpp.o: CXX_COMPILER__cviceni1_Debug /Users/adamvrana/CLionProjects/zpg/cviceni2$ 2/SuziSmoothModel.cpp || cmake_object_order_depends_target_cviceni1
-  DEP_FILE = CMakeFiles/cviceni1.dir/SuziSmoothModel.cpp.o.d
+build CMakeFiles/cviceni1.dir/Models/GiftModel.cpp.o: CXX_COMPILER__cviceni1_Debug /Users/adamvrana/CLionProjects/zpg/cviceni2$ 2/Models/GiftModel.cpp || cmake_object_order_depends_target_cviceni1
+  DEP_FILE = CMakeFiles/cviceni1.dir/Models/GiftModel.cpp.o.d
   FLAGS = -Wall -Werror -std=c++11 -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk
   OBJECT_DIR = CMakeFiles/cviceni1.dir
-  OBJECT_FILE_DIR = CMakeFiles/cviceni1.dir
+  OBJECT_FILE_DIR = CMakeFiles/cviceni1.dir/Models
 
-build CMakeFiles/cviceni1.dir/SphereModel.cpp.o: CXX_COMPILER__cviceni1_Debug /Users/adamvrana/CLionProjects/zpg/cviceni2$ 2/SphereModel.cpp || cmake_object_order_depends_target_cviceni1
-  DEP_FILE = CMakeFiles/cviceni1.dir/SphereModel.cpp.o.d
+build CMakeFiles/cviceni1.dir/Models/SuziSmoothModel.cpp.o: CXX_COMPILER__cviceni1_Debug /Users/adamvrana/CLionProjects/zpg/cviceni2$ 2/Models/SuziSmoothModel.cpp || cmake_object_order_depends_target_cviceni1
+  DEP_FILE = CMakeFiles/cviceni1.dir/Models/SuziSmoothModel.cpp.o.d
   FLAGS = -Wall -Werror -std=c++11 -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk
   OBJECT_DIR = CMakeFiles/cviceni1.dir
-  OBJECT_FILE_DIR = CMakeFiles/cviceni1.dir
+  OBJECT_FILE_DIR = CMakeFiles/cviceni1.dir/Models
 
-build CMakeFiles/cviceni1.dir/TreeModel.cpp.o: CXX_COMPILER__cviceni1_Debug /Users/adamvrana/CLionProjects/zpg/cviceni2$ 2/TreeModel.cpp || cmake_object_order_depends_target_cviceni1
-  DEP_FILE = CMakeFiles/cviceni1.dir/TreeModel.cpp.o.d
+build CMakeFiles/cviceni1.dir/Models/SphereModel.cpp.o: CXX_COMPILER__cviceni1_Debug /Users/adamvrana/CLionProjects/zpg/cviceni2$ 2/Models/SphereModel.cpp || cmake_object_order_depends_target_cviceni1
+  DEP_FILE = CMakeFiles/cviceni1.dir/Models/SphereModel.cpp.o.d
   FLAGS = -Wall -Werror -std=c++11 -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk
   OBJECT_DIR = CMakeFiles/cviceni1.dir
-  OBJECT_FILE_DIR = CMakeFiles/cviceni1.dir
+  OBJECT_FILE_DIR = CMakeFiles/cviceni1.dir/Models
 
-build CMakeFiles/cviceni1.dir/PlainModel.cpp.o: CXX_COMPILER__cviceni1_Debug /Users/adamvrana/CLionProjects/zpg/cviceni2$ 2/PlainModel.cpp || cmake_object_order_depends_target_cviceni1
-  DEP_FILE = CMakeFiles/cviceni1.dir/PlainModel.cpp.o.d
+build CMakeFiles/cviceni1.dir/Models/TreeModel.cpp.o: CXX_COMPILER__cviceni1_Debug /Users/adamvrana/CLionProjects/zpg/cviceni2$ 2/Models/TreeModel.cpp || cmake_object_order_depends_target_cviceni1
+  DEP_FILE = CMakeFiles/cviceni1.dir/Models/TreeModel.cpp.o.d
   FLAGS = -Wall -Werror -std=c++11 -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk
   OBJECT_DIR = CMakeFiles/cviceni1.dir
-  OBJECT_FILE_DIR = CMakeFiles/cviceni1.dir
+  OBJECT_FILE_DIR = CMakeFiles/cviceni1.dir/Models
 
-build CMakeFiles/cviceni1.dir/SuziFlatModel.cpp.o: CXX_COMPILER__cviceni1_Debug /Users/adamvrana/CLionProjects/zpg/cviceni2$ 2/SuziFlatModel.cpp || cmake_object_order_depends_target_cviceni1
-  DEP_FILE = CMakeFiles/cviceni1.dir/SuziFlatModel.cpp.o.d
+build CMakeFiles/cviceni1.dir/Models/PlainModel.cpp.o: CXX_COMPILER__cviceni1_Debug /Users/adamvrana/CLionProjects/zpg/cviceni2$ 2/Models/PlainModel.cpp || cmake_object_order_depends_target_cviceni1
+  DEP_FILE = CMakeFiles/cviceni1.dir/Models/PlainModel.cpp.o.d
   FLAGS = -Wall -Werror -std=c++11 -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk
   OBJECT_DIR = CMakeFiles/cviceni1.dir
-  OBJECT_FILE_DIR = CMakeFiles/cviceni1.dir
+  OBJECT_FILE_DIR = CMakeFiles/cviceni1.dir/Models
 
-build CMakeFiles/cviceni1.dir/SkycubeModel.cpp.o: CXX_COMPILER__cviceni1_Debug /Users/adamvrana/CLionProjects/zpg/cviceni2$ 2/SkycubeModel.cpp || cmake_object_order_depends_target_cviceni1
-  DEP_FILE = CMakeFiles/cviceni1.dir/SkycubeModel.cpp.o.d
+build CMakeFiles/cviceni1.dir/Models/SuziFlatModel.cpp.o: CXX_COMPILER__cviceni1_Debug /Users/adamvrana/CLionProjects/zpg/cviceni2$ 2/Models/SuziFlatModel.cpp || cmake_object_order_depends_target_cviceni1
+  DEP_FILE = CMakeFiles/cviceni1.dir/Models/SuziFlatModel.cpp.o.d
   FLAGS = -Wall -Werror -std=c++11 -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk
   OBJECT_DIR = CMakeFiles/cviceni1.dir
-  OBJECT_FILE_DIR = CMakeFiles/cviceni1.dir
+  OBJECT_FILE_DIR = CMakeFiles/cviceni1.dir/Models
+
+build CMakeFiles/cviceni1.dir/Models/SkycubeModel.cpp.o: CXX_COMPILER__cviceni1_Debug /Users/adamvrana/CLionProjects/zpg/cviceni2$ 2/Models/SkycubeModel.cpp || cmake_object_order_depends_target_cviceni1
+  DEP_FILE = CMakeFiles/cviceni1.dir/Models/SkycubeModel.cpp.o.d
+  FLAGS = -Wall -Werror -std=c++11 -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk
+  OBJECT_DIR = CMakeFiles/cviceni1.dir
+  OBJECT_FILE_DIR = CMakeFiles/cviceni1.dir/Models
+
+build CMakeFiles/cviceni1.dir/Models/Textures/AbstractTexture.cpp.o: CXX_COMPILER__cviceni1_Debug /Users/adamvrana/CLionProjects/zpg/cviceni2$ 2/Models/Textures/AbstractTexture.cpp || cmake_object_order_depends_target_cviceni1
+  DEP_FILE = CMakeFiles/cviceni1.dir/Models/Textures/AbstractTexture.cpp.o.d
+  FLAGS = -Wall -Werror -std=c++11 -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk
+  OBJECT_DIR = CMakeFiles/cviceni1.dir
+  OBJECT_FILE_DIR = CMakeFiles/cviceni1.dir/Models/Textures
+
+build CMakeFiles/cviceni1.dir/Models/Textures/PlaneTextureModel.cpp.o: CXX_COMPILER__cviceni1_Debug /Users/adamvrana/CLionProjects/zpg/cviceni2$ 2/Models/Textures/PlaneTextureModel.cpp || cmake_object_order_depends_target_cviceni1
+  DEP_FILE = CMakeFiles/cviceni1.dir/Models/Textures/PlaneTextureModel.cpp.o.d
+  FLAGS = -Wall -Werror -std=c++11 -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk
+  OBJECT_DIR = CMakeFiles/cviceni1.dir
+  OBJECT_FILE_DIR = CMakeFiles/cviceni1.dir/Models/Textures
+
+build CMakeFiles/cviceni1.dir/Models/Textures/SkyboxTextureModel.cpp.o: CXX_COMPILER__cviceni1_Debug /Users/adamvrana/CLionProjects/zpg/cviceni2$ 2/Models/Textures/SkyboxTextureModel.cpp || cmake_object_order_depends_target_cviceni1
+  DEP_FILE = CMakeFiles/cviceni1.dir/Models/Textures/SkyboxTextureModel.cpp.o.d
+  FLAGS = -Wall -Werror -std=c++11 -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk
+  OBJECT_DIR = CMakeFiles/cviceni1.dir
+  OBJECT_FILE_DIR = CMakeFiles/cviceni1.dir/Models/Textures
+
+build CMakeFiles/cviceni1.dir/Models/Textures/Texture.cpp.o: CXX_COMPILER__cviceni1_Debug /Users/adamvrana/CLionProjects/zpg/cviceni2$ 2/Models/Textures/Texture.cpp || cmake_object_order_depends_target_cviceni1
+  DEP_FILE = CMakeFiles/cviceni1.dir/Models/Textures/Texture.cpp.o.d
+  FLAGS = -Wall -Werror -std=c++11 -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk
+  OBJECT_DIR = CMakeFiles/cviceni1.dir
+  OBJECT_FILE_DIR = CMakeFiles/cviceni1.dir/Models/Textures
 
 build CMakeFiles/cviceni1.dir/Lights/AbstractLight.cpp.o: CXX_COMPILER__cviceni1_Debug /Users/adamvrana/CLionProjects/zpg/cviceni2$ 2/Lights/AbstractLight.cpp || cmake_object_order_depends_target_cviceni1
   DEP_FILE = CMakeFiles/cviceni1.dir/Lights/AbstractLight.cpp.o.d
@@ -228,11 +258,11 @@ build CMakeFiles/cviceni1.dir/Lights/AbstractLight.cpp.o: CXX_COMPILER__cviceni1
   OBJECT_DIR = CMakeFiles/cviceni1.dir
   OBJECT_FILE_DIR = CMakeFiles/cviceni1.dir/Lights
 
-build CMakeFiles/cviceni1.dir/AbstractTransform.cpp.o: CXX_COMPILER__cviceni1_Debug /Users/adamvrana/CLionProjects/zpg/cviceni2$ 2/AbstractTransform.cpp || cmake_object_order_depends_target_cviceni1
-  DEP_FILE = CMakeFiles/cviceni1.dir/AbstractTransform.cpp.o.d
+build CMakeFiles/cviceni1.dir/Transformations/AbstractTransform.cpp.o: CXX_COMPILER__cviceni1_Debug /Users/adamvrana/CLionProjects/zpg/cviceni2$ 2/Transformations/AbstractTransform.cpp || cmake_object_order_depends_target_cviceni1
+  DEP_FILE = CMakeFiles/cviceni1.dir/Transformations/AbstractTransform.cpp.o.d
   FLAGS = -Wall -Werror -std=c++11 -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk
   OBJECT_DIR = CMakeFiles/cviceni1.dir
-  OBJECT_FILE_DIR = CMakeFiles/cviceni1.dir
+  OBJECT_FILE_DIR = CMakeFiles/cviceni1.dir/Transformations
 
 build CMakeFiles/cviceni1.dir/Lights/DirectionalLight.cpp.o: CXX_COMPILER__cviceni1_Debug /Users/adamvrana/CLionProjects/zpg/cviceni2$ 2/Lights/DirectionalLight.cpp || cmake_object_order_depends_target_cviceni1
   DEP_FILE = CMakeFiles/cviceni1.dir/Lights/DirectionalLight.cpp.o.d
@@ -260,7 +290,7 @@ build CMakeFiles/cviceni1.dir/Lights/SpotLight.cpp.o: CXX_COMPILER__cviceni1_Deb
 #############################################
 # Link the executable cviceni1
 
-build cviceni1: CXX_EXECUTABLE_LINKER__cviceni1_Debug CMakeFiles/cviceni1.dir/Application.cpp.o CMakeFiles/cviceni1.dir/Callback.cpp.o CMakeFiles/cviceni1.dir/Camera.cpp.o CMakeFiles/cviceni1.dir/main.cpp.o CMakeFiles/cviceni1.dir/RenderedObject.cpp.o CMakeFiles/cviceni1.dir/Scene.cpp.o CMakeFiles/cviceni1.dir/Shader.cpp.o CMakeFiles/cviceni1.dir/ShaderManager.cpp.o CMakeFiles/cviceni1.dir/Subject.cpp.o CMakeFiles/cviceni1.dir/ShaderProgram.cpp.o CMakeFiles/cviceni1.dir/Transformation.cpp.o CMakeFiles/cviceni1.dir/Window.cpp.o CMakeFiles/cviceni1.dir/Loader.cpp.o CMakeFiles/cviceni1.dir/Observer.cpp.o CMakeFiles/cviceni1.dir/Lights/Light.cpp.o CMakeFiles/cviceni1.dir/Colors.cpp.o CMakeFiles/cviceni1.dir/Models.cpp.o CMakeFiles/cviceni1.dir/BushesModel.cpp.o CMakeFiles/cviceni1.dir/GiftModel.cpp.o CMakeFiles/cviceni1.dir/SuziSmoothModel.cpp.o CMakeFiles/cviceni1.dir/SphereModel.cpp.o CMakeFiles/cviceni1.dir/TreeModel.cpp.o CMakeFiles/cviceni1.dir/PlainModel.cpp.o CMakeFiles/cviceni1.dir/SuziFlatModel.cpp.o CMakeFiles/cviceni1.dir/SkycubeModel.cpp.o CMakeFiles/cviceni1.dir/Lights/AbstractLight.cpp.o CMakeFiles/cviceni1.dir/AbstractTransform.cpp.o CMakeFiles/cviceni1.dir/Lights/DirectionalLight.cpp.o CMakeFiles/cviceni1.dir/Lights/PointLight.cpp.o CMakeFiles/cviceni1.dir/Lights/SpotLight.cpp.o | ../lib/glew/2.2.0_1/lib/libGLEW.dylib ../lib/glfw/lib-arm64/libglfw.3.dylib
+build cviceni1: CXX_EXECUTABLE_LINKER__cviceni1_Debug CMakeFiles/cviceni1.dir/Application.cpp.o CMakeFiles/cviceni1.dir/Callback.cpp.o CMakeFiles/cviceni1.dir/Camera.cpp.o CMakeFiles/cviceni1.dir/main.cpp.o CMakeFiles/cviceni1.dir/RenderedObject.cpp.o CMakeFiles/cviceni1.dir/Scene.cpp.o CMakeFiles/cviceni1.dir/ShaderControll/Shader.cpp.o CMakeFiles/cviceni1.dir/ShaderControll/ShaderManager.cpp.o CMakeFiles/cviceni1.dir/Subject.cpp.o CMakeFiles/cviceni1.dir/ShaderControll/ShaderProgram.cpp.o CMakeFiles/cviceni1.dir/Transformations/Transformation.cpp.o CMakeFiles/cviceni1.dir/Window.cpp.o CMakeFiles/cviceni1.dir/Loader.cpp.o CMakeFiles/cviceni1.dir/Observer.cpp.o CMakeFiles/cviceni1.dir/Lights/Light.cpp.o CMakeFiles/cviceni1.dir/Colors.cpp.o CMakeFiles/cviceni1.dir/Skybox.cpp.o CMakeFiles/cviceni1.dir/Models/Models.cpp.o CMakeFiles/cviceni1.dir/Models/BushesModel.cpp.o CMakeFiles/cviceni1.dir/Models/GiftModel.cpp.o CMakeFiles/cviceni1.dir/Models/SuziSmoothModel.cpp.o CMakeFiles/cviceni1.dir/Models/SphereModel.cpp.o CMakeFiles/cviceni1.dir/Models/TreeModel.cpp.o CMakeFiles/cviceni1.dir/Models/PlainModel.cpp.o CMakeFiles/cviceni1.dir/Models/SuziFlatModel.cpp.o CMakeFiles/cviceni1.dir/Models/SkycubeModel.cpp.o CMakeFiles/cviceni1.dir/Models/Textures/AbstractTexture.cpp.o CMakeFiles/cviceni1.dir/Models/Textures/PlaneTextureModel.cpp.o CMakeFiles/cviceni1.dir/Models/Textures/SkyboxTextureModel.cpp.o CMakeFiles/cviceni1.dir/Models/Textures/Texture.cpp.o CMakeFiles/cviceni1.dir/Lights/AbstractLight.cpp.o CMakeFiles/cviceni1.dir/Transformations/AbstractTransform.cpp.o CMakeFiles/cviceni1.dir/Lights/DirectionalLight.cpp.o CMakeFiles/cviceni1.dir/Lights/PointLight.cpp.o CMakeFiles/cviceni1.dir/Lights/SpotLight.cpp.o | ../lib/glew/2.2.0_1/lib/libGLEW.dylib ../lib/glfw/lib-arm64/libglfw.3.dylib
   FLAGS = -Wall -Werror -std=c++11 -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk
   LINK_LIBRARIES = -Wl,-rpath,"/Users/adamvrana/CLionProjects/zpg/cviceni2 2/lib/glfw/lib-arm64"  -framework OpenGL  ../lib/glew/2.2.0_1/lib/libGLEW.dylib  ../lib/glfw/lib-arm64/libglfw.3.dylib
   OBJECT_DIR = CMakeFiles/cviceni1.dir

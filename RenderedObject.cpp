@@ -6,6 +6,8 @@ RenderedObject::RenderedObject()
 {
     this->shaderProgram = new ShaderProgram();
     this->transformation = new Transformation();
+    this->abstractTransform = new AbstractTransform();
+    this->texture = nullptr;
 }
 
 RenderedObject::~RenderedObject() = default;
@@ -102,5 +104,32 @@ void RenderedObject::updateDirLights(std::vector<DirectionalLight*> lights)
 {
     this->shaderProgram->updateDirLights(std::move(lights));
 }
+
+AbstractTexture* RenderedObject::getTextureObject()
+{
+    return this->texture;
+}
+void RenderedObject::createTexture(std::string path, int index)
+{
+    //this->texture = new TextureOld(path, index);
+}
+void RenderedObject::createTexture(std::vector<std::string> paths, int index)
+{
+    if (paths.size() == 1)
+    {
+        this->texture = new Texture(paths, index);
+    }
+    else
+    {
+        this->texture = new Skybox(paths, index);
+    }
+}
+
+void RenderedObject::useTexture2()
+{
+    if(this->texture != nullptr)
+        this->shaderProgram->useTexture(this->texture->getTexture());
+}
+
 
 

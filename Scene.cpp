@@ -1,5 +1,7 @@
 #include "Scene.h"
 
+#include <utility>
+
 Scene::Scene(int width, int height, const char* title)
 {
 	glfwSetErrorCallback(Callback::error_callback);
@@ -141,6 +143,7 @@ void Scene::run()
         for (auto & renderedObject : this->renderedObjects)
         {
             renderedObject->sendModelMatrixShader();
+            renderedObject->useTexture2();
             renderedObject->drawObject();
             //sv�tla
             //this->light->update(this->renderedObjects[i]->getShaderProgram());
@@ -170,9 +173,46 @@ RenderedObject* Scene::createRenderedObject(Models* model, const char* vertexDef
     return renderedObject;
 }
 
+RenderedObject* Scene::createRenderedObject(Models* model, const char* vertexDefinition, const char* fragmentDefinition, std::string path)
+{
+    auto* renderedObject = new RenderedObject();
+    renderedObject->createModel(model);
+    renderedObject->createShader(GL_VERTEX_SHADER, vertexDefinition);
+    renderedObject->createShader(GL_FRAGMENT_SHADER, fragmentDefinition);
+    renderedObject->createTexture(std::move(path), this->indexTexture);
+    this->indexTexture++;
+    return renderedObject;
+}
+
+
+RenderedObject* Scene::createRenderedObject(Models* model, const char* vertexDefinition, const char* fragmentDefinition, std::vector<std::string> paths)
+{
+    auto* renderedObject = new RenderedObject();
+    renderedObject->createModel(model);
+    renderedObject->createShader(GL_VERTEX_SHADER, vertexDefinition);
+    renderedObject->createShader(GL_FRAGMENT_SHADER, fragmentDefinition);
+    renderedObject->createTexture(std::move(paths), this->indexTexture);
+    this->indexTexture++;
+    return renderedObject;
+}
+
+
 u_long Scene::createAndAdd(Models* model, const char* vertexDefinition, const char* fragmentDefinition)
 {
     RenderedObject* r = this->createRenderedObject(model, vertexDefinition, fragmentDefinition);
+    this->addRenderedObject(r);
+    return this->renderedObjects.size();
+}
+u_long Scene::createAndAdd(Models* model, const char* vertexDefinition, const char* fragmentDefinition, std::string path)
+{
+    RenderedObject* r = this->createRenderedObject(model, vertexDefinition, fragmentDefinition, path);
+    this->addRenderedObject(r);
+    return this->renderedObjects.size();
+}
+
+u_long Scene::createAndAdd(Models* model, const char* vertexDefinition, const char* fragmentDefinition, std::vector<std::string> paths)
+{
+    RenderedObject* r = this->createRenderedObject(model, vertexDefinition, fragmentDefinition, paths);
     this->addRenderedObject(r);
     return this->renderedObjects.size();
 }

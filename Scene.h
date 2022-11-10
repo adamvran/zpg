@@ -25,6 +25,8 @@ private:
     vector<PointLight*> pointLights;
     vector<SpotLight*> spotLights;
     vector<DirectionalLight*> dirLights;
+    int indexTexture = 0;
+
 
 public:
 	Scene(int width, int height, const char* title);
@@ -54,7 +56,12 @@ public:
     void createDirectionalLights();
 
     RenderedObject* createRenderedObject(Models* model, const char* vertexDefinition, const char* fragmentDefinition);
+    RenderedObject* createRenderedObject(Models* model, const char* vertexDefinition, const char* fragmentDefinition, std::string path);
+    RenderedObject* createRenderedObject(Models* model, const char* vertexDefinition, const char* fragmentDefinition, std::vector<std::string> paths);
+
     u_long createAndAdd(Models* model, const char* vertexDefinition, const char* fragmentDefinition);
+    u_long createAndAdd(Models* model, const char* vertexDefinition, const char* fragmentDefinition, std::string path);
+    u_long createAndAdd(Models* model, const char* vertexDefinition, const char* fragmentDefinition, std::vector<std::string> paths);
 
     glm::vec4 pickColor();
 

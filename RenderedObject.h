@@ -4,6 +4,9 @@
 #include "Transformations/TransformationType.h"
 #include "Models/Models.h"
 #include "Transformations/AbstractTransform.h"
+#include "Models/Textures/Texture.h"
+#include "Models/Textures/AbstractTexture.h"
+#include "Skybox.h"
 
 
 class RenderedObject
@@ -16,6 +19,8 @@ private:
     __attribute__((unused)) AbstractTransform* abstractTransform;
     __attribute__((unused)) GLenum objectType{};
     __attribute__((unused)) int countVertex{};
+    AbstractTexture* texture;
+
 
 public:
     RenderedObject();
@@ -45,6 +50,18 @@ public:
     void updatePointLights(std::vector<PointLight*> lights);
     void updateSpotLights(std::vector<SpotLight*> lights);
     void updateDirLights(std::vector<DirectionalLight*> lights);
+
+    //textury
+    void createTexture(std::string path, int index);
+    GLuint getTexture();
+
+    void useTexture();
+
+
+    //abstraktn� textura
+    AbstractTexture* getTextureObject();
+    void createTexture(std::vector<std::string> paths, int index);
+    void useTexture2();
 
 };
 

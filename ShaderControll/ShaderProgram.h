@@ -52,5 +52,7 @@ public:
     void updateSpotLights(std::vector<SpotLight*> lights) const;
     void updateDirLights(std::vector<DirectionalLight*> lights) const;
 
+    //textury
+    void useTexture(GLuint texture);
 };
 

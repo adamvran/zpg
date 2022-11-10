@@ -19,6 +19,9 @@ public:
 	void createCamera(glm::vec3 eye, glm::vec3 dir);
 
     u_long createNewObject(Models *model, const char *vertexDefinition, const char *fragmentDefinition);
+    u_long createNewObject(Models* model, const char* vertexDefinition, const char* fragmentDefinition, std::string path);
+    u_long createNewObject(Models* model, const char* vertexDefinition, const char* fragmentDefinition, std::vector<std::string> paths);
+
     void createLights(LightType type);
 
 };

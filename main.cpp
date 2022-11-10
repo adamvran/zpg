@@ -1,176 +1,114 @@
-﻿//Include the standard C++ headers
-#include <cstdlib>
+﻿
+#include <iostream>
 #include "Application.h"
-#include "ShaderControll/Shader.h"
-#include "Transformations/TransformationType.h"
 #include "Loader.h"
-//include models
-#include "Models/TreeModel.h"
-#include "Models/BushesModel.h"
-#include "Models/GiftModel.h"
-#include "Models/PlainModel.h"
-#include "Models/SuziSmoothModel.h"
+#include "Models/Textures/PlaneTextureModel.h"
+#include "Models/Textures/SkyboxTextureModel.h"
 #include "Models/SuziFlatModel.h"
-#include "Models/SphereModel.h"
 
 
+TransformationType shift = TransformationType::Shift;
+TransformationType scale = TransformationType::Scale;
 
-int main()
+int main(void)
 {
-	//rotace: 35, glm::vec3(0.0f, 0.0f, 1.0f) //vektor je okolo které osy to rotuje??
-	//posun: sh , glm::vec3(0.0f, -0.5f, 0.0f)
-	//zvetseni: sc, glm::vec3(0.3f)
+    //rotace: 35, glm::vec3(0.0f, 0.0f, 1.0f) //vektor je okolo které osy to rotuje??
+    //posun: sh , glm::vec3(0.0f, -0.5f, 0.0f)
+    //zvetseni: sc, glm::vec3(0.3f)
+    srand(time(NULL));
+    Application* application = new Application(800, 600, "ZPG");
 
-	auto* application = new Application(1300, 900, "ZPG");
-    __attribute__((unused)) TransformationType sh = TransformationType::Shift;
-    __attribute__((unused)) TransformationType sc = TransformationType::Scale;
+    vector<string> skybox = {
+            "../Models/Textures/skybox/posx.jpg",
+            "../Models/Textures/skybox/negx.jpg",
+            "../Models/Textures/skybox/posy.jpg",
+            "../Models/Textures/skybox/negy.jpg",
+            "../Models/Textures/skybox/posz.jpg",
+            "../Models/Textures/skybox/negz.jpg"
+    };
 
-    auto* loader = new Loader;
 
-    string vShaderLight = loader->load("../shaders/vertex/light.txt");
-    const char* vertexShader = vShaderLight.c_str();
-
+    Loader* loader = new Loader();
     //blinn
-    string fShaderBlinn = loader->load("../shaders/fragment/blinn.txt");
-    __attribute__((unused)) const char* fragmentShaderBlinn = fShaderBlinn.c_str();
+    string vShader = loader->load("../shaders/vertex/light.vsh");
+    string fShader = loader->load("../shaders/fragment/blinn2.txt");
+    const char* vertexShader = vShader.c_str();
+    __attribute__((unused)) const char* fragmentShader = fShader.c_str();
 
     //phong
-    string fShaderPhong = loader->load("../shaders/fragment/phong.txt");
-    __attribute__((unused)) const char* fragmentShaderPhong = fShaderPhong.c_str();
-    //phong good
-    string fShaderPhongGood = loader->load("../shaders/fragment/phong_good.txt");
-    __attribute__((unused)) const char* fragmentShaderPhongGood = fShaderPhongGood.c_str();
-    //phong wrong
-    string fShaderPhongWrong = loader->load("../shaders/fragment/phong_wrong.txt");
-    __attribute__((unused)) const char* fragmentShaderPhongWrong = fShaderPhongWrong.c_str();
-
-    //basic
-    string fShaderBasic = loader->load("../shaders/fragment/basic.txt");
-    __attribute__((unused)) const char* fragmentShaderBasic = fShaderBasic.c_str();
-
-    //basic
-    string fShaderBasic2 = loader->load("../shaders/fragment/basic2.txt");
-    __attribute__((unused)) const char* fragmentShaderBasic2 = fShaderBasic2.c_str();
+    string fShader2 = loader->load("../shaders/fragment/phong.txt");
+    __attribute__((unused)) const char* fragmentShaderPHONG = fShader2.c_str();
 
     //lambert
-    string fShaderLambert = loader->load("../shaders/fragment/lambert.txt");
-    __attribute__((unused)) const char* fragmentShaderLambert = fShaderLambert.c_str();
+    string fShader3 = loader->load("../shaders/fragment/lambert.txt");
+    __attribute__((unused)) const char* fragmentShaderLAMBERT = fShader3.c_str();
 
-    glm::vec3 cameraEye = glm::vec3(0.0f, 0.0f, 4.0f);
-	glm::vec3 cameraDir = glm::vec3(0.0f, -1.0f, 0.0f); //uz working
-	application->createCamera(cameraEye, cameraDir);
-    ///vytváření objektů
+    //basic
+    string fShader4 = loader->load("../shaders/fragment/basic.txt");
+    __attribute__((unused)) const char* fragmentShaderBASIC = fShader4.c_str();
 
-    cout << "\n\nPrvni ukol - 1\nDruhy ukol - 2\nTreti ukol - 3\nInput: ";
-    int input;
-    cin >> input;
+    //basic2
+    string fShader5 = loader->load("../shaders/fragment/basic2.frag");
+    const char* fragmentShaderBASIC2 = fShader5.c_str();
+
+    //phongwrong
+    string fShader6 = loader->load("../shaders/fragment/phongWrong.txt");
+    __attribute__((unused)) const char* fragmentShaderPHONGWRONG = fShader6.c_str();
+
+    //skybox fragment a vertex
+    string fShader7 = loader->load("../shaders/fragment/basicSKYBOX.frag");
+    __attribute__((unused)) const char* fragmentSKYBOX = fShader7.c_str();
+
+    string vShader7 = loader->load("../shaders/vertex/lightSKYBOX.vsh");
+    __attribute__((unused)) const char* vertexSKYBOX = vShader7.c_str();
 
 
-    std::vector<int> objects;
-    int sphere_o;
-    switch (input)
+    //phong good
+    //string fShader7 = loader->load("../shaders/fragment/phongGood.txt");
+    /*string fShader7 = loader->load("../shaders/fragment/blinnLights.h");
+    const char* fragmentShaderPHONGGOOD = fShader7.c_str();*/
+
+    string fShader8 = loader->load("../shaders/fragment/blinnLights.frag");
+    const char* fragmentShaderLIGHTS = fShader8.c_str();
+
+    //camera
+    glm::vec3 cameraEye = glm::vec3(0.0f, 0.5f, 4.0f);
+    glm::vec3 cameraDir = glm::vec3(0.0f, 0.0f, -1.0f);
+    application->createCamera(cameraEye, cameraDir);
+    application->createLights(LightType::POINT);
+
+    auto* monkey = new SuziFlatModel();
+
+    std::vector<int> shapes;
+    shapes.push_back(application->createNewObject(new PlaneTextureModel(), vertexShader, fragmentShaderBASIC2, "../Models/Textures/wooden_fence.png"));
+    application->transformObject(shapes.at(0), scale, glm::vec3(200));
+    //shapes.push_back(application->createNewObject(new PlaneTextureModel(), vertexShader, fragmentShaderBASIC2, "../models/textures/grass.png"));
+    //shapes.push_back(application->createNewObject(new PlaneModel(), vertexShader, fragmentShaderBASIC));
+    /*application->transformObject(shapes[0], scale, glm::vec3(50.0));
+    application->transformObject(shapes[0], shift, glm::vec3(0.0, 0.0, 0.0));
+
+    application->transformObject(shapes[1], scale, glm::vec3(50.0));
+    application->transformObject(shapes[1], shift, glm::vec3(2.0, 0.0, 0.0));*/
+
+    //skybox
+    //shapes.push_back(application->createNewObject(new SkyboxTextureModel(), vertexSKYBOX, fragmentSKYBOX, skybox));
+    //application->transformObject(shapes[1], scale, glm::vec3(20.0));
+
+    for (int i = 0; i < 5; i++)
     {
-        case 1:
-            for (int i = 0; i < 4; i++)
-                objects.push_back(application->createNewObject(new SphereModel(), vertexShader, fragmentShaderPhong));
-
-            for (int i = 0; i < 4; i++)
-                application->transformObject(objects[i], sc, glm::vec3(0.3));
-
-            application->transformObject(objects[0], sh, glm::vec3(-3.f, 0.0f, 0.0f));
-            application->transformObject(objects[1], sh, glm::vec3(3.f, 0.0f, 0.0f));
-            application->transformObject(objects[2], sh, glm::vec3(0.f, -3.0f, 0.0f));
-            application->transformObject(objects[3], sh, glm::vec3(0.f, 3.0f, 0.0f));
-            break;
-
-        case 2:
-            sphere_o = application->createNewObject(new SphereModel(), vertexShader, fragmentShaderPhongWrong); //fragmentShaderPhongGood
-            application->transformObject(sphere_o, sc, glm::vec3(0.3));
-            application->transformObject(sphere_o, sh, glm::vec3(0.0f, 0.0f, 5.0f));
-            break;
-
-        case 3:
-            objects.push_back(application->createNewObject(new PlainModel(), vertexShader, fragmentShaderBlinn));
-            for (int i = 0; i < 100; i++)
-            {
-                objects.push_back(application->createNewObject(new TreeModel(), vertexShader, fragmentShaderBasic));
-                objects.push_back(application->createNewObject(new SphereModel(), vertexShader, fragmentShaderBasic2));
-                objects.push_back(application->createNewObject(new GiftModel(), vertexShader, fragmentShaderLambert));
-                objects.push_back(application->createNewObject(new BushesModel(), vertexShader, fragmentShaderBlinn));
-                objects.push_back(application->createNewObject(new SuziSmoothModel(), vertexShader, fragmentShaderPhong));
-                objects.push_back(application->createNewObject(new SuziFlatModel(), vertexShader, fragmentShaderLambert));
-            }
-
-            application->transformObject(objects[0], sc, glm::vec3(100.0));
-            application->transformObject(objects[0], sh, glm::vec3(0.0, 0.00001, 0.0));
-            for (int i = 1; i < objects.size(); i++)
-            {
-                application->transformObject(objects[i], sc, glm::vec3(0.1));
-                application->transformObject(objects[i], sh, glm::vec3((0.f) - (float)(rand() % 300), 1.0f, - (float)(rand() % 300)));
-            }
-            break;
-        default:
-            cout << "bad input" << endl;
-            break;
-    }
-    /*
-    //sphere
-    std::vector<int> spheres;
-    spheres.reserve(1);
-    for (int i = 0; i < 1; ++i)
-    {
-        spheres.push_back(application->createNewObject(new SphereModel(), vertexShader, fragmentShaderBasic));
-        application->transformObject(spheres.back(), sc, glm::vec3(0.3));
-        application->transformObject(spheres.back(), sh, glm::vec3((0.f) - (float) (rand() % 200), 0.0f, -(float) (rand() % 200)));
+        shapes.push_back(application->createNewObject(monkey, vertexShader, fragmentShaderLIGHTS));
     }
 
-    //plain
-    std::vector<int> spheres2;
-    spheres2.reserve(1);
-    for (int i = 0; i < 1; ++i)
+    for (int i = 2; i < shapes.size(); i++)
     {
-        spheres2.push_back(application->createNewObject(new TreeModel(), vertexShader, fragmentShaderBasic2));
-        application->transformObject(spheres2.back(), sc, glm::vec3(0.3));
-        application->transformObject(spheres2.back(), sh, glm::vec3((0.f) - (float) (rand() % 200), 0.0f, -(float) (rand() % 200)));
+        application->transformObject(shapes[i], scale, glm::vec3(0.4));
+        application->transformObject(shapes[i], shift, glm::vec3((-3.f) - (float)(rand() % 60) + i, 1.0f, (-3.f) - (float)(rand() % 60) + i));
+
     }
-*/
-    /*
-	int gift_o = application->createNewObject(giftPoints, giftPointsSize, vertexShader, fragmentShader, GL_TRIANGLES, 66624);
-    application->transformObject(gift_o, sc, glm::vec3(0.3));
-    application->transformObject(gift_o, sh, glm::vec3(-3.f, 0.0f, 0.0f));
 
-    int sphere1 = application->createNewObject(spherePoints, spherePointsSize, vertexShader, fragmentShader, GL_TRIANGLES, 2880);
-    application->transformObject(sphere1, sc, glm::vec3(0.3));
-    application->transformObject(sphere1, sh, glm::vec3(3.f, 0.0f, 0.0f));
 
-	int tree_o = application->createNewObject(treePoints, treePointsSize, vertexShader, fragmentShader, GL_TRIANGLES, 92814);
-    application->transformObject(tree_o, sc, glm::vec3(0.3));
-    application->transformObject(tree_o, sh, glm::vec3(0.f, 3.0f, 0.0f));
 
-    int sphere2 = application->createNewObject(spherePoints, spherePointsSize, vertexShader, fragmentShader, GL_TRIANGLES, 2880);
-    application->transformObject(sphere2, sc, glm::vec3(0.3));
-    application->transformObject(sphere2, sh, glm::vec3(0.f, -3.0f, 0.0f));
-*/
-
-    ///4 kuličky
-    /*
-    int sphere3 = application->createNewObject(spherePoints, spherePointsSize, vertexShader, fragmentShader, GL_TRIANGLES, 2880);
-    application->transformObject(sphere3, sc, glm::vec3(0.3));
-    application->transformObject(sphere3, sh, glm::vec3(-3.f, 0.0f, 0.0f));
-
-    int sphere1 = application->createNewObject(spherePoints, spherePointsSize, vertexShader, fragmentShader, GL_TRIANGLES, 2880);
-    application->transformObject(sphere1, sc, glm::vec3(0.3));
-    application->transformObject(sphere1, sh, glm::vec3(3.f, 0.0f, 0.0f));
-
-    int sphere4 = application->createNewObject(spherePoints, spherePointsSize, vertexShader, fragmentShader, GL_TRIANGLES, 2880);
-    application->transformObject(sphere4, sc, glm::vec3(0.3));
-    application->transformObject(sphere4, sh, glm::vec3(0.f, 3.0f, 0.0f));
-
-    int sphere2 = application->createNewObject(spherePoints, spherePointsSize, vertexShader, fragmentShader, GL_TRIANGLES, 2880);
-    application->transformObject(sphere2, sc, glm::vec3(0.3));
-    application->transformObject(sphere2, sh, glm::vec3(0.f, -3.0f, 0.0f));
-*/
     application->run();
-	application->~Application();
-	exit(EXIT_SUCCESS);
+    application->~Application();
+    exit(EXIT_SUCCESS);
 }

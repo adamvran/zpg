@@ -336,6 +336,12 @@ void ShaderProgram::updateDirLights(std::vector<DirectionalLight*> lights) const
     }
 }
 
+void ShaderProgram::useTexture(GLuint texture)
+{
+    GLuint textureID = glGetUniformLocation(this->shaderProgram, "textureUnitID");
+    glUniform1i(textureID, texture - 1);
+}
+
 
 /*
 void ShaderProgram::update(int message){
