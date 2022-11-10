@@ -6,5 +6,6 @@
 class Observer {
 
 public:
-    virtual void notify(MatrixType matrixType, glm::mat4 mat) = 0;
+    virtual void notify(MatrixType type, glm::mat4 matrix) = 0;
+    virtual void notify(MatrixType type) = 0;
 };

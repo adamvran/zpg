@@ -1,5 +1,7 @@
 #pragma once
 enum class MatrixType {
-    PROJECTIONMATRIX,
     VIEWMATRIX,
+    PROJECTIONMATRIX,
+    ALL,
+    TRANSFORM
 };

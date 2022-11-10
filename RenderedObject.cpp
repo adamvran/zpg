@@ -1,5 +1,7 @@
 #include "RenderedObject.h"
 
+#include <utility>
+
 RenderedObject::RenderedObject()
 {
     this->shaderProgram = new ShaderProgram();
@@ -71,7 +73,34 @@ void RenderedObject::createModel(Models* newModel)
     this->shape->initPositionAndColor();
 }
 
-void RenderedObject::drawObjectNEW()
+void RenderedObject::drawObject()
 {
     this->shape->drawObject();
 }
+
+void RenderedObject::setCamera(Camera* c)
+{
+    this->shaderProgram->setActiveCamera(c);
+}
+
+void RenderedObject::updateLights(std::vector<Light*> lights)
+{
+    this->shaderProgram->updateLights(std::move(lights));
+}
+
+void RenderedObject::updatePointLights(std::vector<PointLight*> lights)
+{
+    this->shaderProgram->updatePointLights(std::move(lights));
+}
+
+void RenderedObject::updateSpotLights(std::vector<SpotLight*> lights)
+{
+    this->shaderProgram->updateSpotLights(std::move(lights));
+}
+
+void RenderedObject::updateDirLights(std::vector<DirectionalLight*> lights)
+{
+    this->shaderProgram->updateDirLights(std::move(lights));
+}
+
+

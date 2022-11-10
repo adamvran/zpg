@@ -96,12 +96,6 @@ build CMakeFiles/cviceni1.dir/main.cpp.o: CXX_COMPILER__cviceni1_Debug /Users/ad
   OBJECT_DIR = CMakeFiles/cviceni1.dir
   OBJECT_FILE_DIR = CMakeFiles/cviceni1.dir
 
-build CMakeFiles/cviceni1.dir/Model.cpp.o: CXX_COMPILER__cviceni1_Debug /Users/adamvrana/CLionProjects/zpg/cviceni2$ 2/Model.cpp || cmake_object_order_depends_target_cviceni1
-  DEP_FILE = CMakeFiles/cviceni1.dir/Model.cpp.o.d
-  FLAGS = -Wall -Werror -std=c++11 -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk
-  OBJECT_DIR = CMakeFiles/cviceni1.dir
-  OBJECT_FILE_DIR = CMakeFiles/cviceni1.dir
-
 build CMakeFiles/cviceni1.dir/RenderedObject.cpp.o: CXX_COMPILER__cviceni1_Debug /Users/adamvrana/CLionProjects/zpg/cviceni2$ 2/RenderedObject.cpp || cmake_object_order_depends_target_cviceni1
   DEP_FILE = CMakeFiles/cviceni1.dir/RenderedObject.cpp.o.d
   FLAGS = -Wall -Werror -std=c++11 -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk
@@ -116,12 +110,6 @@ build CMakeFiles/cviceni1.dir/Scene.cpp.o: CXX_COMPILER__cviceni1_Debug /Users/a
 
 build CMakeFiles/cviceni1.dir/Shader.cpp.o: CXX_COMPILER__cviceni1_Debug /Users/adamvrana/CLionProjects/zpg/cviceni2$ 2/Shader.cpp || cmake_object_order_depends_target_cviceni1
   DEP_FILE = CMakeFiles/cviceni1.dir/Shader.cpp.o.d
-  FLAGS = -Wall -Werror -std=c++11 -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk
-  OBJECT_DIR = CMakeFiles/cviceni1.dir
-  OBJECT_FILE_DIR = CMakeFiles/cviceni1.dir
-
-build CMakeFiles/cviceni1.dir/ShaderLoader.cpp.o: CXX_COMPILER__cviceni1_Debug /Users/adamvrana/CLionProjects/zpg/cviceni2$ 2/ShaderLoader.cpp || cmake_object_order_depends_target_cviceni1
-  DEP_FILE = CMakeFiles/cviceni1.dir/ShaderLoader.cpp.o.d
   FLAGS = -Wall -Werror -std=c++11 -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk
   OBJECT_DIR = CMakeFiles/cviceni1.dir
   OBJECT_FILE_DIR = CMakeFiles/cviceni1.dir
@@ -228,6 +216,42 @@ build CMakeFiles/cviceni1.dir/SuziFlatModel.cpp.o: CXX_COMPILER__cviceni1_Debug 
   OBJECT_DIR = CMakeFiles/cviceni1.dir
   OBJECT_FILE_DIR = CMakeFiles/cviceni1.dir
 
+build CMakeFiles/cviceni1.dir/SkycubeModel.cpp.o: CXX_COMPILER__cviceni1_Debug /Users/adamvrana/CLionProjects/zpg/cviceni2$ 2/SkycubeModel.cpp || cmake_object_order_depends_target_cviceni1
+  DEP_FILE = CMakeFiles/cviceni1.dir/SkycubeModel.cpp.o.d
+  FLAGS = -Wall -Werror -std=c++11 -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk
+  OBJECT_DIR = CMakeFiles/cviceni1.dir
+  OBJECT_FILE_DIR = CMakeFiles/cviceni1.dir
+
+build CMakeFiles/cviceni1.dir/AbstractLight.cpp.o: CXX_COMPILER__cviceni1_Debug /Users/adamvrana/CLionProjects/zpg/cviceni2$ 2/AbstractLight.cpp || cmake_object_order_depends_target_cviceni1
+  DEP_FILE = CMakeFiles/cviceni1.dir/AbstractLight.cpp.o.d
+  FLAGS = -Wall -Werror -std=c++11 -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk
+  OBJECT_DIR = CMakeFiles/cviceni1.dir
+  OBJECT_FILE_DIR = CMakeFiles/cviceni1.dir
+
+build CMakeFiles/cviceni1.dir/AbstractTransform.cpp.o: CXX_COMPILER__cviceni1_Debug /Users/adamvrana/CLionProjects/zpg/cviceni2$ 2/AbstractTransform.cpp || cmake_object_order_depends_target_cviceni1
+  DEP_FILE = CMakeFiles/cviceni1.dir/AbstractTransform.cpp.o.d
+  FLAGS = -Wall -Werror -std=c++11 -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk
+  OBJECT_DIR = CMakeFiles/cviceni1.dir
+  OBJECT_FILE_DIR = CMakeFiles/cviceni1.dir
+
+build CMakeFiles/cviceni1.dir/DirectionalLight.cpp.o: CXX_COMPILER__cviceni1_Debug /Users/adamvrana/CLionProjects/zpg/cviceni2$ 2/DirectionalLight.cpp || cmake_object_order_depends_target_cviceni1
+  DEP_FILE = CMakeFiles/cviceni1.dir/DirectionalLight.cpp.o.d
+  FLAGS = -Wall -Werror -std=c++11 -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk
+  OBJECT_DIR = CMakeFiles/cviceni1.dir
+  OBJECT_FILE_DIR = CMakeFiles/cviceni1.dir
+
+build CMakeFiles/cviceni1.dir/PointLight.cpp.o: CXX_COMPILER__cviceni1_Debug /Users/adamvrana/CLionProjects/zpg/cviceni2$ 2/PointLight.cpp || cmake_object_order_depends_target_cviceni1
+  DEP_FILE = CMakeFiles/cviceni1.dir/PointLight.cpp.o.d
+  FLAGS = -Wall -Werror -std=c++11 -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk
+  OBJECT_DIR = CMakeFiles/cviceni1.dir
+  OBJECT_FILE_DIR = CMakeFiles/cviceni1.dir
+
+build CMakeFiles/cviceni1.dir/SpotLight.cpp.o: CXX_COMPILER__cviceni1_Debug /Users/adamvrana/CLionProjects/zpg/cviceni2$ 2/SpotLight.cpp || cmake_object_order_depends_target_cviceni1
+  DEP_FILE = CMakeFiles/cviceni1.dir/SpotLight.cpp.o.d
+  FLAGS = -Wall -Werror -std=c++11 -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk
+  OBJECT_DIR = CMakeFiles/cviceni1.dir
+  OBJECT_FILE_DIR = CMakeFiles/cviceni1.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target cviceni1
@@ -236,7 +260,7 @@ build CMakeFiles/cviceni1.dir/SuziFlatModel.cpp.o: CXX_COMPILER__cviceni1_Debug 
 #############################################
 # Link the executable cviceni1
 
-build cviceni1: CXX_EXECUTABLE_LINKER__cviceni1_Debug CMakeFiles/cviceni1.dir/Application.cpp.o CMakeFiles/cviceni1.dir/Callback.cpp.o CMakeFiles/cviceni1.dir/Camera.cpp.o CMakeFiles/cviceni1.dir/main.cpp.o CMakeFiles/cviceni1.dir/Model.cpp.o CMakeFiles/cviceni1.dir/RenderedObject.cpp.o CMakeFiles/cviceni1.dir/Scene.cpp.o CMakeFiles/cviceni1.dir/Shader.cpp.o CMakeFiles/cviceni1.dir/ShaderLoader.cpp.o CMakeFiles/cviceni1.dir/ShaderManager.cpp.o CMakeFiles/cviceni1.dir/Subject.cpp.o CMakeFiles/cviceni1.dir/ShaderProgram.cpp.o CMakeFiles/cviceni1.dir/Transformation.cpp.o CMakeFiles/cviceni1.dir/Window.cpp.o CMakeFiles/cviceni1.dir/Loader.cpp.o CMakeFiles/cviceni1.dir/Observer.cpp.o CMakeFiles/cviceni1.dir/Light.cpp.o CMakeFiles/cviceni1.dir/Colors.cpp.o CMakeFiles/cviceni1.dir/Models.cpp.o CMakeFiles/cviceni1.dir/BushesModel.cpp.o CMakeFiles/cviceni1.dir/GiftModel.cpp.o CMakeFiles/cviceni1.dir/SuziSmoothModel.cpp.o CMakeFiles/cviceni1.dir/SphereModel.cpp.o CMakeFiles/cviceni1.dir/TreeModel.cpp.o CMakeFiles/cviceni1.dir/PlainModel.cpp.o CMakeFiles/cviceni1.dir/SuziFlatModel.cpp.o | ../lib/glew/2.2.0_1/lib/libGLEW.dylib ../lib/glfw/lib-arm64/libglfw.3.dylib
+build cviceni1: CXX_EXECUTABLE_LINKER__cviceni1_Debug CMakeFiles/cviceni1.dir/Application.cpp.o CMakeFiles/cviceni1.dir/Callback.cpp.o CMakeFiles/cviceni1.dir/Camera.cpp.o CMakeFiles/cviceni1.dir/main.cpp.o CMakeFiles/cviceni1.dir/RenderedObject.cpp.o CMakeFiles/cviceni1.dir/Scene.cpp.o CMakeFiles/cviceni1.dir/Shader.cpp.o CMakeFiles/cviceni1.dir/ShaderManager.cpp.o CMakeFiles/cviceni1.dir/Subject.cpp.o CMakeFiles/cviceni1.dir/ShaderProgram.cpp.o CMakeFiles/cviceni1.dir/Transformation.cpp.o CMakeFiles/cviceni1.dir/Window.cpp.o CMakeFiles/cviceni1.dir/Loader.cpp.o CMakeFiles/cviceni1.dir/Observer.cpp.o CMakeFiles/cviceni1.dir/Light.cpp.o CMakeFiles/cviceni1.dir/Colors.cpp.o CMakeFiles/cviceni1.dir/Models.cpp.o CMakeFiles/cviceni1.dir/BushesModel.cpp.o CMakeFiles/cviceni1.dir/GiftModel.cpp.o CMakeFiles/cviceni1.dir/SuziSmoothModel.cpp.o CMakeFiles/cviceni1.dir/SphereModel.cpp.o CMakeFiles/cviceni1.dir/TreeModel.cpp.o CMakeFiles/cviceni1.dir/PlainModel.cpp.o CMakeFiles/cviceni1.dir/SuziFlatModel.cpp.o CMakeFiles/cviceni1.dir/SkycubeModel.cpp.o CMakeFiles/cviceni1.dir/AbstractLight.cpp.o CMakeFiles/cviceni1.dir/AbstractTransform.cpp.o CMakeFiles/cviceni1.dir/DirectionalLight.cpp.o CMakeFiles/cviceni1.dir/PointLight.cpp.o CMakeFiles/cviceni1.dir/SpotLight.cpp.o | ../lib/glew/2.2.0_1/lib/libGLEW.dylib ../lib/glfw/lib-arm64/libglfw.3.dylib
   FLAGS = -Wall -Werror -std=c++11 -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk
   LINK_LIBRARIES = -Wl,-rpath,"/Users/adamvrana/CLionProjects/zpg/cviceni2 2/lib/glfw/lib-arm64"  -framework OpenGL  ../lib/glew/2.2.0_1/lib/libGLEW.dylib  ../lib/glfw/lib-arm64/libglfw.3.dylib
   OBJECT_DIR = CMakeFiles/cviceni1.dir

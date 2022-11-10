@@ -7,10 +7,9 @@ Scene::Scene(int width, int height, const char* title)
     Scene::initOpenGLVersion();
     this->window = new Window(width, height, title);
 	Scene::initGLEW();
-	this->printVersionInfo();
+	Scene::printVersionInfo();
 	this->window->windowSize();
 	this->initMouse();
-    this->light = new Light();
 }
 
 Scene::~Scene()
@@ -103,13 +102,15 @@ void Scene::run()
 	{
 		object->initAndCheckShaders(); //shader init
 		this->camera->addSubscriber(object->getShaderProgram()); //add to observer list
-	}
+        object->setCamera(this->camera);
+    }
 
-	float deltaTime = 0.0f;	// time between current frame and last frame
+	float deltaTime;	// time between current frame and last frame
 	float lastFrame = 0.0f;
 
-    this->createLights();
-    this->light->updateColor(this->pickColor());
+    float actualRatio = this->window->getRatio(); //z�sk�n� pomeru stran pred zmenou
+    this->camera->notifyAll(MatrixType::ALL); //p�ed smy�kou, aby si v�ichni observe�i zaktualizovali svoje matice --> ze za��tku d�v�me v�echny
+
     while (!this->isWindowClosed())
 	{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear color and depth buffer
@@ -119,41 +120,45 @@ void Scene::run()
 		lastFrame = currentFrame;
 
 		this->window->windowSize();
-        this->camera->updateProjectionMatrix(this->window->getRatio());
+
+        if (this->window->getRatio() != actualRatio)
+        {
+            actualRatio = this->window->getRatio();
+            this->camera->updateProjectionMatrix(actualRatio); ///aktualizace matice na z�klad� zm�ny velikosti okna
+            this->camera->notifyAll(MatrixType::PROJECTIONMATRIX); //v p��pad�, �e do�lo ke zm�n� pom�ru okna, pak se po�le a� se zaktualizuje projke�n�
+        }
 
         bool isMousePressed = Callback::mouseCallback(this->window->getWindow());
         std::pair<double, double> pos = Callback::cursor_callback(this->window->getWindow());
         this->camera->mouseMove(pos.first, pos.second, isMousePressed);
+        this->camera->move(this->window->getWindow(), deltaTime);// pohyb p�es kl�vesnici
 
-		
-		this->camera->move(this->window->getWindow(), deltaTime);
         this->camera->notifyAll();
 
-        for (int i = 0; i < this->renderedObjects.size(); i++)
+        for (auto & spotLight : this->spotLights)
+            spotLight->updateDirection(this->camera->getDirection());
+
+        for (auto & renderedObject : this->renderedObjects)
         {
-            this->renderedObjects[i]->sendModelMatrixShader();
-            this->renderedObjects[i]->drawObjectNEW();
-            this->lights[i]->update(this->renderedObjects[i]->getShaderProgram());
+            renderedObject->sendModelMatrixShader();
+            renderedObject->drawObject();
+            //sv�tla
+            //this->light->update(this->renderedObjects[i]->getShaderProgram());
+
+            if (!this->pointLights.empty())
+                renderedObject->updatePointLights(this->pointLights);
+
+            else if (!this->spotLights.empty())
+                renderedObject->updateSpotLights(this->spotLights);
+
+            else if (!this->dirLights.empty())
+                renderedObject->updateDirLights(this->dirLights);
+
         }
 
         glfwPollEvents();// update other events like input handling
 		this->drawOntoWindow(); // put the stuff we have been drawing onto the display
 	}
-}
-
-void Scene::createLights()
-{
-    auto* c = new Colors();
-    std::vector<std::pair<std::string, glm::vec4>> colors = c->getAllColors();
-    int j = 0;
-    for (int i = 0; i < this->renderedObjects.size(); i++)
-    {
-        if (j >= colors.size())
-            j = 0;
-
-        this->lights.push_back(new Light(colors[j].second));
-        j++;
-    }
 }
 
 RenderedObject* Scene::createRenderedObject(Models* model, const char* vertexDefinition, const char* fragmentDefinition)
@@ -174,14 +179,14 @@ u_long Scene::createAndAdd(Models* model, const char* vertexDefinition, const ch
 
 glm::vec4 Scene::pickColor()
 {
-    srand(time(NULL));
+    srand(time(nullptr));
     auto* c = new Colors();
     std::vector<std::pair<std::string, glm::vec4>> colors = c->getAllColors();
     int index = rand() % colors.size();
     return colors[index].second;
 }
 
-glm::vec4 Scene::pickColor(int index)
+__attribute__((unused)) glm::vec4 Scene::pickColor(int index)
 {
     auto* c = new Colors();
     std::vector<std::pair<std::string, glm::vec4>> colors = c->getAllColors();
@@ -189,4 +194,55 @@ glm::vec4 Scene::pickColor(int index)
         index = 0;
 
     return colors[index].second;
+}
+
+void Scene::createLights()
+{
+    auto* c = new Colors();
+    std::vector<std::pair<std::string, glm::vec4>> colors = c->getAllColors();
+    srand(time(nullptr));
+    int index = rand() % colors.size();
+    this->lights.push_back(new Light(LightType::SPOT, glm::vec3(5.0, 0.0, 0.0), colors[index].second));
+}
+
+void Scene::createLights(LightType type)
+{
+    switch (type)
+    {
+        case LightType::POINT:
+            this->createPointLights();
+            break;
+        case LightType::SPOT:
+            this->createSpotLights();
+            break;
+        case LightType::DIRECTION:
+            this->createDirectionalLights();
+            break;
+    }
+}
+
+void Scene::createPointLights()
+{
+    auto* c = new Colors();
+    std::vector<std::pair<std::string, glm::vec4>> colors = c->getAllColors();
+    int index = rand() % colors.size();
+
+    this->pointLights.push_back(new PointLight(LightType::POINT, glm::vec3(5.0, 0.0, 0.0), colors[index].second));
+    index = rand() % colors.size();
+    this->pointLights.push_back(new PointLight(LightType::POINT, glm::vec3(-5.0, 0.0, 0.0), colors[index].second));
+}
+
+void Scene::createSpotLights()
+{
+    this->spotLights.push_back(new SpotLight(LightType::SPOT, glm::vec3(5.0, 0.0, 0.0), this->pickColor(), glm::cos(glm::radians(8.5f))));
+}
+
+void Scene::createDirectionalLights()
+{
+    auto* c = new Colors();
+    std::vector<std::pair<std::string, glm::vec4>> colors = c->getAllColors();
+    int index = rand() % colors.size();
+    this->dirLights.push_back(new DirectionalLight(LightType::DIRECTION, glm::vec3(-3.2f, -1.0f, -0.3f), colors[index].second));
+    index = rand() % colors.size();
+    this->dirLights.push_back(new DirectionalLight(LightType::DIRECTION, glm::vec3(3.0f, 10.0f, 0.0f), colors[index].second));
 }

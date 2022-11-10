@@ -1,9 +1,10 @@
 #pragma once
-#include "Model.h"
 #include "ShaderProgram.h"
 #include "Transformation.h"
 #include "TransformationType.h"
 #include "Models.h"
+#include "AbstractTransform.h"
+
 
 class RenderedObject
 {
@@ -12,6 +13,7 @@ private:
     ShaderProgram* shaderProgram;
 
 	Transformation* transformation;
+    __attribute__((unused)) AbstractTransform* abstractTransform;
     __attribute__((unused)) GLenum objectType{};
     __attribute__((unused)) int countVertex{};
 
@@ -34,6 +36,15 @@ public:
 	ShaderProgram* getShaderProgram();
 
     void createModel(Models* newModel);
-    void drawObjectNEW();
+    void drawObject();
+
+    //nastaven� camery pro shaderProgram
+    void setCamera(Camera* c);
+
+    void updateLights(std::vector<Light*> lights);
+    void updatePointLights(std::vector<PointLight*> lights);
+    void updateSpotLights(std::vector<SpotLight*> lights);
+    void updateDirLights(std::vector<DirectionalLight*> lights);
+
 };
 

@@ -21,15 +21,6 @@ Camera::Camera(glm::vec3 eye, glm::vec3 direction, float ratio)
 
 Camera::~Camera() = default;
 
-void Camera::notifyAll()
-{
-    for (auto obj : this->observers)
-    {
-        obj->notify(MatrixType::VIEWMATRIX, this->viewMatrix);
-        obj->notify(MatrixType::PROJECTIONMATRIX, this->projectionMatrix);
-    }
-}
-
 void Camera::move(GLFWwindow* window, double delta)
 {
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
@@ -65,13 +56,13 @@ void Camera::addSubscriber(ShaderProgram* shaderProgram)
     this->add(shaderProgram);
 }
 
-void Camera::removeSubscriber(ShaderProgram* shaderProgram)
+__attribute__((unused)) void Camera::removeSubscriber(ShaderProgram* shaderProgram)
 {
     //this->subscribers.push_back(shaderProgram);
     this->remove(shaderProgram);
 }
 
-void Camera::updateViewMatrix(glm::vec3 eye, glm::vec3 distance)
+__attribute__((unused)) void Camera::updateViewMatrix(glm::vec3 eye, glm::vec3 distance)
 {
     this->eye = eye;
     this->direction = distance;
@@ -98,6 +89,46 @@ void Camera::firstSetMouse(float width, float height)
 {
     this->lastX = width / 2;
     this->lastY = height / 2;
+}
+
+__attribute__((unused)) void Camera::mouseMove(double xposIn, double yposIn)
+{
+    auto xpos = static_cast<float>(xposIn);
+    auto ypos = static_cast<float>(yposIn);
+
+    if (this->firstMouse)
+    {
+        this->lastX = xpos;
+        this->lastY = ypos;
+        this->firstMouse = false;
+    }
+
+    float xoffset = xpos - this->lastX;
+    float yoffset = this->lastY - ypos;
+    this->lastX = xpos;
+    this->lastY = ypos;
+
+    xoffset *= this->sensitivity;
+    yoffset *= this->sensitivity;
+
+    this->yaw += xoffset;
+    this->pitch += yoffset;
+
+    // make sure that when pitch is out of bounds, screen doesn't get flipped
+    if (this->pitch > 89.0f)
+        this->pitch = 89.0f;
+    if (this->pitch < -89.0f)
+        this->pitch = -89.0f;
+
+    glm::vec3 dir;
+    dir.x = cos(glm::radians(this->yaw)) * cos(glm::radians(this->pitch));
+    dir.y = sin(glm::radians(this->pitch));
+    dir.z = sin(glm::radians(this->yaw)) * cos(glm::radians(this->pitch));
+
+    this->updateDirection(glm::normalize(dir));
+    this->updateViewMatrix();
+
+    this->firstMouse = true;
 }
 
 void Camera::mouseMove(double xposIn, double yposIn, bool isMousePressed)
@@ -142,4 +173,35 @@ void Camera::mouseMove(double xposIn, double yposIn, bool isMousePressed)
     this->updateDirection(glm::normalize(dir));
     this->updateViewMatrix();
 
+}
+
+__attribute__((unused)) void Camera::notifyAllObservers() {
+
+}
+
+void Camera::notifyAll()
+{
+    for (Observer* obj : this->observers)
+    {
+        obj->notify(MatrixType::VIEWMATRIX, this->viewMatrix);
+        obj->notify(MatrixType::PROJECTIONMATRIX, this->projectionMatrix);
+    }
+}
+
+void Camera::notifyAll(MatrixType type)
+{
+    for (Observer* obj : this->observers)
+    {
+        obj->notify(type);
+    }
+}
+
+__attribute__((unused)) glm::vec3 Camera::getEye()
+{
+    return this->eye;
+}
+
+glm::vec3 Camera::getDirection()
+{
+    return this->direction;
 }

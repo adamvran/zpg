@@ -9,6 +9,7 @@
 #include "lib/glm/glm/gtc/type_ptr.hpp"
 #include "Callback.h"
 #include "Subject.h"
+#include "MatrixType.h"
 #include <iostream>
 
 
@@ -26,7 +27,6 @@ class ShaderProgram;
 class Camera : public Subject
 {
 private:
-	std::vector<ShaderProgram*> subscribers;
 	glm::vec3 eye{}; //where is camera
 	glm::vec3 direction{}; //center
 	float ratio;
@@ -46,17 +46,27 @@ private:
 public:
 	Camera(glm::vec3 eye, glm::vec3 direction, float ratio);
 	~Camera();
-	void notifyAll() override;
+
+    __attribute__((unused)) void notifyAllObservers();
+    void notifyAll() override;
+    void notifyAll(MatrixType type);
 	void move(GLFWwindow* window, double delta);
 	glm::mat4 getViewMatrix();
 	glm::mat4 getProjectionMatrix();
 	void addSubscriber(ShaderProgram* shaderProgram);
-    void removeSubscriber(ShaderProgram *shaderProgram);
-    void updateViewMatrix(glm::vec3 eye, glm::vec3 distance);
+
+    __attribute__((unused)) void removeSubscriber(ShaderProgram *shaderProgram);
+
+    __attribute__((unused)) void updateViewMatrix(glm::vec3 eye, glm::vec3 distance);
 	void updateProjectionMatrix(float ratio);
 	void updateViewMatrix();
 	void updateDirection(glm::vec3 dir);
-	void mouseMove(double xPosIn, double yPosIn, bool isMousePressed);
-	void firstSetMouse(float width, float height);
+
+    __attribute__((unused)) void mouseMove(double xposIn, double yposIn);
+    void mouseMove(double xposIn, double yposIn, bool isMousePressed);
+    void firstSetMouse(float width, float height);
+
+    __attribute__((unused)) glm::vec3 getEye();
+    glm::vec3 getDirection();
 
 };

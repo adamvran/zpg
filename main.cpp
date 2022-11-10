@@ -96,7 +96,7 @@ int main()
                 objects.push_back(application->createNewObject(new TreeModel(), vertexShader, fragmentShaderBasic));
                 objects.push_back(application->createNewObject(new SphereModel(), vertexShader, fragmentShaderBasic2));
                 objects.push_back(application->createNewObject(new GiftModel(), vertexShader, fragmentShaderLambert));
-                objects.push_back(application->createNewObject(new BushesModel(), vertexShader, fragmentShaderPhong));
+                objects.push_back(application->createNewObject(new BushesModel(), vertexShader, fragmentShaderBlinn));
                 objects.push_back(application->createNewObject(new SuziSmoothModel(), vertexShader, fragmentShaderPhong));
                 objects.push_back(application->createNewObject(new SuziFlatModel(), vertexShader, fragmentShaderLambert));
             }
