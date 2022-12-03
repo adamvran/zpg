@@ -14,18 +14,18 @@ private:
 
 public:
 	PointLight(LightType type, glm::vec3 position, glm::vec4 color);
-	void updateStrength(float strength);
-	void updateColor(glm::vec4 color);
-	void updateShiness(int shiness);
+	void updateStrength(float strength) override;
+	void updateColor(glm::vec4 color) override;
+	void updateShiness(int shiness) override;
 	float getConstant() const;
 	float getLinear() const;
 	float getQuadratic() const;
-	glm::vec4 getColor();
-	float getStrength();
-	int getShiness();
-	LightType getType();
+	glm::vec4 getColor() override;
+	float getStrength() override;
+	int getShiness() override;
+	LightType getType() override;
 
-    __attribute__((unused)) void updatePosition(glm::vec3 position);
+    __attribute__((unused)) void updatePosition(glm::vec3 position_);
 	glm::vec3 getPosition();
 };
 

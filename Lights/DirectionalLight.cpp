@@ -44,9 +44,9 @@ LightType DirectionalLight::getType()
     return this->type;
 }
 
-void DirectionalLight::updateDirection(glm::vec3 direction)
+__attribute__((unused)) void DirectionalLight::updateDirection(glm::vec3 direction_)
 {
-    this->direction = direction;
+    this->direction = direction_;
 }
 
 glm::vec3 DirectionalLight::getDirection()

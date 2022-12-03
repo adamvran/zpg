@@ -24,13 +24,14 @@ private:
 
 public:
     Light();
-    Light(glm::vec4 color);
+    explicit Light(glm::vec4 color);
     Light(LightType type, glm::vec3 position, glm::vec4 color);
 
     ~Light();
-    void updateStrength(float strength);
-    void updateColor(glm::vec4 color);
-    void updateShiness(int shiness);
+
+    __attribute__((unused)) void updateStrength(float strength_);
+    __attribute__((unused)) void updateColor(glm::vec4 color_);
+    __attribute__((unused)) void updateShiness(int shiness_);
     //void update(ShaderProgram* sh);
 
     float getConstant() const;
@@ -43,9 +44,9 @@ public:
 
 
     //
-    __attribute__((unused)) void updateDirection(glm::vec3 direction);
+    __attribute__((unused)) void updateDirection(glm::vec3 direction_);
 
-    __attribute__((unused)) void updatePosition(glm::vec3 position);
+    __attribute__((unused)) void updatePosition(glm::vec3 position_);
 
     __attribute__((unused)) void updateCutOff(float cutOff);
     float getCutOff() const;

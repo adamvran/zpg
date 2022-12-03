@@ -1,5 +1,4 @@
 #include "PointLight.h"
-#include "../lib/glm/glm/vec3.hpp"
 
 PointLight::PointLight(LightType type, glm::vec3 position, glm::vec4 color)
 {
@@ -64,9 +63,9 @@ LightType PointLight::getType()
     return this->type;
 }
 
-__attribute__((unused)) void PointLight::updatePosition(glm::vec3 position)
+__attribute__((unused)) void PointLight::updatePosition(glm::vec3 position_)
 {
-	this->position = position;
+	this->position = position_;
 }
 
 glm::vec3 PointLight::getPosition()

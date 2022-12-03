@@ -65,17 +65,17 @@ LightType SpotLight::getType()
     return this->type;
 }
 
-void SpotLight::updateDirection(glm::vec3 direction)
+void SpotLight::updateDirection(glm::vec3 direction_)
 {
-    this->direction = direction;
+    this->direction = direction_;
 }
 
-void SpotLight::updatePosition(glm::vec3 position)
+__attribute__((unused)) void SpotLight::updatePosition(glm::vec3 position_)
 {
-    this->position = position;
+    this->position = position_;
 }
 
-void SpotLight::updateCutOff(float cutOff)
+__attribute__((unused)) void SpotLight::updateCutOff(float cutOff)
 {
     this->cuttOff = cutOff;
 }

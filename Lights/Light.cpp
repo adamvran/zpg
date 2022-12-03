@@ -9,6 +9,7 @@ Light::Light()
     this->strength = 1;
     this->color = glm::vec4 (0.385, 0.647, 0.812, 1.0);
     this->shiness = 16;
+    this->type = static_cast<LightType>(NULL);
 }
 
 Light::Light(glm::vec4 color)
@@ -16,6 +17,7 @@ Light::Light(glm::vec4 color)
     this->strength = 1;
     this->color = color;
     this->shiness = 16;
+    this->type = static_cast<LightType>(NULL);
 }
 
 Light::Light(LightType type, glm::vec3 position, glm::vec4 color)
@@ -35,16 +37,16 @@ Light::Light(LightType type, glm::vec3 position, glm::vec4 color)
 
 Light::~Light() = default;
 
-void Light::updateStrength(float strength) {
-    this->strength = strength;
+__attribute__((unused)) void Light::updateStrength(float strength_) {
+    this->strength = strength_;
 }
 
-void Light::updateColor(glm::vec4 color) {
-    this->color = color;
+__attribute__((unused)) void Light::updateColor(glm::vec4 color_) {
+    this->color = color_;
 }
 
-void Light::updateShiness(int shiness) {
-    this->shiness = shiness;
+__attribute__((unused)) void Light::updateShiness(int shiness_) {
+    this->shiness = shiness_;
 }
 
 float Light::getConstant() const
@@ -82,14 +84,14 @@ LightType Light::getType()
     return this->type;
 }
 
-__attribute__((unused)) void Light::updateDirection(glm::vec3 direction)
+__attribute__((unused)) void Light::updateDirection(glm::vec3 direction_)
 {
-    this->direction = direction;
+    this->direction = direction_;
 }
 
-__attribute__((unused)) void Light::updatePosition(glm::vec3 position)
+__attribute__((unused)) void Light::updatePosition(glm::vec3 position_)
 {
-    this->position = position;
+    this->position = position_;
 }
 
 __attribute__((unused)) void Light::updateCutOff(float cutOff)
