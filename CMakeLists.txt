@@ -27,7 +27,7 @@ add_executable(${PROJECT_NAME}
         Lights/Light.h
         Colors.cpp
         Colors.h
-        Skybox.cpp
+        Models/Textures/skybox/Skybox.cpp
         Models/Models.cpp
         Models/Models.h
         Models/BushesModel.cpp
@@ -50,12 +50,15 @@ add_executable(${PROJECT_NAME}
         Lights/DirectionalLight.cpp
         Lights/PointLight.cpp
         Lights/SpotLight.cpp
-        )
+        Models/Objects/HouseObjectModel.cpp
+        Models/Objects/HouseObjectModel.h
+        Models/Objects/LoaderObject.cpp
+        Models/Objects/LoaderObject.h Models/Objects/PlainObjectModel.cpp Models/Objects/PlainObjectModel.h)
 
 target_link_libraries(${PROJECT_NAME} "-framework OpenGL")
 target_link_libraries(${PROJECT_NAME} "-framework CoreFoundation")
 target_link_libraries(${PROJECT_NAME} "${PROJECT_SOURCE_DIR}/lib/glew/2.2.0_1/lib/libGLEW.dylib")
 target_link_libraries(${PROJECT_NAME} "${PROJECT_SOURCE_DIR}/lib/glfw/lib-arm64/libglfw.3.dylib")
-link_libraries(${PROJECT_NAME} "${PROJECT_SOURCE_DIR}/soil/lib/SOIL.lib")
-
+target_link_libraries(${PROJECT_NAME} "${PROJECT_SOURCE_DIR}/lib/assimp/5.2.5/lib/libassimp.5.2.4.dylib")
+include_directories("${PROJECT_SOURCE_DIR}/lib/assimp/5.2.5/include")
 find_package(GLEW QUIET)

@@ -5,6 +5,8 @@
 #include "Models/Textures/PlaneTextureModel.h"
 #include "Models/Textures/SkyboxTextureModel.h"
 #include "Models/SuziFlatModel.h"
+#include "Models/Objects/HouseObjectModel.h"
+#include "Models/Objects/PlainObjectModel.h"
 
 
 TransformationType shift = TransformationType::Shift;
@@ -67,6 +69,16 @@ int main()
         application->transformObject(shapes[i], scale, glm::vec3(0.4));
         application->transformObject(shapes[i], shift, glm::vec3((-3.f) - (float)(rand() % 60) + 1.0f, 1.0f, (-3.f) - (float)(rand() % 60) + (float)i));
     }
+
+
+    int plain = (int)application->createNewObject(new PlainObjectModel(), vertexShaderTexture, fragmentShaderTexture, "../Models/Textures/wooden_fence.png");
+    application->transformObject(plain, scale, glm::vec3(1000));
+    //application->transformObject(plain, 90.0f, glm::vec3(5, 0, -5));
+
+    int house = (int)application->createNewObject(new HouseObjectModel(), vertexShaderTexture, fragmentShaderTexture, "../Models/Objects/House/house.png");
+    application->transformObject(house, scale, glm::vec3(1));
+    application->transformObject(house, shift, glm::vec3(5, 0, -15));
+
 
     application->run();
     application->~Application();

@@ -6,7 +6,7 @@
 #include "Transformations/AbstractTransform.h"
 #include "Models/Textures/Texture.h"
 #include "Models/Textures/AbstractTexture.h"
-#include "Skybox.h"
+#include "Models/Textures/skybox/Skybox.h"
 
 
 class RenderedObject
