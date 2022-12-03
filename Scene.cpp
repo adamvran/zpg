@@ -137,12 +137,23 @@ void Scene::run()
 
         this->camera->notifyAll();
 
+        //SKYBOX
+        glDepthMask(GL_FALSE);
+        renderedObjects.at(0)->sendSkyboxViewMatrix(glm::mat4(glm::mat3(camera->getViewMatrix())));
+        renderedObjects.at(0)->sendProjectionMatrixShader(this->camera->getProjectionMatrix());
+        renderedObjects.at(0)->useTexture2();
+        renderedObjects.at(0)->drawObject();
+        glDepthMask(GL_TRUE);
+
         for (auto & spotLight : this->spotLights)
             spotLight->updateDirection(this->camera->getDirection());
 
         for (auto & renderedObject : this->renderedObjects)
         {
+            if (renderedObjects.at(0) == renderedObject)
+                continue;
             renderedObject->sendModelMatrixShader();
+            renderedObject->sendProjectionMatrixShader(this->camera->getProjectionMatrix());
             renderedObject->useTexture2();
             renderedObject->drawObject();
             //sv�tla
@@ -179,7 +190,8 @@ RenderedObject* Scene::createRenderedObject(Models* model, const char* vertexDef
     renderedObject->createModel(model);
     renderedObject->createShader(GL_VERTEX_SHADER, vertexDefinition);
     renderedObject->createShader(GL_FRAGMENT_SHADER, fragmentDefinition);
-    renderedObject->createTexture(std::move(path), this->indexTexture);
+    std::vector<std::string> paths {std::move(path)};
+    renderedObject->createTexture(paths, this->indexTexture);
     this->indexTexture++;
     return renderedObject;
 }
@@ -222,7 +234,7 @@ glm::vec4 Scene::pickColor()
     srand(time(nullptr));
     auto* c = new Colors();
     std::vector<std::pair<std::string, glm::vec4>> colors = c->getAllColors();
-    int index = rand() % colors.size();
+    unsigned int index = rand() % colors.size();
     return colors[index].second;
 }
 
@@ -241,7 +253,7 @@ void Scene::createLights()
     auto* c = new Colors();
     std::vector<std::pair<std::string, glm::vec4>> colors = c->getAllColors();
     srand(time(nullptr));
-    int index = rand() % colors.size();
+    unsigned int index = rand() % colors.size();
     this->lights.push_back(new Light(LightType::SPOT, glm::vec3(5.0, 0.0, 0.0), colors[index].second));
 }
 
@@ -265,7 +277,7 @@ void Scene::createPointLights()
 {
     auto* c = new Colors();
     std::vector<std::pair<std::string, glm::vec4>> colors = c->getAllColors();
-    int index = rand() % colors.size();
+    unsigned int index = rand() % colors.size();
 
     this->pointLights.push_back(new PointLight(LightType::POINT, glm::vec3(5.0, 0.0, 0.0), colors[index].second));
     index = rand() % colors.size();
@@ -281,7 +293,7 @@ void Scene::createDirectionalLights()
 {
     auto* c = new Colors();
     std::vector<std::pair<std::string, glm::vec4>> colors = c->getAllColors();
-    int index = rand() % colors.size();
+    unsigned int index = rand() % colors.size();
     this->dirLights.push_back(new DirectionalLight(LightType::DIRECTION, glm::vec3(-3.2f, -1.0f, -0.3f), colors[index].second));
     index = rand() % colors.size();
     this->dirLights.push_back(new DirectionalLight(LightType::DIRECTION, glm::vec3(3.0f, 10.0f, 0.0f), colors[index].second));

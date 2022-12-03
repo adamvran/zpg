@@ -26,7 +26,7 @@ void PlaneTextureModel::createVAO()
 void PlaneTextureModel::drawObject()
 {
 	glBindVertexArray(this->VAO);
-	glDrawArrays(this->objectType, 0, this->countOfVertex);
+	glDrawArrays(this->objectType, 0, 8);
 }
 
 void PlaneTextureModel::initPositionAndColor()

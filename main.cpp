@@ -10,13 +10,13 @@
 TransformationType shift = TransformationType::Shift;
 TransformationType scale = TransformationType::Scale;
 
-int main(void)
+int main()
 {
     //rotace: 35, glm::vec3(0.0f, 0.0f, 1.0f) //vektor je okolo které osy to rotuje??
     //posun: sh , glm::vec3(0.0f, -0.5f, 0.0f)
     //zvetseni: sc, glm::vec3(0.3f)
-    srand(time(NULL));
-    Application* application = new Application(800, 600, "ZPG");
+    srand(time(nullptr));
+    auto* application = new Application(800, 600, "ZPG");
 
     vector<string> skybox = {
             "../Models/Textures/skybox/posx.jpg",
@@ -28,7 +28,7 @@ int main(void)
     };
 
 
-    Loader* loader = new Loader();
+    auto* loader = new Loader();
     //blinn
     string vShader = loader->load("../shaders/vertex/light.vsh");
     string fShader = loader->load("../shaders/fragment/blinn2.txt");
@@ -62,12 +62,6 @@ int main(void)
     string vShader7 = loader->load("../shaders/vertex/lightSKYBOX.vsh");
     __attribute__((unused)) const char* vertexSKYBOX = vShader7.c_str();
 
-
-    //phong good
-    //string fShader7 = loader->load("../shaders/fragment/phongGood.txt");
-    /*string fShader7 = loader->load("../shaders/fragment/blinnLights.h");
-    const char* fragmentShaderPHONGGOOD = fShader7.c_str();*/
-
     string fShader8 = loader->load("../shaders/fragment/blinnLights.frag");
     const char* fragmentShaderLIGHTS = fShader8.c_str();
 
@@ -80,33 +74,22 @@ int main(void)
     auto* monkey = new SuziFlatModel();
 
     std::vector<int> shapes;
-    shapes.push_back(application->createNewObject(new PlaneTextureModel(), vertexShader, fragmentShaderBASIC2, "../Models/Textures/wooden_fence.png"));
-    application->transformObject(shapes.at(0), scale, glm::vec3(200));
-    //shapes.push_back(application->createNewObject(new PlaneTextureModel(), vertexShader, fragmentShaderBASIC2, "../models/textures/grass.png"));
-    //shapes.push_back(application->createNewObject(new PlaneModel(), vertexShader, fragmentShaderBASIC));
-    /*application->transformObject(shapes[0], scale, glm::vec3(50.0));
-    application->transformObject(shapes[0], shift, glm::vec3(0.0, 0.0, 0.0));
-
-    application->transformObject(shapes[1], scale, glm::vec3(50.0));
-    application->transformObject(shapes[1], shift, glm::vec3(2.0, 0.0, 0.0));*/
-
     //skybox
-    //shapes.push_back(application->createNewObject(new SkyboxTextureModel(), vertexSKYBOX, fragmentSKYBOX, skybox));
-    //application->transformObject(shapes[1], scale, glm::vec3(20.0));
+    shapes.push_back((int)application->createNewObject(new SkyboxTextureModel(), vertexSKYBOX, fragmentSKYBOX, skybox));
+    application->transformObject(shapes[0], scale, glm::vec3(20.0));
+
+    //plane with texture
+    shapes.push_back((int)application->createNewObject(new PlaneTextureModel(), vertexShader, fragmentShaderBASIC2, "../Models/Textures/wooden_fence.png"));
+    application->transformObject(shapes.at(1), scale, glm::vec3(5));
 
     for (int i = 0; i < 5; i++)
-    {
-        shapes.push_back(application->createNewObject(monkey, vertexShader, fragmentShaderLIGHTS));
-    }
+        shapes.push_back((int)application->createNewObject(monkey, vertexShader, fragmentShaderLIGHTS));
 
     for (int i = 2; i < shapes.size(); i++)
     {
         application->transformObject(shapes[i], scale, glm::vec3(0.4));
-        application->transformObject(shapes[i], shift, glm::vec3((-3.f) - (float)(rand() % 60) + i, 1.0f, (-3.f) - (float)(rand() % 60) + i));
-
+        application->transformObject(shapes[i], shift, glm::vec3((-3.f) - (float)(rand() % 60) + 1.0f, 1.0f, (-3.f) - (float)(rand() % 60) + (float)i));
     }
-
-
 
     application->run();
     application->~Application();

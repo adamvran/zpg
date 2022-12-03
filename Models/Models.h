@@ -17,4 +17,3 @@ public:
 	virtual void drawObject() = 0;
 	virtual void initPositionAndColor() = 0;
 };
-

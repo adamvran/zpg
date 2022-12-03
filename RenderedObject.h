@@ -34,6 +34,7 @@ public:
 	void transformMatrix(TransformationType type, glm::vec3 vector);
 
 	void sendModelMatrixShader();
+	void sendSkyboxViewMatrix(glm::mat4 mat);
 	void sendViewMatrixShader(glm::mat4 mat);
 	void sendProjectionMatrixShader(glm::mat4 mat);
 
@@ -52,7 +53,6 @@ public:
     void updateDirLights(std::vector<DirectionalLight*> lights);
 
     //textury
-    void createTexture(std::string path, int index);
     GLuint getTexture();
 
     void useTexture();
@@ -60,7 +60,7 @@ public:
 
     //abstraktn� textura
     AbstractTexture* getTextureObject();
-    void createTexture(std::vector<std::string> paths, int index);
+    void createTexture(const std::vector<std::string>& paths, int index);
     void useTexture2();
 
 };

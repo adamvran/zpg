@@ -49,7 +49,12 @@ void RenderedObject::transformMatrix(TransformationType type, glm::vec3 vector) 
 
 void RenderedObject::sendModelMatrixShader()
 {
-	this->shaderProgram->setMatrixModel(this->transformation->getTransform());
+	this->shaderProgram->setMatrixModel(this->transformation->getTransform(), "transform");
+}
+
+void RenderedObject::sendSkyboxViewMatrix(glm::mat4 mat)
+{
+	this->shaderProgram->setMatrixModel(mat, "viewMatrix");
 }
 
 void RenderedObject::sendViewMatrixShader(glm::mat4 mat)
@@ -109,11 +114,8 @@ AbstractTexture* RenderedObject::getTextureObject()
 {
     return this->texture;
 }
-void RenderedObject::createTexture(std::string path, int index)
-{
-    //this->texture = new TextureOld(path, index);
-}
-void RenderedObject::createTexture(std::vector<std::string> paths, int index)
+
+void RenderedObject::createTexture(const std::vector<std::string>& paths, int index)
 {
     if (paths.size() == 1)
     {
@@ -128,7 +130,10 @@ void RenderedObject::createTexture(std::vector<std::string> paths, int index)
 void RenderedObject::useTexture2()
 {
     if(this->texture != nullptr)
-        this->shaderProgram->useTexture(this->texture->getTexture());
+    {
+        glBindTexture(GL_TEXTURE_2D, this->texture->getTexture());
+        this->shaderProgram->useTexture();
+    }
 }
 
 

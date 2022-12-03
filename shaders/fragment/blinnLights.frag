@@ -22,11 +22,11 @@ in vec4 ex_worldPosition;
 in vec3 ex_worldNormal;
 uniform mat4 viewMatrix;
 uniform vec4 myColor;
-uniform int shiness;
+uniform uint shiness;
 uniform float strength;
 out vec4 out_Color;
 uniform Light lights[MAX_LIGHTS];
-uniform int currentLights;
+uniform uint currentLights;
 
 
 float count_dotProduct(vec3 lightDirection, vec3 world_normal)

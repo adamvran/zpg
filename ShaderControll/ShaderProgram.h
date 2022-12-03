@@ -29,21 +29,21 @@ public:
 	void checkStatus() const;
 	void run() const;
 	void createShader(GLenum shaderType, const char* shaderDefinition);
-	void setMatrixModel(glm::mat4 mat) const;
-    void notify(glm::mat4 viewMatrix, glm::mat4 projectionMatrix);
-    void notify(Camera* camera);
-    void notify(MatrixType type, glm::mat4 matrix);
-    void notify(MatrixType type);
+	void setMatrixModel(glm::mat4 mat, const std::string& type) const;
+    void notify(glm::mat4 viewMatrix, glm::mat4 projectionMatrix) const;
+    void notify(Camera* camera) const;
+    void notify(MatrixType type, glm::mat4 matrix) override;
+    void notify(MatrixType type) override;
     void setMatrixView(glm::mat4 mat) const;
 	void setMatrixProjection(glm::mat4 mat) const;
 
     __attribute__((unused)) void setStrength(float strength) const;
     __attribute__((unused)) void setColor(glm::vec4 color) const;
-    void setShiness(int shiness) const;
+    void setShiness(GLuint shiness) const;
     void setActiveCamera(Camera* camera);
 
     //update light
-    void setActualLight(GLint count) const;
+    void setActualLight(GLuint count) const;
     void updateLights(std::vector<Light*> lights) const;
 
 
@@ -53,6 +53,8 @@ public:
     void updateDirLights(std::vector<DirectionalLight*> lights) const;
 
     //textury
-    void useTexture(GLuint texture);
+    void useTexture() const;
+
+    void setMatrixTransform(glm::mat4 mat1) const;
 };
 

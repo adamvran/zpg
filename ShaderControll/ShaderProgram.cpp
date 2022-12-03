@@ -35,23 +35,23 @@ void ShaderProgram::createShader(GLenum shaderType, const char* shaderDefinition
     this->shaderManager->createShader(shaderType, shaderDefinition);
 }
 
-void ShaderProgram::setMatrixModel(glm::mat4 mat) const
+void ShaderProgram::setMatrixModel(glm::mat4 mat, const std::string& type) const
 {
     this->run();
-    GLint idModelTransform = glGetUniformLocation(this->shaderProgram, "transform");
+    GLint idModelTransform = glGetUniformLocation(this->shaderProgram, type.c_str());
     glUniformMatrix4fv(idModelTransform, 1, GL_FALSE, &mat[0][0]);
 }
 
-void ShaderProgram::notify(glm::mat4 viewMatrix, glm::mat4 projectionMatrix)
+void ShaderProgram::notify(glm::mat4 viewMatrix, glm::mat4 projectionMatrix) const
 {
     this->setMatrixView(viewMatrix);
     this->setMatrixProjection(projectionMatrix);
 
 }
 
-void ShaderProgram::notify(Camera* camera)
+void ShaderProgram::notify(Camera* camera) const
 {
-    this->setMatrixModel(camera->getViewMatrix());
+    this->setMatrixModel(camera->getViewMatrix(), "viewMatrix");
     this->setMatrixProjection(camera->getProjectionMatrix());
 }
 
@@ -68,6 +68,7 @@ void ShaderProgram::notify(MatrixType matrixType, glm::mat4 matrix)
         case MatrixType::ALL:
             break;
         case MatrixType::TRANSFORM:
+            this->setMatrixTransform(matrix);
             break;
     }
 }
@@ -105,6 +106,11 @@ void ShaderProgram::setMatrixProjection(glm::mat4 mat) const
     GLint idProjectionMatrix = glGetUniformLocation(this->shaderProgram, "projectionMatrix");
     glUniformMatrix4fv(idProjectionMatrix, 1, GL_FALSE, &mat[0][0]);
 }
+void ShaderProgram::setMatrixTransform(glm::mat4 mat) const {
+    this->run();
+    GLint idProjectionMatrix = glGetUniformLocation(this->shaderProgram, "transform");
+    glUniformMatrix4fv(idProjectionMatrix, 1, GL_FALSE, &mat[0][0]);
+}
 
 void ShaderProgram::run() const
 {
@@ -123,10 +129,10 @@ __attribute__((unused)) void ShaderProgram::setColor(glm::vec4 color) const {
     glUniform4fv(idColor, 1, &color[0]); //zkusit 1, 2 ,3 ještě
 }
 
-void ShaderProgram::setShiness(int shiness) const {
+void ShaderProgram::setShiness(GLuint shiness) const {
     this->run();
     GLint idShiness = glGetUniformLocation(this->shaderProgram, "shiness");
-    glUniform1i(idShiness, shiness);
+    glUniform1ui(idShiness, shiness);
 }
 
 void ShaderProgram::setActiveCamera(Camera* camera)
@@ -134,11 +140,11 @@ void ShaderProgram::setActiveCamera(Camera* camera)
     this->activeCamera = camera;
 }
 
-void ShaderProgram::setActualLight(GLint count) const
+void ShaderProgram::setActualLight(GLuint count) const
 {
     this->run();
     GLint idcount = glGetUniformLocation(this->shaderProgram, "currentLights");
-    glUniform1i(idcount, count);
+    glUniform1ui(idcount, count);
 }
 
 void ShaderProgram::updateLights(std::vector<Light*> lights) const
@@ -148,19 +154,19 @@ void ShaderProgram::updateLights(std::vector<Light*> lights) const
     for (int i = 0; i < lights.size(); i++)
     {
         std::string index = std::to_string(i);
-        GLuint loc1 = glGetUniformLocation(this->shaderProgram,("lights[" + index + "].position").c_str());
+        GLint loc1 = glGetUniformLocation(this->shaderProgram,("lights[" + index + "].position").c_str());
         glUniform3fv(loc1, 1, &lights[i]->getPosition()[0]);
 
-        GLuint loc2 = glGetUniformLocation(this->shaderProgram, ("lights[" + index + "].direction").c_str());
+        GLint loc2 = glGetUniformLocation(this->shaderProgram, ("lights[" + index + "].direction").c_str());
         glUniform3fv(loc2, 1, &lights[i]->getDirection()[0]);
 
-        GLuint loc3 = glGetUniformLocation(this->shaderProgram, ("lights[" + index + "].color").c_str());
+        GLint loc3 = glGetUniformLocation(this->shaderProgram, ("lights[" + index + "].color").c_str());
         glUniform4fv(loc3, 1, &lights[i]->getColor()[0]);
 
-        GLuint loc4 = glGetUniformLocation(this->shaderProgram, ("lights[" + index + "].strength").c_str());
+        GLint loc4 = glGetUniformLocation(this->shaderProgram, ("lights[" + index + "].strength").c_str());
         glUniform1f(loc4, lights[i]->getStrength());
 
-        GLuint loc5 = glGetUniformLocation(this->shaderProgram, ("lights[" + index + "].shiness").c_str());
+        GLint loc5 = glGetUniformLocation(this->shaderProgram, ("lights[" + index + "].shiness").c_str());
         glUniform1i(loc5, lights[i]->getShiness());
 
         //toto osetrit
@@ -177,21 +183,21 @@ void ShaderProgram::updateLights(std::vector<Light*> lights) const
                 type = 3;
                 break;
         }
-        GLuint loc6 = glGetUniformLocation(this->shaderProgram, ("lights[" + index + "].type").c_str());
+        GLint loc6 = glGetUniformLocation(this->shaderProgram, ("lights[" + index + "].type").c_str());
         glUniform1i(loc6, type);
 
-        GLuint loc7 = glGetUniformLocation(this->shaderProgram, ("lights[" + index + "].constant").c_str());
+        GLint loc7 = glGetUniformLocation(this->shaderProgram, ("lights[" + index + "].constant").c_str());
         glUniform1f(loc7, lights[i]->getConstant());
 
-        GLuint loc8 = glGetUniformLocation(this->shaderProgram, ("lights[" + index + "].linear").c_str());
+        GLint loc8 = glGetUniformLocation(this->shaderProgram, ("lights[" + index + "].linear").c_str());
         glUniform1f(loc8, lights[i]->getLinear());
 
-        GLuint loc9 = glGetUniformLocation(this->shaderProgram, ("lights[" + index + "].quadratic").c_str());
+        GLint loc9 = glGetUniformLocation(this->shaderProgram, ("lights[" + index + "].quadratic").c_str());
         glUniform1f(loc9, lights[i]->getQuadratic());
 
         if (lights[i]->getType() == LightType::SPOT)
         {
-            GLuint loc10 = glGetUniformLocation(this->shaderProgram, ("lights[" + index + "].cutOff").c_str());
+            GLint loc10 = glGetUniformLocation(this->shaderProgram, ("lights[" + index + "].cutOff").c_str());
             glUniform1f(loc10, lights[i]->getCutOff());
         }
     }
@@ -204,16 +210,16 @@ void ShaderProgram::updatePointLights(std::vector<PointLight*> lights) const
     for (int i = 0; i < lights.size(); i++)
     {
         std::string index = std::to_string(i);
-        GLuint loc1 = glGetUniformLocation(this->shaderProgram, ("lights[" + index + "].position").c_str());
+        GLint loc1 = glGetUniformLocation(this->shaderProgram, ("lights[" + index + "].position").c_str());
         glUniform3fv(loc1, 1, &lights[i]->getPosition()[0]);
 
-        GLuint loc3 = glGetUniformLocation(this->shaderProgram, ("lights[" + index + "].color").c_str());
+        GLint loc3 = glGetUniformLocation(this->shaderProgram, ("lights[" + index + "].color").c_str());
         glUniform4fv(loc3, 1, &lights[i]->getColor()[0]);
 
-        GLuint loc4 = glGetUniformLocation(this->shaderProgram, ("lights[" + index + "].strength").c_str());
+        GLint loc4 = glGetUniformLocation(this->shaderProgram, ("lights[" + index + "].strength").c_str());
         glUniform1f(loc4, lights[i]->getStrength());
 
-        GLuint loc5 = glGetUniformLocation(this->shaderProgram, ("lights[" + index + "].shiness").c_str());
+        GLint loc5 = glGetUniformLocation(this->shaderProgram, ("lights[" + index + "].shiness").c_str());
         glUniform1i(loc5, lights[i]->getShiness());
 
         //toto osetrit
@@ -230,16 +236,16 @@ void ShaderProgram::updatePointLights(std::vector<PointLight*> lights) const
                 type = 3;
                 break;
         }
-        GLuint loc6 = glGetUniformLocation(this->shaderProgram, ("lights[" + index + "].type").c_str());
+        GLint loc6 = glGetUniformLocation(this->shaderProgram, ("lights[" + index + "].type").c_str());
         glUniform1i(loc6, type);
 
-        GLuint loc7 = glGetUniformLocation(this->shaderProgram, ("lights[" + index + "].constant").c_str());
+        GLint loc7 = glGetUniformLocation(this->shaderProgram, ("lights[" + index + "].constant").c_str());
         glUniform1f(loc7, lights[i]->getConstant());
 
-        GLuint loc8 = glGetUniformLocation(this->shaderProgram, ("lights[" + index + "].linear").c_str());
+        GLint loc8 = glGetUniformLocation(this->shaderProgram, ("lights[" + index + "].linear").c_str());
         glUniform1f(loc8, lights[i]->getLinear());
 
-        GLuint loc9 = glGetUniformLocation(this->shaderProgram, ("lights[" + index + "].quadratic").c_str());
+        GLint loc9 = glGetUniformLocation(this->shaderProgram, ("lights[" + index + "].quadratic").c_str());
         glUniform1f(loc9, lights[i]->getQuadratic());
     }
 }
@@ -251,19 +257,19 @@ void ShaderProgram::updateSpotLights(std::vector<SpotLight*> lights) const
     for (int i = 0; i < lights.size(); i++)
     {
         std::string index = std::to_string(i);
-        GLuint loc1 = glGetUniformLocation(this->shaderProgram, ("lights[" + index + "].position").c_str());
+        GLint loc1 = glGetUniformLocation(this->shaderProgram, ("lights[" + index + "].position").c_str());
         glUniform3fv(loc1, 1, &lights[i]->getPosition()[0]);
 
-        GLuint loc2 = glGetUniformLocation(this->shaderProgram, ("lights[" + index + "].direction").c_str());
+        GLint loc2 = glGetUniformLocation(this->shaderProgram, ("lights[" + index + "].direction").c_str());
         glUniform3fv(loc2, 1, &lights[i]->getDirection()[0]);
 
-        GLuint loc3 = glGetUniformLocation(this->shaderProgram, ("lights[" + index + "].color").c_str());
+        GLint loc3 = glGetUniformLocation(this->shaderProgram, ("lights[" + index + "].color").c_str());
         glUniform4fv(loc3, 1, &lights[i]->getColor()[0]);
 
-        GLuint loc4 = glGetUniformLocation(this->shaderProgram, ("lights[" + index + "].strength").c_str());
+        GLint loc4 = glGetUniformLocation(this->shaderProgram, ("lights[" + index + "].strength").c_str());
         glUniform1f(loc4, lights[i]->getStrength());
 
-        GLuint loc5 = glGetUniformLocation(this->shaderProgram, ("lights[" + index + "].shiness").c_str());
+        GLint loc5 = glGetUniformLocation(this->shaderProgram, ("lights[" + index + "].shiness").c_str());
         glUniform1i(loc5, lights[i]->getShiness());
 
         //toto osetrit
@@ -280,19 +286,19 @@ void ShaderProgram::updateSpotLights(std::vector<SpotLight*> lights) const
                 type = 3;
                 break;
         }
-        GLuint loc6 = glGetUniformLocation(this->shaderProgram, ("lights[" + index + "].type").c_str());
+        GLint loc6 = glGetUniformLocation(this->shaderProgram, ("lights[" + index + "].type").c_str());
         glUniform1i(loc6, type);
 
-        GLuint loc7 = glGetUniformLocation(this->shaderProgram, ("lights[" + index + "].constant").c_str());
+        GLint loc7 = glGetUniformLocation(this->shaderProgram, ("lights[" + index + "].constant").c_str());
         glUniform1f(loc7, lights[i]->getConstant());
 
-        GLuint loc8 = glGetUniformLocation(this->shaderProgram, ("lights[" + index + "].linear").c_str());
+        GLint loc8 = glGetUniformLocation(this->shaderProgram, ("lights[" + index + "].linear").c_str());
         glUniform1f(loc8, lights[i]->getLinear());
 
-        GLuint loc9 = glGetUniformLocation(this->shaderProgram, ("lights[" + index + "].quadratic").c_str());
+        GLint loc9 = glGetUniformLocation(this->shaderProgram, ("lights[" + index + "].quadratic").c_str());
         glUniform1f(loc9, lights[i]->getQuadratic());
 
-        GLuint loc10 = glGetUniformLocation(this->shaderProgram, ("lights[" + index + "].cutOff").c_str());
+        GLint loc10 = glGetUniformLocation(this->shaderProgram, ("lights[" + index + "].cutOff").c_str());
         glUniform1f(loc10, lights[i]->getCutOff());
     }
 }
@@ -305,16 +311,16 @@ void ShaderProgram::updateDirLights(std::vector<DirectionalLight*> lights) const
     {
         std::string index = std::to_string(i);
 
-        GLuint loc2 = glGetUniformLocation(this->shaderProgram, ("lights[" + index + "].direction").c_str());
+        GLint loc2 = glGetUniformLocation(this->shaderProgram, ("lights[" + index + "].direction").c_str());
         glUniform3fv(loc2, 1, &lights[i]->getDirection()[0]);
 
-        GLuint loc3 = glGetUniformLocation(this->shaderProgram, ("lights[" + index + "].color").c_str());
+        GLint loc3 = glGetUniformLocation(this->shaderProgram, ("lights[" + index + "].color").c_str());
         glUniform4fv(loc3, 1, &lights[i]->getColor()[0]);
 
-        GLuint loc4 = glGetUniformLocation(this->shaderProgram, ("lights[" + index + "].strength").c_str());
+        GLint loc4 = glGetUniformLocation(this->shaderProgram, ("lights[" + index + "].strength").c_str());
         glUniform1f(loc4, lights[i]->getStrength());
 
-        GLuint loc5 = glGetUniformLocation(this->shaderProgram, ("lights[" + index + "].shiness").c_str());
+        GLint loc5 = glGetUniformLocation(this->shaderProgram, ("lights[" + index + "].shiness").c_str());
         glUniform1i(loc5, lights[i]->getShiness());
 
         //toto osetrit
@@ -331,16 +337,18 @@ void ShaderProgram::updateDirLights(std::vector<DirectionalLight*> lights) const
                 type = 3;
                 break;
         }
-        GLuint loc6 = glGetUniformLocation(this->shaderProgram, ("lights[" + index + "].type").c_str());
+        GLint loc6 = glGetUniformLocation(this->shaderProgram, ("lights[" + index + "].type").c_str());
         glUniform1i(loc6, type);
     }
 }
 
-void ShaderProgram::useTexture(GLuint texture)
+void ShaderProgram::useTexture() const
 {
-    GLuint textureID = glGetUniformLocation(this->shaderProgram, "textureUnitID");
-    glUniform1i(textureID, texture - 1);
+    GLint textureID = glGetUniformLocation(this->shaderProgram, "textureUnitID");
+    glUniform1i(textureID, 0);
 }
+
+
 
 
 /*

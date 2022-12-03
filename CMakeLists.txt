@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.21)
 project(cviceni1 VERSION 1.0.0)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Werror -std=c++11")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=c++11")
 
 find_package(OpenGL REQUIRED)
 
@@ -50,10 +50,13 @@ add_executable(${PROJECT_NAME}
         Lights/DirectionalLight.cpp
         Lights/PointLight.cpp
         Lights/SpotLight.cpp
-        stb_image.h)
+
+        )
 
 target_link_libraries(${PROJECT_NAME} "-framework OpenGL")
+target_link_libraries(${PROJECT_NAME} "-framework CoreFoundation")
 target_link_libraries(${PROJECT_NAME} "${PROJECT_SOURCE_DIR}/lib/glew/2.2.0_1/lib/libGLEW.dylib")
 target_link_libraries(${PROJECT_NAME} "${PROJECT_SOURCE_DIR}/lib/glfw/lib-arm64/libglfw.3.dylib")
+link_libraries(${PROJECT_NAME} "${PROJECT_SOURCE_DIR}/soil/lib/SOIL.lib")
 
 find_package(GLEW QUIET)
