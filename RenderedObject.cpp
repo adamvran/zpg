@@ -127,7 +127,7 @@ void RenderedObject::createTexture(const std::vector<std::string>& paths, int in
     }
 }
 
-void RenderedObject::useTexture2()
+void RenderedObject::useTexture()
 {
     if(this->texture != nullptr)
     {

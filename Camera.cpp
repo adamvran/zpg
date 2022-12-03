@@ -62,16 +62,16 @@ __attribute__((unused)) void Camera::removeSubscriber(ShaderProgram* shaderProgr
     this->remove(shaderProgram);
 }
 
-__attribute__((unused)) void Camera::updateViewMatrix(glm::vec3 eye, glm::vec3 distance)
+__attribute__((unused)) void Camera::updateViewMatrix(glm::vec3 eye_, glm::vec3 distance)
 {
-    this->eye = eye;
+    this->eye = eye_;
     this->direction = distance;
     this->viewMatrix = glm::lookAt(this->eye, this->eye + this->direction, CAMERA_UP);
 }
 
-void Camera::updateProjectionMatrix(float ratio)
+void Camera::updateProjectionMatrix(float ratio_)
 {
-    this->ratio = ratio;
+    this->ratio = ratio_;
     this->projectionMatrix = glm::perspective(CAMERA_FOV, this->ratio, CAMERA_ZNEAR, CAMERA_ZFAR);
 }
 

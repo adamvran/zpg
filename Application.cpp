@@ -1,4 +1,6 @@
 #include "Application.h"
+
+#include <utility>
 #include "Models/Models.h"
 
 Application::Application(int width, int height, const char* title)
@@ -41,12 +43,12 @@ u_long Application::createNewObject(Models* model, const char* vertexDefinition,
 }
 u_long Application::createNewObject(Models* model, const char* vertexDefinition, const char* fragmentDefinition, std::string path)
 {
-    return this->scene->createAndAdd(model, vertexDefinition, fragmentDefinition, path);
+    return this->scene->createAndAdd(model, vertexDefinition, fragmentDefinition, std::move(path));
 }
 
 u_long Application::createNewObject(Models* model, const char* vertexDefinition, const char* fragmentDefinition, std::vector<std::string> paths)
 {
-    return this->scene->createAndAdd(model, vertexDefinition, fragmentDefinition, paths);
+    return this->scene->createAndAdd(model, vertexDefinition, fragmentDefinition, std::move(paths));
 }
 
 

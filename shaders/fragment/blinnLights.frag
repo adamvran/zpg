@@ -11,7 +11,7 @@ struct Light
 	int shiness;
 	int type;
 	float cutOff;
-	
+
 	//utlum
 	float constant;
 	float linear;
@@ -152,7 +152,7 @@ void main() {
 	vec3 lightPosition = vec3(0.0, 0.0, 0.0);
 	vec3 lightDirection = count_lightDirection(lightPosition, ex_worldPosition);
 	vec3 camera = count_cameraPosition(viewMatrix);
-	vec3 viewDirection = count_viewDirection(camera, ex_worldPosition);	
+	vec3 viewDirection = count_viewDirection(camera, ex_worldPosition);
 
 	vec4 fragmentColor = vec4(0.0, 0.0, 0.0, 0.0);
 
@@ -164,10 +164,10 @@ void main() {
 		{
 			fragmentColor += spotLight(lights[i], world_normal, ex_worldPosition, viewDirection, ambient, camera);
 		}
-			
+
 		else if(lights[i].type == 3)
 			fragmentColor += directionalLight(lights[i], world_normal, ex_worldPosition, viewDirection, ambient);
 	}
-	
+
 	out_Color = fragmentColor;
 }

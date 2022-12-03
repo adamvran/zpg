@@ -16,7 +16,7 @@ int main()
     //posun: sh , glm::vec3(0.0f, -0.5f, 0.0f)
     //zvetseni: sc, glm::vec3(0.3f)
     srand(time(nullptr));
-    auto* application = new Application(800, 600, "ZPG");
+    auto* application = new Application(1500, 900, "ZPG");
 
     vector<string> skybox = {
             "../Models/Textures/skybox/posx.jpg",
@@ -27,41 +27,22 @@ int main()
             "../Models/Textures/skybox/negz.jpg"
     };
 
-
+    std::vector<int> shapes;
     auto* loader = new Loader();
-    //blinn
-    string vShader = loader->load("../shaders/vertex/light.vsh");
-    string fShader = loader->load("../shaders/fragment/blinn2.txt");
-    const char* vertexShader = vShader.c_str();
-    __attribute__((unused)) const char* fragmentShader = fShader.c_str();
 
-    //phong
-    string fShader2 = loader->load("../shaders/fragment/phong.txt");
-    __attribute__((unused)) const char* fragmentShaderPHONG = fShader2.c_str();
+    //SKYBOX
+    string vShaderSkybox = loader->load("../shaders/vertex/skybox.vsh");
+    const char* vertexSKYBOX = vShaderSkybox.c_str();
+    string fShaderSkybox = loader->load("../shaders/fragment/skybox.frag");
+    const char* fragmentSKYBOX = fShaderSkybox.c_str();
 
-    //lambert
-    string fShader3 = loader->load("../shaders/fragment/lambert.txt");
-    __attribute__((unused)) const char* fragmentShaderLAMBERT = fShader3.c_str();
+    shapes.push_back((int)application->createNewObject(new SkyboxTextureModel(), vertexSKYBOX, fragmentSKYBOX, skybox));
+    application->transformObject(shapes[0], scale, glm::vec3(20.0));
 
-    //basic
-    string fShader4 = loader->load("../shaders/fragment/basic.txt");
-    __attribute__((unused)) const char* fragmentShaderBASIC = fShader4.c_str();
-
-    //basic2
-    string fShader5 = loader->load("../shaders/fragment/basic2.frag");
-    const char* fragmentShaderBASIC2 = fShader5.c_str();
-
-    //phongwrong
-    string fShader6 = loader->load("../shaders/fragment/phongWrong.txt");
-    __attribute__((unused)) const char* fragmentShaderPHONGWRONG = fShader6.c_str();
-
-    //skybox fragment a vertex
-    string fShader7 = loader->load("../shaders/fragment/basicSKYBOX.frag");
-    __attribute__((unused)) const char* fragmentSKYBOX = fShader7.c_str();
-
-    string vShader7 = loader->load("../shaders/vertex/lightSKYBOX.vsh");
-    __attribute__((unused)) const char* vertexSKYBOX = vShader7.c_str();
-
+    string vShader = loader->load("../shaders/vertex/lightTexture.vsh");
+    const char* vertexShaderTexture = vShader.c_str();
+    string fShader5 = loader->load("../shaders/fragment/texture.frag");
+    const char* fragmentShaderTexture = fShader5.c_str();
     string fShader8 = loader->load("../shaders/fragment/blinnLights.frag");
     const char* fragmentShaderLIGHTS = fShader8.c_str();
 
@@ -73,17 +54,13 @@ int main()
 
     auto* monkey = new SuziFlatModel();
 
-    std::vector<int> shapes;
-    //skybox
-    shapes.push_back((int)application->createNewObject(new SkyboxTextureModel(), vertexSKYBOX, fragmentSKYBOX, skybox));
-    application->transformObject(shapes[0], scale, glm::vec3(20.0));
-
     //plane with texture
-    shapes.push_back((int)application->createNewObject(new PlaneTextureModel(), vertexShader, fragmentShaderBASIC2, "../Models/Textures/wooden_fence.png"));
+    shapes.push_back((int)application->createNewObject(new PlaneTextureModel(), vertexShaderTexture, fragmentShaderTexture, "../Models/Textures/wooden_fence.png"));
     application->transformObject(shapes.at(1), scale, glm::vec3(5));
+    application->transformObject(shapes.at(1), glm::radians(90.f), glm::vec3(0.0f, 0.0f, 1.0f));
 
     for (int i = 0; i < 5; i++)
-        shapes.push_back((int)application->createNewObject(monkey, vertexShader, fragmentShaderLIGHTS));
+        shapes.push_back((int)application->createNewObject(monkey, vertexShaderTexture, fragmentShaderLIGHTS));
 
     for (int i = 2; i < shapes.size(); i++)
     {

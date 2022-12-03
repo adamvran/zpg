@@ -57,8 +57,8 @@ public:
 
     __attribute__((unused)) void removeSubscriber(ShaderProgram *shaderProgram);
 
-    __attribute__((unused)) void updateViewMatrix(glm::vec3 eye, glm::vec3 distance);
-	void updateProjectionMatrix(float ratio);
+    __attribute__((unused)) void updateViewMatrix(glm::vec3 eye_, glm::vec3 distance);
+	void updateProjectionMatrix(float ratio_);
 	void updateViewMatrix();
 	void updateDirection(glm::vec3 dir);
 
