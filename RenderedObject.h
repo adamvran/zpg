@@ -53,15 +53,14 @@ public:
     void updateDirLights(std::vector<DirectionalLight*> lights);
 
     //textury
-    GLuint getTexture();
-
-    void useTexture();
+    //GLuint getTexture();
+    //void useTexture();
 
 
     //abstraktn� textura
     AbstractTexture* getTextureObject();
     void createTexture(const std::vector<std::string>& paths, int index);
-    void useTexture2();
+    void useTexture();
 
 };
 

@@ -50,7 +50,6 @@ add_executable(${PROJECT_NAME}
         Lights/DirectionalLight.cpp
         Lights/PointLight.cpp
         Lights/SpotLight.cpp
-
         )
 
 target_link_libraries(${PROJECT_NAME} "-framework OpenGL")

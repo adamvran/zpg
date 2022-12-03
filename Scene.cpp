@@ -141,7 +141,7 @@ void Scene::run()
         glDepthMask(GL_FALSE);
         renderedObjects.at(0)->sendSkyboxViewMatrix(glm::mat4(glm::mat3(camera->getViewMatrix())));
         renderedObjects.at(0)->sendProjectionMatrixShader(this->camera->getProjectionMatrix());
-        renderedObjects.at(0)->useTexture2();
+        renderedObjects.at(0)->useTexture();
         renderedObjects.at(0)->drawObject();
         glDepthMask(GL_TRUE);
 
@@ -154,7 +154,7 @@ void Scene::run()
                 continue;
             renderedObject->sendModelMatrixShader();
             renderedObject->sendProjectionMatrixShader(this->camera->getProjectionMatrix());
-            renderedObject->useTexture2();
+            renderedObject->useTexture();
             renderedObject->drawObject();
             //sv�tla
             //this->light->update(this->renderedObjects[i]->getShaderProgram());
@@ -197,13 +197,13 @@ RenderedObject* Scene::createRenderedObject(Models* model, const char* vertexDef
 }
 
 
-RenderedObject* Scene::createRenderedObject(Models* model, const char* vertexDefinition, const char* fragmentDefinition, std::vector<std::string> paths)
+RenderedObject* Scene::createRenderedObject(Models* model, const char* vertexDefinition, const char* fragmentDefinition, const std::vector<std::string>& paths)
 {
     auto* renderedObject = new RenderedObject();
     renderedObject->createModel(model);
     renderedObject->createShader(GL_VERTEX_SHADER, vertexDefinition);
     renderedObject->createShader(GL_FRAGMENT_SHADER, fragmentDefinition);
-    renderedObject->createTexture(std::move(paths), this->indexTexture);
+    renderedObject->createTexture(paths, this->indexTexture);
     this->indexTexture++;
     return renderedObject;
 }
@@ -217,12 +217,12 @@ u_long Scene::createAndAdd(Models* model, const char* vertexDefinition, const ch
 }
 u_long Scene::createAndAdd(Models* model, const char* vertexDefinition, const char* fragmentDefinition, std::string path)
 {
-    RenderedObject* r = this->createRenderedObject(model, vertexDefinition, fragmentDefinition, path);
+    RenderedObject* r = this->createRenderedObject(model, vertexDefinition, fragmentDefinition, std::move(path));
     this->addRenderedObject(r);
     return this->renderedObjects.size();
 }
 
-u_long Scene::createAndAdd(Models* model, const char* vertexDefinition, const char* fragmentDefinition, std::vector<std::string> paths)
+u_long Scene::createAndAdd(Models* model, const char* vertexDefinition, const char* fragmentDefinition, const std::vector<std::string>& paths)
 {
     RenderedObject* r = this->createRenderedObject(model, vertexDefinition, fragmentDefinition, paths);
     this->addRenderedObject(r);

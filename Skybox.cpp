@@ -12,7 +12,7 @@ Skybox::Skybox(std::vector<std::string> paths, int index)
 {
     this->textureID = 0;
     this->paths = std::move(paths);
-    this->createTexture(index);
+    this->createTexture(index); //dangerous, but whatever
 }
 
 void Skybox::createTexture(int index)
