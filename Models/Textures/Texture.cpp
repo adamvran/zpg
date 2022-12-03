@@ -1,20 +1,18 @@
 #include "Texture.h"
 #include "../../stb_image.h"
-#define GL_SILENCE_DEPRECATION
-
 #include <utility>
 
 
 Texture::Texture()
 {
-    this->textureID = NULL;
+    this->textureID = 0;
 }
 
 Texture::Texture(std::vector<std::string> paths, int index)
 {
-    this->textureID = NULL;
+    this->textureID = 0;
     this->paths = std::move(paths);
-    this->createTexture(index);
+    this->createTexture(index); //dangerous, but whatever
 }
 
 void Texture::createTexture(int index)
