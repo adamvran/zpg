@@ -7,6 +7,8 @@
 #include "Models/SuziFlatModel.h"
 #include "Models/Objects/HouseObjectModel.h"
 #include "Models/Objects/PlainObjectModel.h"
+#include "Models/Objects/TerrainObjectModel.h"
+#include "Models/Objects/TreeObjectModel.h"
 
 
 TransformationType shift = TransformationType::Shift;
@@ -18,7 +20,7 @@ int main()
     //posun: sh , glm::vec3(0.0f, -0.5f, 0.0f)
     //zvetseni: sc, glm::vec3(0.3f)
     srand(time(nullptr));
-    auto* application = new Application(1500, 900, "ZPG");
+    auto* application = new Application(800, 600, "ZPG");
 
     vector<string> skybox = {
             "../Models/Textures/skybox/posx.jpg",
@@ -71,13 +73,18 @@ int main()
     }
 
 
-    int plain = (int)application->createNewObject(new PlainObjectModel(), vertexShaderTexture, fragmentShaderTexture, "../Models/Textures/wooden_fence.png");
-    application->transformObject(plain, scale, glm::vec3(1000));
+    int terrain = (int)application->createNewObject(new TerrainObjectModel(), vertexShaderTexture, fragmentShaderTexture, "../Models/Objects/Terrain/grass.png");
+    application->transformObject(terrain, scale, glm::vec3(2));
     //application->transformObject(plain, 90.0f, glm::vec3(5, 0, -5));
 
     int house = (int)application->createNewObject(new HouseObjectModel(), vertexShaderTexture, fragmentShaderTexture, "../Models/Objects/House/house.png");
     application->transformObject(house, scale, glm::vec3(1));
     application->transformObject(house, shift, glm::vec3(5, 0, -15));
+
+
+    int tree = (int)application->createNewObject(new TreeObjectModel(), vertexShaderTexture, fragmentShaderTexture, "../Models/Objects/Tree/tree.png");
+    application->transformObject(tree, scale, glm::vec3(1));
+    application->transformObject(tree, shift, glm::vec3(5, 0, 15));
 
 
     application->run();

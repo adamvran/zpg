@@ -1,4 +1,7 @@
 #include "Callback.h"
+#include "lib/glm/glm/vec3.hpp"
+#include "lib/glm/glm/ext/matrix_float4x4.hpp"
+#include "lib/glm/glm/ext/matrix_projection.hpp"
 
 void Callback::error_callback(int error, const char* description)
 {
@@ -37,7 +40,9 @@ std::pair<double, double> Callback::cursor_callback(GLFWwindow* window)
 
 void Callback::button_callback(GLFWwindow* window, int button, int action, int mode)
 {
-	if (action == GLFW_PRESS) printf("button_callback [%d,%d,%d]\n", button, action, mode);
+	if (action == GLFW_PRESS) {
+        printf("button_callback [%d,%d,%d]\n", button, action, mode);
+    }
 }
 
 bool Callback::W_callback(GLFWwindow* window)
@@ -55,14 +60,23 @@ bool Callback::S_callback(GLFWwindow* window)
 	return (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS);
 }
 
+bool Callback::Q_callback(GLFWwindow* window)
+{
+	return (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS);
+}
+
 bool Callback::D_callback(GLFWwindow* window)
 {
 	return (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS);
 }
 
-bool Callback::mouseCallback(GLFWwindow* window)
+bool Callback::mouseCallbackLeft(GLFWwindow* window)
 {
     return (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS);
+}
+bool Callback::mouseCallbackRight(GLFWwindow* window)
+{
+    return (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS);
 }
 
 void Callback::key_callback(GLFWwindow *window, int key, int scancode, int action, int mods) {

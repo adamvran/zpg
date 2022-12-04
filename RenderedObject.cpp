@@ -118,13 +118,9 @@ AbstractTexture* RenderedObject::getTextureObject()
 void RenderedObject::createTexture(const std::vector<std::string>& paths, int index)
 {
     if (paths.size() == 1)
-    {
         this->texture = new Texture(paths, index);
-    }
     else
-    {
         this->texture = new Skybox(paths, index);
-    }
 }
 
 void RenderedObject::useTexture()

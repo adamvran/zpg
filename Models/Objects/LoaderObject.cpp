@@ -41,7 +41,5 @@ std::pair<int, std::vector<float>> LoaderObject::initData()
             }
         }
     }
-
-    return std::make_pair(this->count, data);
-    //return { this->count, data }; //toto ud�lal Adam pros�m, proto�e je kouzeln�k :)
+    return { this->count, data };
 }

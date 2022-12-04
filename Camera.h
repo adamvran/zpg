@@ -11,6 +11,8 @@
 #include "Subject.h"
 #include "MatrixType.h"
 #include <iostream>
+#include "lib/glfw/include/GLFW/glfw3.h"
+
 
 
 class ShaderProgram;
@@ -18,8 +20,8 @@ class ShaderProgram;
 #define CAMERA_UP glm::vec3(0.f, 1.f, 0.f) //up direction
 #define CAMERA_FOV glm::radians(40.0f) //how much wide
 #define CAMERA_ZNEAR 0.001f
-#define CAMERA_ZFAR 100.0f
-#define CAMERA_SPEED 2.f
+#define CAMERA_ZFAR 1000.0f
+#define CAMERA_SPEED 10.f
 #define YAW (-90.f)
 #define PITCH 0.0f
 #define SENSITIVITY 0.1f

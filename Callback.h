@@ -1,6 +1,7 @@
 #pragma once
 #include <cstdio>
 #include <iostream>
+#include "Camera.h"
 #include "lib/glfw/include/GLFW/glfw3.h"
 
 class Callback
@@ -17,6 +18,8 @@ public:
 	static bool A_callback(GLFWwindow* window);
 	static bool S_callback(GLFWwindow* window);
 	static bool D_callback(GLFWwindow* window);
-	static bool mouseCallback(GLFWwindow* window);
+	static bool Q_callback(GLFWwindow* window);
+	static bool mouseCallbackLeft(GLFWwindow* window);
+	static bool mouseCallbackRight(GLFWwindow* window);
 };
 

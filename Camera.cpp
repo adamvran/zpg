@@ -91,46 +91,6 @@ void Camera::firstSetMouse(float width, float height)
     this->lastY = height / 2;
 }
 
-__attribute__((unused)) void Camera::mouseMove(double xposIn, double yposIn)
-{
-    auto xpos = static_cast<float>(xposIn);
-    auto ypos = static_cast<float>(yposIn);
-
-    if (this->firstMouse)
-    {
-        this->lastX = xpos;
-        this->lastY = ypos;
-        this->firstMouse = false;
-    }
-
-    float xoffset = xpos - this->lastX;
-    float yoffset = this->lastY - ypos;
-    this->lastX = xpos;
-    this->lastY = ypos;
-
-    xoffset *= this->sensitivity;
-    yoffset *= this->sensitivity;
-
-    this->yaw += xoffset;
-    this->pitch += yoffset;
-
-    // make sure that when pitch is out of bounds, screen doesn't get flipped
-    if (this->pitch > 89.0f)
-        this->pitch = 89.0f;
-    if (this->pitch < -89.0f)
-        this->pitch = -89.0f;
-
-    glm::vec3 dir;
-    dir.x = cos(glm::radians(this->yaw)) * cos(glm::radians(this->pitch));
-    dir.y = sin(glm::radians(this->pitch));
-    dir.z = sin(glm::radians(this->yaw)) * cos(glm::radians(this->pitch));
-
-    this->updateDirection(glm::normalize(dir));
-    this->updateViewMatrix();
-
-    this->firstMouse = true;
-}
-
 void Camera::mouseMove(double xposIn, double yposIn, bool isMousePressed)
 {
     if (!isMousePressed)

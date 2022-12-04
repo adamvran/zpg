@@ -28,9 +28,9 @@ void Window::createWindow()
 
 void Window::windowSize()
 {
-	//int width, height;
+	int width, height;
 	glfwGetFramebufferSize(this->window, &width, &height);
-	//float ratio = width / (float)height;
+	float ratio = width / (float)height;
 	glViewport(0, 0, this->width, this->height);
 }
 

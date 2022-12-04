@@ -1,6 +1,9 @@
 #include "Scene.h"
+#include "Models/Objects/TreeObjectModel.h"
+#include "Loader.h"
 
 #include <utility>
+#include <unistd.h>
 
 Scene::Scene(int width, int height, const char* title)
 {
@@ -45,6 +48,8 @@ void Scene::initOpenGLVersion() {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    glfwWindowHint(GLFW_COCOA_RETINA_FRAMEBUFFER, GL_FALSE);
+
 }
 
 
@@ -99,8 +104,11 @@ void Scene::transform(int objectInArray, TransformationType type, glm::vec3 vect
 void Scene::run()
 {
     glEnable(GL_DEPTH_TEST);
+    glEnable(GL_STENCIL_TEST);
+    glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
 
-	for (auto object : this->renderedObjects)
+
+    for (auto object : this->renderedObjects)
 	{
 		object->initAndCheckShaders(); //shader init
 		this->camera->addSubscriber(object->getShaderProgram()); //add to observer list
@@ -115,7 +123,7 @@ void Scene::run()
 
     while (!this->isWindowClosed())
 	{
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear color and depth buffer
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT); // clear color and depth buffer
 
 		auto currentFrame = static_cast<float>(glfwGetTime());
 		deltaTime = currentFrame - lastFrame;
@@ -130,7 +138,11 @@ void Scene::run()
             this->camera->notifyAll(MatrixType::PROJECTIONMATRIX); //v p��pad�, �e do�lo ke zm�n� pom�ru okna, pak se po�le a� se zaktualizuje projke�n�
         }
 
-        bool isMousePressed = Callback::mouseCallback(this->window->getWindow());
+        bool isMousePressed = Callback::mouseCallbackLeft(this->window->getWindow());
+        bool plantTree = Callback::mouseCallbackRight(this->window->getWindow());
+        bool cutTree = Callback::Q_callback(this->window->getWindow());
+
+
         std::pair<double, double> pos = Callback::cursor_callback(this->window->getWindow());
         this->camera->mouseMove(pos.first, pos.second, isMousePressed);
         this->camera->move(this->window->getWindow(), deltaTime);// pohyb p�es kl�vesnici
@@ -139,35 +151,103 @@ void Scene::run()
 
         //SKYBOX
         glDepthMask(GL_FALSE);
+        glStencilFunc(GL_ALWAYS, 0, 0xFF);
         renderedObjects.at(0)->sendSkyboxViewMatrix(glm::mat4(glm::mat3(camera->getViewMatrix())));
         renderedObjects.at(0)->sendProjectionMatrixShader(this->camera->getProjectionMatrix());
         renderedObjects.at(0)->useTexture();
         renderedObjects.at(0)->drawObject();
+
         glDepthMask(GL_TRUE);
 
         for (auto & spotLight : this->spotLights)
             spotLight->updateDirection(this->camera->getDirection());
 
-        for (auto & renderedObject : this->renderedObjects)
+        for (int i = 1; i<renderedObjects.size() - 1; i++)
         {
-            if (renderedObjects.at(0) == renderedObject)
-                continue;
-            renderedObject->sendModelMatrixShader();
-            renderedObject->sendProjectionMatrixShader(this->camera->getProjectionMatrix());
-            renderedObject->useTexture();
-            renderedObject->drawObject();
-            //sv�tla
-            //this->light->update(this->renderedObjects[i]->getShaderProgram());
+            glStencilFunc(GL_ALWAYS, i, 0xFF);
+            renderedObjects.at(i)->sendModelMatrixShader();
+            renderedObjects.at(i)->sendProjectionMatrixShader(this->camera->getProjectionMatrix());
+            renderedObjects.at(i)->useTexture();
+            renderedObjects.at(i)->drawObject();
 
             if (!this->pointLights.empty())
-                renderedObject->updatePointLights(this->pointLights);
+                renderedObjects.at(i)->updatePointLights(this->pointLights);
 
             else if (!this->spotLights.empty())
-                renderedObject->updateSpotLights(this->spotLights);
+                renderedObjects.at(i)->updateSpotLights(this->spotLights);
 
             else if (!this->dirLights.empty())
-                renderedObject->updateDirLights(this->dirLights);
+                renderedObjects.at(i)->updateDirLights(this->dirLights);
+        }
 
+        if (plantTree)
+        {
+            std::cout << "right clicked" << std::endl;
+            int width, height;
+            glfwGetFramebufferSize(this->window->getWindow(), &width, &height);
+            GLfloat depth;
+
+            double x,y;
+            glfwGetCursorPos(this->window->getWindow(), &x, &y);
+            y = height - y;
+
+            glReadPixels(x, y, 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &depth);
+
+            glm::vec3 screenX = glm::vec3(x, y, depth);
+            glm::mat4 view = this->camera->getViewMatrix();
+            glm::mat4 projection = this->camera->getProjectionMatrix();
+            glm::vec4 viewPort = glm::vec4(0, 0, width, height);
+            std::cout << x << "\t" << y << std::endl;
+            glm::vec3 pos2 = glm::unProject(screenX, view, projection, viewPort);
+
+            auto* loader = new Loader();
+            string vShader = loader->load("../shaders/vertex/lightTexture.vsh");
+            const char* vertexShaderTexture = vShader.c_str();
+            string fShader5 = loader->load("../shaders/fragment/texture.frag");
+            const char* fragmentShaderTexture = fShader5.c_str();
+
+            std::vector<std::string> paths = { "../Models/Objects/Tree/tree.png" };
+            auto* renderedObject = new RenderedObject();
+            renderedObject->createModel(new TreeObjectModel());
+            renderedObject->createShader(GL_VERTEX_SHADER, vertexShaderTexture);
+            renderedObject->createShader(GL_FRAGMENT_SHADER, fragmentShaderTexture);
+            renderedObject->createTexture(paths, this->indexTexture);
+            this->indexTexture++;
+
+            renderedObject->initAndCheckShaders();
+            this->camera->addSubscriber(renderedObject->getShaderProgram());
+            renderedObject->setCamera(this->camera);
+
+
+            renderedObject->transformMatrix(TransformationType::Shift, pos2);
+
+            this->camera->notifyAll(MatrixType::ALL);
+            this->renderedObjects.push_back(renderedObject);
+            glStencilFunc(GL_ALWAYS, (int)renderedObjects.size()-1, 0xFF);
+            renderedObject->runShader();
+
+        }
+
+        if(cutTree)
+        {
+            std::cout << "Q pressed" << std::endl;
+            // Get frame buffer size
+            int width, height;
+            glfwGetFramebufferSize(this->window->getWindow(), &width, &height);
+            // Init needed variables
+            GLuint index;
+
+            // Calculate center of screen
+            double x,y;
+            glfwGetCursorPos(this->window->getWindow(), &x, &y);
+            y = height - y;
+
+            glReadPixels(x, y, 1, 1, GL_STENCIL_INDEX, GL_UNSIGNED_INT, &index);
+
+            printf("[STENCIL] Selected with id %d\n", index);
+
+            this->renderedObjects.erase(this->renderedObjects.begin() + index);
+            usleep(1000 * 300);
         }
 
         glfwPollEvents();// update other events like input handling
