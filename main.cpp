@@ -9,6 +9,8 @@
 #include "Models/Objects/PlainObjectModel.h"
 #include "Models/Objects/TerrainObjectModel.h"
 #include "Models/Objects/TreeObjectModel.h"
+#include "Models/Objects/BatteryObjectModel.h"
+#include "Models/Objects/Battery2ObjectModel.h"
 
 
 TransformationType shift = TransformationType::Shift;
@@ -79,12 +81,29 @@ int main()
 
     int house = (int)application->createNewObject(new HouseObjectModel(), vertexShaderTexture, fragmentShaderTexture, "../Models/Objects/House/house.png");
     application->transformObject(house, scale, glm::vec3(1));
-    application->transformObject(house, shift, glm::vec3(5, 0, -15));
+    application->transformObject(house, shift, glm::vec3(0, 0, -15));
 
+    int z = -90;
+    for (int i = 0; i < 5; ++i) {
+        int battery = (int)application->createNewObject(new BatteryObjectModel(), vertexShaderTexture, fragmentShaderTexture, "../Models/Objects/Battery/battery.jpg");
+        application->transformObject(battery, scale, glm::vec3(0.1));
+        application->transformObject(battery, shift, glm::vec3(-30, 0, z));
+        application->transformObject(battery, glm::radians(90.0f), glm::vec3(-1, 0, 0));
+        z-=30;
+    }
+    z=-90;
+    for (int i = 0; i < 5; ++i) {
+        int battery = (int)application->createNewObject(new BatteryObjectModel(), vertexShaderTexture, fragmentShaderTexture, "../Models/Objects/Battery/battery.jpg");
+        application->transformObject(battery, scale, glm::vec3(0.1));
+        application->transformObject(battery, shift, glm::vec3(30, 0, z));
+        application->transformObject(battery, glm::radians(90.0f), glm::vec3(-1, 0, 0));
+        z-=30;
+    }
 
     int tree = (int)application->createNewObject(new TreeObjectModel(), vertexShaderTexture, fragmentShaderTexture, "../Models/Objects/Tree/tree.png");
     application->transformObject(tree, scale, glm::vec3(1));
     application->transformObject(tree, shift, glm::vec3(5, 0, 15));
+
 
 
     application->run();

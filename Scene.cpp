@@ -1,6 +1,7 @@
 #include "Scene.h"
 #include "Models/Objects/TreeObjectModel.h"
 #include "Loader.h"
+#include "Models/Objects/BatteryObjectModel.h"
 
 #include <utility>
 #include <unistd.h>
@@ -206,9 +207,9 @@ void Scene::run()
             string fShader5 = loader->load("../shaders/fragment/texture.frag");
             const char* fragmentShaderTexture = fShader5.c_str();
 
-            std::vector<std::string> paths = { "../Models/Objects/Tree/tree.png" };
+            std::vector<std::string> paths = { "../Models/Objects/Battery/battery.jpg" };
             auto* renderedObject = new RenderedObject();
-            renderedObject->createModel(new TreeObjectModel());
+            renderedObject->createModel(new BatteryObjectModel());
             renderedObject->createShader(GL_VERTEX_SHADER, vertexShaderTexture);
             renderedObject->createShader(GL_FRAGMENT_SHADER, fragmentShaderTexture);
             renderedObject->createTexture(paths, this->indexTexture);
@@ -220,6 +221,9 @@ void Scene::run()
 
 
             renderedObject->transformMatrix(TransformationType::Shift, pos2);
+            renderedObject->transformMatrix(TransformationType::Scale, glm::vec3(0.3));
+            renderedObject->transformMatrix(glm::radians(90.0f), glm::vec3(-1, 0, 0)); //rotace
+            renderedObject->transformMatrix(glm::radians(90.0f), glm::vec3(0, 0, 1)); //rotace
 
             this->camera->notifyAll(MatrixType::ALL);
             this->renderedObjects.push_back(renderedObject);

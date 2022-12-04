@@ -53,7 +53,7 @@ add_executable(${PROJECT_NAME}
         Models/Objects/HouseObjectModel.cpp
         Models/Objects/HouseObjectModel.h
         Models/Objects/LoaderObject.cpp
-        Models/Objects/LoaderObject.h Models/Objects/PlainObjectModel.cpp Models/Objects/PlainObjectModel.h Models/Objects/TerrainObjectModel.cpp Models/Objects/TerrainObjectModel.h Models/Objects/TreeObjectModel.cpp Models/Objects/TreeObjectModel.h)
+        Models/Objects/LoaderObject.h Models/Objects/PlainObjectModel.cpp Models/Objects/PlainObjectModel.h Models/Objects/TerrainObjectModel.cpp Models/Objects/TerrainObjectModel.h Models/Objects/TreeObjectModel.cpp Models/Objects/TreeObjectModel.h Models/Objects/BatteryObjectModel.cpp Models/Objects/BatteryObjectModel.h Models/Objects/Battery2ObjectModel.cpp Models/Objects/Battery2ObjectModel.h)
 
 target_link_libraries(${PROJECT_NAME} "-framework OpenGL")
 target_link_libraries(${PROJECT_NAME} "-framework CoreFoundation")
