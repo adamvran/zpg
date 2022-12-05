@@ -29,6 +29,7 @@ uniform Light lights[MAX_LIGHTS];
 uniform uint currentLights;
 
 
+
 float count_dotProduct(vec3 lightDirection, vec3 world_normal)
 {
 	return dot(lightDirection, world_normal);

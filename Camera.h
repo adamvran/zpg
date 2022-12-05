@@ -21,7 +21,7 @@ class ShaderProgram;
 #define CAMERA_FOV glm::radians(40.0f) //how much wide
 #define CAMERA_ZNEAR 0.001f
 #define CAMERA_ZFAR 1000.0f
-#define CAMERA_SPEED 10.f
+#define CAMERA_SPEED 5.f
 #define YAW (-90.f)
 #define PITCH 0.0f
 #define SENSITIVITY 0.1f

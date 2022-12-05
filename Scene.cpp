@@ -119,8 +119,8 @@ void Scene::run()
 	float deltaTime;	// time between current frame and last frame
 	float lastFrame = 0.0f;
 
-    float actualRatio = this->window->getRatio(); //z�sk�n� pomeru stran pred zmenou
-    this->camera->notifyAll(MatrixType::ALL); //p�ed smy�kou, aby si v�ichni observe�i zaktualizovali svoje matice --> ze za��tku d�v�me v�echny
+    float actualRatio = this->window->getRatio();
+    this->camera->notifyAll(MatrixType::ALL);
 
     while (!this->isWindowClosed())
 	{
@@ -135,8 +135,8 @@ void Scene::run()
         if (this->window->getRatio() != actualRatio)
         {
             actualRatio = this->window->getRatio();
-            this->camera->updateProjectionMatrix(actualRatio); ///aktualizace matice na z�klad� zm�ny velikosti okna
-            this->camera->notifyAll(MatrixType::PROJECTIONMATRIX); //v p��pad�, �e do�lo ke zm�n� pom�ru okna, pak se po�le a� se zaktualizuje projke�n�
+            this->camera->updateProjectionMatrix(actualRatio);
+            this->camera->notifyAll(MatrixType::PROJECTIONMATRIX);
         }
 
         bool isMousePressed = Callback::mouseCallbackLeft(this->window->getWindow());
@@ -146,7 +146,7 @@ void Scene::run()
 
         std::pair<double, double> pos = Callback::cursor_callback(this->window->getWindow());
         this->camera->mouseMove(pos.first, pos.second, isMousePressed);
-        this->camera->move(this->window->getWindow(), deltaTime);// pohyb p�es kl�vesnici
+        this->camera->move(this->window->getWindow(), deltaTime);
 
         this->camera->notifyAll();
 
@@ -163,7 +163,7 @@ void Scene::run()
         for (auto & spotLight : this->spotLights)
             spotLight->updateDirection(this->camera->getDirection());
 
-        for (int i = 1; i<renderedObjects.size() - 1; i++)
+        for (int i = 1; i<renderedObjects.size(); i++)
         {
             glStencilFunc(GL_ALWAYS, i, 0xFF);
             renderedObjects.at(i)->sendModelMatrixShader();
@@ -227,9 +227,7 @@ void Scene::run()
 
             this->camera->notifyAll(MatrixType::ALL);
             this->renderedObjects.push_back(renderedObject);
-            glStencilFunc(GL_ALWAYS, (int)renderedObjects.size()-1, 0xFF);
-            renderedObject->runShader();
-
+            glStencilFunc(GL_ALWAYS, (int)renderedObjects.size(), 0xFF);
         }
 
         if(cutTree)
@@ -370,7 +368,7 @@ void Scene::createPointLights()
 
 void Scene::createSpotLights()
 {
-    this->spotLights.push_back(new SpotLight(LightType::SPOT, glm::vec3(5.0, 0.0, 0.0), this->pickColor(), glm::cos(glm::radians(8.5f))));
+    this->spotLights.push_back(new SpotLight(LightType::SPOT, glm::vec3(5.0, 0.0, 0.0), glm::vec4(1,0,0,1), glm::cos(glm::radians(8.0f))));
 }
 
 void Scene::createDirectionalLights()
