@@ -53,6 +53,8 @@ int main()
     const char* fragmentShaderTexture = fShader5.c_str();
     string fShader8 = loader->load("../shaders/fragment/blinnLights.frag");
     const char* fragmentShaderLIGHTS = fShader8.c_str();
+    string fShader9 = loader->load("../shaders/fragment/blinnLightsTextures.frag");
+    const char* fragmentShaderLIGHTSTextures = fShader9.c_str();
 
     string vShaderLight = loader->load("../shaders/vertex/light.txt");
     const char* vertexShader = vShaderLight.c_str();
@@ -82,6 +84,7 @@ int main()
     glm::vec3 cameraEye = glm::vec3(0.0f, 0.5f, 4.0f);
     glm::vec3 cameraDir = glm::vec3(0.0f, 0.0f, -1.0f);
     application->createCamera(cameraEye, cameraDir);
+    //application->createLights(LightType::POINT);
     application->createLights(LightType::SPOT);
 
     cout << "\n\nPrvni ukol - 1\nDruhy ukol - 2\nTreti ukol - 3\nFINAL - 4\nInput: ";
@@ -138,18 +141,18 @@ int main()
             auto* monkey = new SuziFlatModel();
 
             //plane with texture
-            shapes.push_back((int)application->createNewObject(new PlaneTextureModel(), vertexShaderTexture, fragmentShaderTexture, "../Models/Textures/wooden_fence.png"));
+            shapes.push_back((int)application->createNewObject(new PlaneTextureModel(), vertexShaderTexture, fragmentShaderLIGHTSTextures, "../Models/Textures/wooden_fence.png"));
             application->transformObject(shapes.at(1), scale, glm::vec3(5));
             application->transformObject(shapes.at(1), glm::radians(90.f), glm::vec3(0.0f, 0.0f, 1.0f));
 
-            shapes.push_back((int)application->createNewObject(new PlaneTextureModel(), vertexShaderTexture, fragmentShaderTexture, "../Models/Textures/wooden_fence.png"));
+            shapes.push_back((int)application->createNewObject(new PlaneTextureModel(), vertexShaderTexture, fragmentShaderLIGHTSTextures, "../Models/Textures/wooden_fence.png"));
             application->transformObject(shapes.at(2), scale, glm::vec3(5));
             application->transformObject(shapes.at(2), shift, glm::vec3(0.0f, 0.0f, -2.0f));
             application->transformObject(shapes.at(2), shift, glm::vec3(0.0f, 0.005f, 0.0f));
             application->transformObject(shapes.at(2), scale, glm::vec3(2));
             application->transformObject(shapes.at(2), glm::radians(90.f), glm::vec3(1.0f,0.0f, 0.0f));
 
-            shapes.push_back((int)application->createNewObject(new PlaneTextureModel(), vertexShaderTexture, fragmentShaderTexture, "../Models/Textures/wooden_fence.png"));
+            shapes.push_back((int)application->createNewObject(new PlaneTextureModel(), vertexShaderTexture, fragmentShaderLIGHTSTextures, "../Models/Textures/wooden_fence.png"));
             application->transformObject(shapes.at(3), scale, glm::vec3(5));
             application->transformObject(shapes.at(3), shift, glm::vec3(0.0f, 0.0f, -4.0f));
             application->transformObject(shapes.at(3), shift, glm::vec3(0.0f, 0.005f, 0.0f));
@@ -166,17 +169,17 @@ int main()
             }
 
 
-            int terrain = (int)application->createNewObject(new TerrainObjectModel(), vertexShaderTexture, fragmentShaderTexture, "../Models/Objects/Terrain/grass.png");
+            int terrain = (int)application->createNewObject(new TerrainObjectModel(), vertexShaderTexture, fragmentShaderLIGHTSTextures, "../Models/Objects/Terrain/grass.png");
             application->transformObject(terrain, scale, glm::vec3(2));
             //application->transformObject(plain, 90.0f, glm::vec3(5, 0, -5));
 
-            int house = (int)application->createNewObject(new HouseObjectModel(), vertexShaderTexture, fragmentShaderTexture, "../Models/Objects/House/house.png");
+            int house = (int)application->createNewObject(new HouseObjectModel(), vertexShaderTexture, fragmentShaderLIGHTSTextures, "../Models/Objects/House/house.png");
             application->transformObject(house, scale, glm::vec3(1));
             application->transformObject(house, shift, glm::vec3(0, 0, -15));
 
             int z = -90;
             for (int i = 0; i < 5; ++i) {
-                int battery = (int)application->createNewObject(new BatteryObjectModel(), vertexShaderTexture, fragmentShaderTexture, "../Models/Objects/Battery/battery.jpg");
+                int battery = (int)application->createNewObject(new BatteryObjectModel(), vertexShaderTexture, fragmentShaderLIGHTSTextures, "../Models/Objects/Battery/battery.jpg");
                 application->transformObject(battery, scale, glm::vec3(0.1));
                 application->transformObject(battery, shift, glm::vec3(-30, 0, z));
                 application->transformObject(battery, glm::radians(90.0f), glm::vec3(-1, 0, 0));
@@ -184,14 +187,14 @@ int main()
             }
             z=-90;
             for (int i = 0; i < 5; ++i) {
-                int battery = (int)application->createNewObject(new BatteryObjectModel(), vertexShaderTexture, fragmentShaderTexture, "../Models/Objects/Battery/battery.jpg");
+                int battery = (int)application->createNewObject(new BatteryObjectModel(), vertexShaderTexture, fragmentShaderLIGHTSTextures, "../Models/Objects/Battery/battery.jpg");
                 application->transformObject(battery, scale, glm::vec3(0.1));
                 application->transformObject(battery, shift, glm::vec3(30, 0, z));
                 application->transformObject(battery, glm::radians(90.0f), glm::vec3(-1, 0, 0));
                 z-=30;
             }
 
-            int my_tree = (int)application->createNewObject(new TreeObjectModel(), vertexShaderTexture, fragmentShaderTexture, "../Models/Objects/Tree/tree.png");
+            int my_tree = (int)application->createNewObject(new TreeObjectModel(), vertexShaderTexture, fragmentShaderLIGHTSTextures, "../Models/Objects/Tree/tree.png");
             application->transformObject(my_tree, scale, glm::vec3(1));
             application->transformObject(my_tree, shift, glm::vec3(5, 0, 15));
     }

@@ -12,7 +12,7 @@ struct Light
 	int type;
 	float cutOff;
 
-	//utlum
+//utlum
 	float constant;
 	float linear;
 	float quadratic;
@@ -160,14 +160,14 @@ void main() {
 	for (int i = 0; i < currentLights; i++)
 	{
 		if(lights[i].type == 1)
-			fragmentColor += pointLight(lights[i], world_normal, ex_worldPosition, viewDirection, ambient);
+		fragmentColor += pointLight(lights[i], world_normal, ex_worldPosition, viewDirection, ambient);
 		else if (lights[i].type == 2)
 		{
 			fragmentColor += spotLight(lights[i], world_normal, ex_worldPosition, viewDirection, ambient, camera);
 		}
 
 		else if(lights[i].type == 3)
-			fragmentColor += directionalLight(lights[i], world_normal, ex_worldPosition, viewDirection, ambient);
+		fragmentColor += directionalLight(lights[i], world_normal, ex_worldPosition, viewDirection, ambient);
 	}
 
 	out_Color = fragmentColor;

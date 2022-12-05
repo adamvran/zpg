@@ -50,7 +50,6 @@ public:
 	void createCamera(glm::vec3 eye, glm::vec3 dir);
 
     void createLights(LightType type);
-    void createLights();
     void createPointLights();
     void createSpotLights();
     void createDirectionalLights();

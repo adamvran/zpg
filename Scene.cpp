@@ -330,15 +330,6 @@ __attribute__((unused)) glm::vec4 Scene::pickColor(int index)
     return colors[index].second;
 }
 
-void Scene::createLights()
-{
-    auto* c = new Colors();
-    std::vector<std::pair<std::string, glm::vec4>> colors = c->getAllColors();
-    srand(time(nullptr));
-    unsigned int index = rand() % colors.size();
-    this->lights.push_back(new Light(LightType::SPOT, glm::vec3(5.0, 0.0, 0.0), colors[index].second));
-}
-
 void Scene::createLights(LightType type)
 {
     switch (type)
@@ -368,7 +359,7 @@ void Scene::createPointLights()
 
 void Scene::createSpotLights()
 {
-    this->spotLights.push_back(new SpotLight(LightType::SPOT, glm::vec3(5.0, 0.0, 0.0), glm::vec4(1,0,0,1), glm::cos(glm::radians(8.0f))));
+    this->spotLights.push_back(new SpotLight(LightType::SPOT, this->camera->getDirection(), glm::vec4(1,1,1,1), glm::cos(glm::radians(15.0f))));
 }
 
 void Scene::createDirectionalLights()

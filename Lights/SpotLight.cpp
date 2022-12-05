@@ -6,7 +6,7 @@ SpotLight::SpotLight(LightType type, glm::vec3 direction, glm::vec4 color, float
     this->direction = direction;
     this->position = glm::vec3(0.0, 0.0, 0.0);
     this->cuttOff = cutOff;
-    this->strength = 1;
+    this->strength = 0.5;
     this->shiness = 64;
     this->color = color;
 
