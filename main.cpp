@@ -84,7 +84,7 @@ int main()
     glm::vec3 cameraEye = glm::vec3(0.0f, 0.5f, 4.0f);
     glm::vec3 cameraDir = glm::vec3(0.0f, 0.0f, -1.0f);
     application->createCamera(cameraEye, cameraDir);
-    //application->createLights(LightType::POINT);
+    application->createLights(LightType::POINT);
     application->createLights(LightType::SPOT);
 
     cout << "\n\nPrvni ukol - 1\nDruhy ukol - 2\nTreti ukol - 3\nFINAL - 4\nInput: ";

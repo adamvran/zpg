@@ -128,9 +128,9 @@ vec4 spotLight(Light light, vec3 world_normal, vec4 world_position, vec3 viewDir
     float theta = dot(lightDirection, normalize(-light.direction));
     if (theta <= light.cutOff)
     {
-        return ambient * vec4(texture_color.xyz /texture_color.w, 0);
+        return ambient * vec4(texture_color.xyz /texture_color.w, 1);
     }
-    ambient = ambient * 1.1 * vec4(texture_color.xyz /texture_color.w, 0); ///m�sto ambientn� slo�ky vyu��v�me texturu
+    ambient = ambient * 1.1 * vec4(texture_color.xyz /texture_color.w, 1);
 
     //difuzni
     float diff_dot = count_dotProduct(lightDirection, world_normal);
