@@ -62,11 +62,8 @@ int main()
     string fShaderBlinn = loader->load("../shaders/fragment/blinn.txt");
     __attribute__((unused)) const char* fragmentShaderBlinn = fShaderBlinn.c_str();
     //phong
-    string fShaderPhong = loader->load("../shaders/fragment/phong.txt");
+    string fShaderPhong = loader->load("../shaders/fragment/phong.frag");
     __attribute__((unused)) const char* fragmentShaderPhong = fShaderPhong.c_str();
-    //phong good
-    string fShaderPhongGood = loader->load("../shaders/fragment/phongGood.txt");
-    __attribute__((unused)) const char* fragmentShaderPhongGood = fShaderPhongGood.c_str();
     //phong wrong
     string fShaderPhongWrong = loader->load("../shaders/fragment/phongWrong.txt");
     __attribute__((unused)) const char* fragmentShaderPhongWrong = fShaderPhongWrong.c_str();
@@ -85,7 +82,7 @@ int main()
     glm::vec3 cameraDir = glm::vec3(0.0f, 0.0f, -1.0f);
     application->createCamera(cameraEye, cameraDir);
     application->createLights(LightType::POINT);
-    application->createLights(LightType::SPOT);
+    //application->createLights(LightType::SPOT);
 
     cout << "\n\nPrvni ukol - 1\nDruhy ukol - 2\nTreti ukol - 3\nFINAL - 4\nInput: ";
     int input;

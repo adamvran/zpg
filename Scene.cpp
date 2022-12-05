@@ -165,6 +165,8 @@ void Scene::run()
 
         for (int i = 1; i<renderedObjects.size(); i++)
         {
+            if (i == 1)
+                renderedObjects.at(i)->transformMatrix(glm::radians(1.f), glm::vec3(1.0f, 0.0f, 0.0f));
             glStencilFunc(GL_ALWAYS, i, 0xFF);
             renderedObjects.at(i)->sendModelMatrixShader();
             renderedObjects.at(i)->sendProjectionMatrixShader(this->camera->getProjectionMatrix());
@@ -351,10 +353,9 @@ void Scene::createPointLights()
     auto* c = new Colors();
     std::vector<std::pair<std::string, glm::vec4>> colors = c->getAllColors();
     unsigned int index = rand() % colors.size();
-
-    this->pointLights.push_back(new PointLight(LightType::POINT, glm::vec3(5.0, 0.0, 0.0), colors[index].second));
+    this->pointLights.push_back(new PointLight(LightType::POINT, glm::vec3(5.0, 2.0, 0.0), colors[index].second));
     index = rand() % colors.size();
-    this->pointLights.push_back(new PointLight(LightType::POINT, glm::vec3(-5.0, 0.0, 0.0), colors[index].second));
+    this->pointLights.push_back(new PointLight(LightType::POINT, glm::vec3(-5.0, 2.0, 0.0), colors[index].second));
 }
 
 void Scene::createSpotLights()

@@ -92,7 +92,7 @@ vec4 pointLight(Light light, vec3 world_normal, vec4 world_position, vec3 viewDi
     vec3 halfVector = count_halfVector(lightDirection, viewDirection);
     vec4 specular = count_specular(world_normal, light.shiness, light.strength, light.color, halfVector, diff_dot);
 
-    ambient = ambient * vec4(texture_color.xyz /texture_color.w, 0); ///m�sto ambientn� slo�ky vyu��v�me texturu
+    ambient = vec4(texture_color.xyz /texture_color.w, 1); ///m�sto ambientn� slo�ky vyu��v�me texturu
 
     //utlum
     float dis = distance(light.position, world_position);
@@ -112,7 +112,7 @@ vec4 directionalLight(Light light, vec3 world_normal, vec4 world_position, vec3 
     //difuzni
     float diff_dot = count_dotProduct(lightDirection, world_normal);
     vec4 diffuse = count_diffuse(light.color, diff_dot);
-    ambient = ambient * vec4(texture_color.xyz /texture_color.w, 0); ///m�sto ambientn� slo�ky vyu��v�me texturu
+    ambient = vec4(texture_color.xyz /texture_color.w, 0); ///m�sto ambientn� slo�ky vyu��v�me texturu
 
     //spektakularni
     vec3 halfVector = count_halfVector(lightDirection, viewDirection);
@@ -153,7 +153,7 @@ vec4 spotLight(Light light, vec3 world_normal, vec4 world_position, vec3 viewDir
 void main() {
     vec3 world_normal = normalize(ex_worldNormal);
     vec4 color = myColor;
-    vec4 ambient = vec4(0.1, 0.1, 0.1, 1.0);
+    vec4 ambient = vec4(0.5, 0.5, 0.5, 1.0);
     vec3 lightPosition = vec3(0.0, 0.0, 0.0);
     vec3 lightDirection = count_lightDirection(lightPosition, ex_worldPosition);
     vec3 camera = count_cameraPosition(viewMatrix);

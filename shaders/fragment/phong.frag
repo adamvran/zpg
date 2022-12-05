@@ -4,7 +4,7 @@ in vec3 ex_worldNormal;
 uniform mat4 viewMatrix;
 out vec4 out_Color;
 void main() {
-	vec3 world_normal = normalize(ex_worldNormal);
+	vec3 world_normal = normalize(ex_worldNormal); //s délkou 1 to vrátí, to dělá to normalize
 	vec4 color = vec4(1.0, 0.0, 0.0, 1.0);
 	vec3 lightPosition = vec3(0.0, 0.0, 0.0);
 	vec3 lightVector = normalize(vec3(lightPosition.xyz - ex_worldPosition.xyz / ex_worldPosition.w));

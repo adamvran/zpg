@@ -4,7 +4,7 @@ PointLight::PointLight(LightType type, glm::vec3 position, glm::vec4 color)
 {
 	this->strength = 1;
 	this->color = color;
-	this->shiness = 64;
+	this->shiness = 128;
 	this->type = type;
 	this->position = position;
 

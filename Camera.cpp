@@ -151,9 +151,7 @@ void Camera::notifyAll()
 void Camera::notifyAll(MatrixType type)
 {
     for (Observer* obj : this->observers)
-    {
         obj->notify(type);
-    }
 }
 
 __attribute__((unused)) glm::vec3 Camera::getEye()
